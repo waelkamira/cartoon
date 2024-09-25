@@ -1,0 +1,198 @@
+'use client';
+import React, { useState, useEffect, useContext } from 'react';
+import { Suspense } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { inputsContext } from './Context';
+import { FaUber } from 'react-icons/fa6';
+import { useSession } from 'next-auth/react';
+import CurrentUser from './CurrentUser';
+
+// Function to normalize Arabic text
+const normalizeArabic = (text) => {
+  if (!text) return '';
+  return text.replace(/[أ]/g, 'أ');
+};
+
+export default function SearchBar() {
+  const { dispatch } = useContext(inputsContext);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isVisible, setIsVisible] = useState(false);
+  const [searchedWord, setSearchedWord] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTriggered, setSearchTriggered] = useState(false);
+  const [seriesImage, setSeriesImage] = useState({}); // تخزين صور المسلسلات
+  const router = useRouter();
+  const session = useSession();
+  const user = CurrentUser();
+
+  // console.log('seriesImage', seriesImage[0]);
+  // Function to perform search
+  const search = async () => {
+    setSearchTriggered(true);
+    const queryParams = new URLSearchParams({
+      page: pageNumber?.toString(),
+      limit: '10',
+    });
+
+    const normalizedSearchedWord = normalizeArabic(searchedWord);
+
+    if (normalizedSearchedWord) {
+      queryParams.append('searchTerm', normalizedSearchedWord);
+    }
+
+    const res = await fetch(`/api/search?${queryParams?.toString()}`);
+    const json = await res?.json();
+    // console.log('json', json);
+    if (res.ok) {
+      setIsVisible(true);
+      console.log('SearchResults', json);
+
+      setSearchResults(json);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchedWord) search();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      search();
+    }
+  };
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setSearchedWord('');
+    setSearchTriggered(false);
+  };
+
+  function handleEdit(id) {
+    console.log(id);
+  }
+  return (
+    <>
+      <div
+        className={
+          (searchTriggered
+            ? 'absolute z-50 top-0 p-4 h-screen overflow-scroll bg-one'
+            : '') +
+          ' flex flex-col items-center justify-center w-full rounded-lg'
+        }
+      >
+        <div className="flex flex-col justify-center items-center sm:flex-row gap-4 w-full">
+          <div className="relative w-full sm:px-4">
+            <input
+              value={searchedWord}
+              onChange={(e) => setSearchedWord(e.target.value)}
+              onKeyDown={handleKeyDown}
+              type="text"
+              id="search_meal"
+              name="search_meal"
+              placeholder="ابحث عن مسلسل أو فيلم  ..."
+              className="relative pr-14 sm:py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-lg sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
+            />
+            <div className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full">
+              <h1
+                className="absolute flex justify-center items-center top-0 right-0 bg-one h-full text-white rounded-r-full border border-white w-fit px-2"
+                onClick={handleSearch}
+              >
+                بحث
+              </h1>
+            </div>
+          </div>
+        </div>
+        {isVisible && (
+          <div className="sticky top-0 flex flex-row-reverse justify-between items-center mt-1 w-full z-50 bg-four p-4">
+            <button
+              onClick={handleClose}
+              className="py-1 px-4 text-white bg-five w-24 rounded-full sm:text-lg hover:bg-one bg-green-400 border hover:scale-55"
+            >
+              إغلاق
+            </button>
+            <h1 className="text-sm sm:text-2xl text-nowrap mx-2 font-bold text-white">
+              نتائج البحث:
+            </h1>
+          </div>
+        )}
+        {isVisible && (
+          <div className="relative w-full flex flex-col items-center justify-start p-2 overflow-y-auto h-screen rounded-lg content-center ">
+            {searchResults &&
+              searchResults.map((result) => {
+                // console.log('result', result);
+                // إذا كانت النتيجة عبارة عن حلقة، استخدم صورة المسلسل إذا لم تكن هناك صورة خاصة للحلقة
+                const imageSrc = result?.episodeName
+                  ? seriesImage
+                  : result?.seriesImage ||
+                    result?.movieImage ||
+                    result?.songImage ||
+                    result?.spacetoonSongImage;
+
+                return (
+                  <>
+                    {session?.status === 'authenticated' &&
+                      user?.isAdmin === 1 && (
+                        <button
+                          className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
+                          onClick={() =>
+                            router.push(
+                              `/editMovie?movieName=${result?.movieName}`
+                            )
+                          }
+                        >
+                          تعديل{' '}
+                        </button>
+                      )}
+                    <div
+                      onClick={() => {
+                        if (result?.seriesName) {
+                          router.push(
+                            `/seriesAndEpisodes?seriesName=${result?.seriesName}`
+                          );
+                        } else if (result?.movieName) {
+                          router.push(`/movie?movieName=${result?.movieName}`);
+                        } else if (result?.songName) {
+                          dispatch({
+                            type: 'SONG_NAME',
+                            payload: result?.songName,
+                          });
+                          router.push(`/song?songName=${result?.songName}`);
+                        } else if (result?.spacetoonSongName) {
+                          dispatch({
+                            type: 'SPACETOON_SONG_NAME',
+                            payload: result?.spacetoonSongName,
+                          });
+                          router.push(
+                            `/spacetoonSong?spacetoonSongName=${result?.spacetoonSongName}`
+                          );
+                        }
+                      }}
+                      className="my-2 cursor-pointer"
+                    >
+                      <div className="relative w-52 h-32 sm:w-96 sm:h-96">
+                        <Image
+                          src={imageSrc}
+                          layout={'fill'}
+                          objectFit={'cover'}
+                          objectPosition="top"
+                          alt="photo"
+                        />
+                      </div>
+                      <h1 className="text-white text-center m-2 text-[10px] w-full line-clamp-2 font-bold">
+                        {result?.movieName ||
+                          result?.seriesName ||
+                          result?.songName ||
+                          result?.spacetoonSongName}
+                      </h1>
+                    </div>
+                  </>
+                );
+              })}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

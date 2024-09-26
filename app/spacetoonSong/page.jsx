@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Loading from '../../components/Loading';
 import BackButton from '../../components/BackButton';
@@ -10,23 +9,29 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import { inputsContext } from '../../components/Context';
 import SpacetoonSongs from '../../components/spacetoonSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
+
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
   const { spacetoonSongName } = useContext(inputsContext);
   const [songName, setSongName] = useState('');
 
-  // استخراج قيمة `songName` من الرابط عند كل تغيير
-  const handleUrlChange = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const songNameFromUrl = urlParams.get('songName');
-    console.log('songNameFromUrl', songNameFromUrl);
-    if (songNameFromUrl && songNameFromUrl !== songName) {
-      setSongName(songNameFromUrl);
-    }
-  };
+  // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
+  useEffect(() => {
+    const handleUrlChange = () => {
+      // تأكد من أن الكود يعمل على العميل فقط
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const songNameFromUrl = urlParams.get('songName');
+        console.log('songNameFromUrl', songNameFromUrl);
+        if (songNameFromUrl && songNameFromUrl !== songName) {
+          setSongName(songNameFromUrl);
+        }
+      }
+    };
 
-  handleUrlChange();
+    handleUrlChange();
+  }, [songName]); // إعادة التشغيل عند تغيير songName
 
   useEffect(() => {
     if (songName) {
@@ -40,8 +45,6 @@ export default function Page() {
     );
     const json = await response?.json();
     if (response.ok) {
-      // console.log('json', json);
-
       setSpacetoonSong(json);
     }
   }
@@ -80,7 +83,6 @@ export default function Page() {
             <span className="text-white font-bold text-lg ml-2">#</span>
             اسم الأغنية:{' '}
             <span className="text-white text-sm ">
-              {' '}
               {spacetoonSong[0]?.spacetoonSongName}
             </span>
           </h1>
@@ -96,7 +98,7 @@ export default function Page() {
                 return (
                   <div
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
-                    key={item.spacetoonSongLink} // استخدم `songLink` كمفتاح لتحديث الفيديو
+                    key={item.spacetoonSongLink}
                   >
                     <video
                       key={item.spacetoonSongLink}
@@ -121,7 +123,7 @@ export default function Page() {
               })}
           </div>
         </div>
-      </div>{' '}
+      </div>
       <SpacetoonSongs vertical={true} title={false} image={false} />
     </div>
   );

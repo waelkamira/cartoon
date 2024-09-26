@@ -90,7 +90,7 @@ export default function VideoPlayer({
       {videoId ? (
         <div className="w-full">
           {/* إضافة key يجعل الكومبوننت يعاد تحميله عند تغيير videoUrl */}
-          <HappyTagAd key={videoUrl} linkChanged={videoUrl} />
+          <HappyTagAd />
 
           {videoSource === 'arteenz' && (
             <video

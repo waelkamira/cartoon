@@ -162,9 +162,12 @@ export default function MoviesPlanet({ vertical = false }) {
               <div
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
                 key={movie?.id}
-                onClick={() =>
-                  router.push(`/movie?movieName=${movie?.movieName}`)
-                }
+                onClick={() => {
+                  router.push(`/movie?movieName=${movie?.movieName}`);
+                  setTimeout(() => {
+                    window?.location?.reload();
+                  }, 2000);
+                }}
               >
                 <div
                   className={

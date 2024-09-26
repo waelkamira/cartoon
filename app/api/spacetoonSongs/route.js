@@ -34,7 +34,7 @@ export async function GET(req) {
       // في حال عدم وجود random=true، نستخدم الترتيب الافتراضي
       query = query
         .range(skip, skip + limit - 1)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: true });
       let { data: songs, error: createError } = await query;
       if (createError) {
         throw createError;

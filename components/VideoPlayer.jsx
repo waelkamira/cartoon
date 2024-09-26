@@ -1,38 +1,23 @@
 'use client';
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
-import { inputsContext } from './Context';
 import HappyTagAd from './ads/happyTagAd';
+
 export default function VideoPlayer({
   videoUrl = ' ',
   episodeName,
   image,
   showAd = false,
+  movie,
 }) {
   const [videoSource, setVideoSource] = useState('');
   const [videoId, setVideoId] = useState('');
   const [aspectRatio, setAspectRatio] = useState(null);
-  const [adShown, setAdShown] = useState(false);
-  const [quarterAdShown, setQuarterAdShown] = useState(false);
   const videoRef = useRef(null);
 
-  // عرض الإعلان في الريندر الأول
   useEffect(() => {
-    if (showAd) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.dataset.cfasync = 'false';
-      script.src = '//thubanoa.com/1?z=8130767'; // كود الإعلان
-      document.body.appendChild(script);
-      setTimeout(() => {
-        document.body.removeChild(script);
-        setAdShown(true);
-      }, 5000);
-    }
-  }, [showAd, videoUrl]);
-
-  useEffect(() => {
-    setAdShown(false);
+    setVideoSource('');
+    setVideoId('');
 
     const adjustedUrl = adjustVideoQuality(videoUrl);
 
@@ -42,10 +27,11 @@ export default function VideoPlayer({
     ) {
       setVideoSource('arteenz');
       setVideoId(adjustedUrl);
-    } else if (adjustedUrl.includes('downet.net')) {
-      setVideoSource('downet');
-      setVideoId(adjustedUrl);
-    } else if (adjustedUrl.includes('zidwish.site')) {
+    } else if (
+      adjustedUrl.includes('downet.net') ||
+      adjustedUrl.includes('zidwish.site') ||
+      movie === true
+    ) {
       setVideoSource('zidwish');
       setVideoId(adjustedUrl);
     } else {
@@ -56,23 +42,11 @@ export default function VideoPlayer({
 
   const handleVideoPlay = () => {
     const videoElement = videoRef.current;
+    videoElement.play();
+  };
 
-    if (!adShown && showAd) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.dataset.cfasync = 'false';
-      script.src = '//thubanoa.com/1?z=8130767';
-
-      document.body.appendChild(script);
-
-      setTimeout(() => {
-        document.body.removeChild(script);
-        videoElement.play(); // تشغيل الفيديو بعد انتهاء الإعلان
-        setAdShown(true); // الإشارة إلى أن الإعلان تم عرضه
-      }, 5000); // مدة عرض الإعلان (5 ثوانٍ)
-    } else {
-      videoElement.play(); // تشغيل الفيديو بدون عرض الإعلان
-    }
+  const handleTimeUpdate = () => {
+    // يمكن إضافة أي وظائف أخرى هنا عند تحديث وقت الفيديو إن وجدت
   };
 
   function adjustVideoQuality(url) {
@@ -102,9 +76,6 @@ export default function VideoPlayer({
     const videoElement = videoRef.current;
     if (videoElement && videoElement.videoWidth && videoElement.videoHeight) {
       let ratio = videoElement.videoWidth / videoElement.videoHeight;
-      if (ratio === 3) {
-        ratio = 16 / 9;
-      }
       setAspectRatio(ratio);
     }
   };
@@ -117,8 +88,10 @@ export default function VideoPlayer({
       }}
     >
       {videoId ? (
-        <>
-          <HappyTagAd />
+        <div className="w-full">
+          {/* إضافة key يجعل الكومبوننت يعاد تحميله عند تغيير videoUrl */}
+          <HappyTagAd key={videoUrl} linkChanged={videoUrl} />
+
           {videoSource === 'arteenz' && (
             <video
               ref={videoRef}
@@ -129,13 +102,45 @@ export default function VideoPlayer({
               controlsList="nodownload"
               onLoadedMetadata={updateAspectRatio}
               onPlay={handleVideoPlay}
-              oncontextmenu="return false"
+              onTimeUpdate={handleTimeUpdate}
+              onContextMenu="return false"
               onDragStart={(e) => e.preventDefault()}
               referrerPolicy="no-referrer"
               allow="fullscreen"
+              autoPlay
+              loop
+              onSeeked={() => {
+                const video = document.querySelector('video');
+                if (video.currentTime === 0) {
+                  window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
+                }
+              }}
             >
               <source src={`${videoId}?autoplay=0`} type="video/mp4" />
             </video>
+          )}
+
+          {/* إضافة مشغل Zidwish */}
+          {videoSource === 'zidwish' && (
+            <div className="w-full h-full ">
+              <iframe
+                ref={videoRef}
+                className="w-full h-full my-8"
+                src={`${videoId}?autoplay=1&loop=1`} // تعديل URL لتفعيل autoplay و loop
+                allowFullScreen={true}
+                controls={true}
+                frameBorder="0"
+                onLoad={updateAspectRatio}
+                allow="autoplay; fullscreen"
+                title="Video Player"
+                autoPlay
+                style={{
+                  border: '0px solid #ccc',
+                  overflow: 'hidden',
+                }}
+                scrolling="no"
+              ></iframe>
+            </div>
           )}
 
           {videoSource === 'otherSources' && (
@@ -148,15 +153,24 @@ export default function VideoPlayer({
               controlsList="nodownload"
               onLoadedMetadata={updateAspectRatio}
               onPlay={handleVideoPlay}
-              oncontextmenu="return false"
+              onTimeUpdate={handleTimeUpdate}
+              onContextMenu="return false"
               onDragStart={(e) => e.preventDefault()}
               referrerPolicy="no-referrer"
               allow="fullscreen"
+              autoPlay
+              loop
+              onSeeked={() => {
+                const video = document.querySelector('video');
+                if (video.currentTime === 0) {
+                  window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
+                }
+              }}
             >
               <source src={`${videoId}?autoplay=0`} type="video/mp4" />
             </video>
           )}
-        </>
+        </div>
       ) : (
         <LoadingPhoto />
       )}

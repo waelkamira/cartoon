@@ -136,6 +136,9 @@ export default function KidsSongs({
               onClick={() => {
                 dispatch({ type: 'SONG_NAME', payload: song?.songName });
                 router.push(`/song?songName=${song?.songName}`);
+                // setTimeout(() => {
+                //   window?.location?.reload();
+                // }, 2000);
               }}
             >
               <div

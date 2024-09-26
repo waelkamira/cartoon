@@ -9,28 +9,38 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import { inputsContext } from '../../components/Context';
 import SpacetoonSongs from '../../components/spacetoonSongs';
-
+import HappyTagAd from '../../components/ads/happyTagAd';
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
-  const { newSpacetoonSong, spacetoonSongName } = useContext(inputsContext);
+  const { spacetoonSongName } = useContext(inputsContext);
+  const [songName, setSongName] = useState('');
 
-  console.log('spacetoonSongName', spacetoonSongName);
+  // استخراج قيمة `songName` من الرابط عند كل تغيير
+  const handleUrlChange = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const songNameFromUrl = urlParams.get('songName');
+    console.log('songNameFromUrl', songNameFromUrl);
+    if (songNameFromUrl && songNameFromUrl !== songName) {
+      setSongName(songNameFromUrl);
+    }
+  };
+
+  handleUrlChange();
 
   useEffect(() => {
-    if (spacetoonSongName) {
+    if (songName) {
       fetchSpacetoonSong();
     }
-  }, [spacetoonSongName, pageNumber, newSpacetoonSong]);
+  }, [songName, spacetoonSongName]);
 
   async function fetchSpacetoonSong() {
     const response = await fetch(
-      `/api/spacetoonSongs?spacetoonSongName=${spacetoonSongName}`
+      `/api/spacetoonSongs?spacetoonSongName=${songName}`
     );
     const json = await response?.json();
     if (response.ok) {
-      console.log('json', json);
+      // console.log('json', json);
 
       setSpacetoonSong(json);
     }
@@ -38,6 +48,7 @@ export default function Page() {
 
   return (
     <div className="bg-one">
+      <HappyTagAd />
       <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
         <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
           <TfiMenuAlt
@@ -79,16 +90,16 @@ export default function Page() {
           {spacetoonSong?.length === 0 && (
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
-          <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-8 justify-center items-center w-full">
+          <div className="flex gap-8 justify-center items-center w-full bg-sky-400">
             {spacetoonSong?.length > 0 &&
               spacetoonSong?.map((item) => {
                 return (
                   <div
-                    className=" flex flex-col items-center justify-center rounded-lg overflow-hidden"
+                    className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.spacetoonSongLink} // استخدم `songLink` كمفتاح لتحديث الفيديو
                   >
                     <video
-                      key={item.spacetoonSongLink} // استخدم `songLink` كمفتاح لتحديث الفيديو
+                      key={item.spacetoonSongLink}
                       width="100%"
                       height="500px"
                       controls
@@ -96,6 +107,12 @@ export default function Page() {
                       oncontextmenu="return false"
                       autoPlay
                       loop
+                      onSeeked={() => {
+                        const video = document.querySelector('video');
+                        if (video.currentTime === 0) {
+                          window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
+                        }
+                      }}
                     >
                       <source src={item?.spacetoonSongLink} type="video/mp4" />
                     </video>

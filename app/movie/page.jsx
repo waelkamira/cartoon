@@ -8,6 +8,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
+import VideoWithAd from '../../components/VideoWithAd';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,21 +103,11 @@ export default function Page() {
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="">
-                  <VideoPlayer videoUrl={item?.movieLink} showAd={isTrue} />
-                  {/* <iframe
-                    className="absolute sm:w-[50%] sm:h-[50%] z-50 right-0 left-0 mx-auto my-8"
-                    src={item?.movieLink}
-                    allowFullScreen={true}
-                    controls={true}
-                    frameBorder="0"
-                    allow="autoplay; fullscreen"
-                    title="Video Player"
-                    style={{
-                      border: '0px solid #ccc',
-                      overflow: 'hidden',
-                    }}
-                    scrolling="no"
-                  ></iframe> */}
+                  <VideoPlayer
+                    videoUrl={item?.movieLink}
+                    showAd={isTrue}
+                    movie={true}
+                  />
                 </div>
               ))}
           </div>

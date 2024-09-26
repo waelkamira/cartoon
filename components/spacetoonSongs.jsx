@@ -9,7 +9,7 @@ import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
-
+import HappyTagAd from './ads/happyTagAd';
 export default function SpacetoonSongs({
   vertical = false,
   image = true,
@@ -150,6 +150,9 @@ export default function SpacetoonSongs({
                 router.push(
                   `/spacetoonSong?songName=${song?.spacetoonSongName}`
                 );
+                setTimeout(() => {
+                  window?.location?.reload();
+                }, 2000);
               }}
             >
               <div

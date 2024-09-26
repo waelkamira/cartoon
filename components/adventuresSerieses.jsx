@@ -169,11 +169,15 @@ export default function AdventuresPlanet({ vertical = false }) {
               <div
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
                 key={series?.id}
-                onClick={() =>
+                onClick={() => {
                   router.push(
                     `/seriesAndEpisodes?seriesName=${series?.seriesName}`
-                  )
-                }
+                  );
+
+                  setTimeout(() => {
+                    window?.location?.reload();
+                  }, 2000);
+                }}
               >
                 <div
                   className={

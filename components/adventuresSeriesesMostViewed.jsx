@@ -93,11 +93,15 @@ export default function AdventuresPlanetMostViewed() {
               <div
                 className=" flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
                 key={series.id}
-                onClick={() =>
+                onClick={() => {
                   router.push(
                     `/seriesAndEpisodes?seriesName=${series.seriesName}`
-                  )
-                }
+                  );
+
+                  setTimeout(() => {
+                    window?.location?.reload();
+                  }, 2000);
+                }}
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden mx-2 hover:cursor-pointer">
                   <Image

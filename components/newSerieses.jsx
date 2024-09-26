@@ -84,6 +84,9 @@ export default function NewSerieses() {
 
   const handleSeriesClick = (seriesName) => {
     router.push(`/seriesAndEpisodes?seriesName=${seriesName}`);
+    setTimeout(() => {
+      window?.location?.reload();
+    }, 2000);
   };
 
   return (

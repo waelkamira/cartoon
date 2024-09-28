@@ -179,8 +179,8 @@ export default function VideoPlayer({
                     allowFullScreen={true}
                     controls={true}
                     frameBorder="0"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" // السماح بتشغيل الفيديو مع التحكم في الأذونات
                     allow="autoplay; fullscreen"
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
                     title="Video Player"
                     autoPlay
                     style={{
@@ -188,7 +188,13 @@ export default function VideoPlayer({
                       overflow: 'hidden',
                     }}
                     scrolling="no"
-                    onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                    onEnded={handleVideoEnd} // الانتقال إلى
+                    الحلقة
+                    التالية
+                    عند
+                    انتهاء
+                    الحلقة
+                    الحالية
                     onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
                   ></iframe>
                 </div>

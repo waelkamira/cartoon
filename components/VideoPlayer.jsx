@@ -66,6 +66,24 @@ export default function VideoPlayer({
     if (onNextEpisode) onNextEpisode();
   };
 
+  const handleFullScreen = () => {
+    // دالة لتفعيل وضع ملء الشاشة
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if (videoRef.current.webkitRequestFullscreen) {
+        // لأجهزة iOS/Safari
+        videoRef.current.webkitRequestFullscreen();
+      } else if (videoRef.current.mozRequestFullScreen) {
+        // لمتصفحات Firefox
+        videoRef.current.mozRequestFullScreen();
+      } else if (videoRef.current.msRequestFullscreen) {
+        // لمتصفحات Internet Explorer/Edge
+        videoRef.current.msRequestFullscreen();
+      }
+    }
+  };
+
   function adjustVideoQuality(url) {
     const connection =
       navigator.connection ||
@@ -138,6 +156,7 @@ export default function VideoPlayer({
                   allow="fullscreen"
                   autoPlay
                   onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                  onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
                 >
                   <source src={`${videoId}?autoplay=0`} type="video/mp4" />
                 </video>
@@ -162,6 +181,7 @@ export default function VideoPlayer({
                     }}
                     scrolling="no"
                     onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                    onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
                   ></iframe>
                 </div>
               )}
@@ -182,6 +202,7 @@ export default function VideoPlayer({
                   allow="fullscreen"
                   autoPlay
                   onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                  onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
                 >
                   <source src={`${videoId}?autoplay=0`} type="video/mp4" />
                 </video>

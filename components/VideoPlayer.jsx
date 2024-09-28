@@ -5,15 +5,17 @@ import HappyTagAd from './ads/happyTagAd';
 
 export default function VideoPlayer({
   videoUrl = ' ',
-  episodeName,
   image,
-  showAd = false,
   movie,
+  onNextEpisode, // إضافة prop جديد لدالة الانتقال للحلقة التالية
 }) {
   const [videoSource, setVideoSource] = useState('');
   const [videoId, setVideoId] = useState('');
   const [aspectRatio, setAspectRatio] = useState(null);
+  const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
+  const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
+  const adVideoUrl = '//thubanoa.com/1?z=8130767'; // رابط الفيديو الإعلاني
 
   useEffect(() => {
     setVideoSource('');
@@ -38,15 +40,30 @@ export default function VideoPlayer({
       setVideoSource('otherSources');
       setVideoId(adjustedUrl);
     }
+
+    // إعداد المؤقت لتشغيل الإعلان كل نصف ساعة
+    if (!adTimer) {
+      const timer = setInterval(() => {
+        setIsAdPlaying(true); // إظهار الإعلان
+      }, 1800000); // 30 دقيقة بالمللي ثانية (1800000 مللي ثانية)
+      setAdTimer(timer);
+    }
+
+    // تنظيف المؤقت عند تفكيك المكون
+    return () => {
+      if (adTimer) clearInterval(adTimer);
+    };
   }, [videoUrl]);
 
-  const handleVideoPlay = () => {
-    const videoElement = videoRef.current;
-    videoElement.play();
+  const handleAdEnd = () => {
+    // بعد انتهاء الإعلان، نعيد تشغيل الفيلم الرئيسي
+    setIsAdPlaying(false);
+    videoRef.current.play(); // استئناف تشغيل الفيلم الرئيسي
   };
 
-  const handleTimeUpdate = () => {
-    // يمكن إضافة أي وظائف أخرى هنا عند تحديث وقت الفيديو إن وجدت
+  const handleVideoEnd = () => {
+    // عند انتهاء الحلقة الحالية، الانتقال تلقائيًا إلى الحلقة التالية
+    if (onNextEpisode) onNextEpisode();
   };
 
   function adjustVideoQuality(url) {
@@ -89,86 +106,87 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          {/* إضافة key يجعل الكومبوننت يعاد تحميله عند تغيير videoUrl */}
+          {/* إضافة إعلان HappyTagAd */}
           <HappyTagAd />
 
-          {videoSource === 'arteenz' && (
-            <video
-              ref={videoRef}
-              className="w-full h-[100%]"
-              style={{ width: '100%', height: '100%' }}
-              controls
-              poster={image}
-              controlsList="nodownload"
-              onLoadedMetadata={updateAspectRatio}
-              onPlay={handleVideoPlay}
-              onTimeUpdate={handleTimeUpdate}
-              onContextMenu="return false"
-              onDragStart={(e) => e.preventDefault()}
-              referrerPolicy="no-referrer"
-              allow="fullscreen"
-              autoPlay
-              loop
-              onSeeked={() => {
-                const video = document.querySelector('video');
-                if (video.currentTime === 0) {
-                  window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
-                }
-              }}
-            >
-              <source src={`${videoId}?autoplay=0`} type="video/mp4" />
-            </video>
-          )}
-
-          {/* إضافة مشغل Zidwish */}
-          {videoSource === 'zidwish' && (
-            <div className="w-full h-full ">
-              <iframe
-                ref={videoRef}
-                className="w-full h-full my-8"
-                src={`${videoId}?autoplay=1&loop=1`} // تعديل URL لتفعيل autoplay و loop
-                allowFullScreen={true}
-                controls={true}
-                frameBorder="0"
-                onLoad={updateAspectRatio}
-                allow="autoplay; fullscreen"
-                title="Video Player"
+          {/* تشغيل الفيديو الرئيسي أو الإعلان بناءً على isAdPlaying */}
+          {isAdPlaying ? (
+            <div className="w-full h-full flex justify-center items-center">
+              <video
+                className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
+                src={adVideoUrl} // رابط الإعلان
                 autoPlay
-                style={{
-                  border: '0px solid #ccc',
-                  overflow: 'hidden',
-                }}
-                scrolling="no"
-              ></iframe>
+                controls
+                onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان
+              />
             </div>
-          )}
+          ) : (
+            <>
+              {videoSource === 'arteenz' && (
+                <video
+                  ref={videoRef}
+                  className="w-full h-full"
+                  style={{ width: '100%', height: '100%' }}
+                  controls
+                  poster={image}
+                  controlsList="nodownload"
+                  onLoadedMetadata={updateAspectRatio}
+                  onPlay={() => videoRef.current.play()}
+                  onContextMenu="return false"
+                  onDragStart={(e) => e.preventDefault()}
+                  referrerPolicy="no-referrer"
+                  allow="fullscreen"
+                  autoPlay
+                  onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                >
+                  <source src={`${videoId}?autoplay=0`} type="video/mp4" />
+                </video>
+              )}
 
-          {videoSource === 'otherSources' && (
-            <video
-              ref={videoRef}
-              className="w-full h-[100%]"
-              style={{ width: '100%', height: '100%' }}
-              controls
-              poster={image}
-              controlsList="nodownload"
-              onLoadedMetadata={updateAspectRatio}
-              onPlay={handleVideoPlay}
-              onTimeUpdate={handleTimeUpdate}
-              onContextMenu="return false"
-              onDragStart={(e) => e.preventDefault()}
-              referrerPolicy="no-referrer"
-              allow="fullscreen"
-              autoPlay
-              loop
-              onSeeked={() => {
-                const video = document.querySelector('video');
-                if (video.currentTime === 0) {
-                  window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
-                }
-              }}
-            >
-              <source src={`${videoId}?autoplay=0`} type="video/mp4" />
-            </video>
+              {videoSource === 'zidwish' && (
+                <div className="w-full h-full flex justify-center items-center">
+                  <iframe
+                    ref={videoRef}
+                    className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
+                    src={`${videoId}?autoplay=1`} // تعديل URL لتفعيل autoplay
+                    allowFullScreen={true}
+                    controls={true}
+                    frameBorder="0"
+                    allow="autoplay; fullscreen"
+                    sandbox="allow-scripts allow-same-origin"
+                    title="Video Player"
+                    autoPlay
+                    style={{
+                      border: '0px solid #ccc',
+                      overflow: 'hidden',
+                    }}
+                    scrolling="no"
+                    onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                  ></iframe>
+                </div>
+              )}
+
+              {videoSource === 'otherSources' && (
+                <video
+                  ref={videoRef}
+                  className="w-full h-[100%]"
+                  style={{ width: '100%', height: '100%' }}
+                  controls
+                  poster={image}
+                  controlsList="nodownload"
+                  onLoadedMetadata={updateAspectRatio}
+                  onPlay={() => videoRef.current.play()}
+                  onContextMenu="return false"
+                  onDragStart={(e) => e.preventDefault()}
+                  referrerPolicy="no-referrer"
+                  allow="fullscreen"
+                  autoPlay
+                  onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
+                >
+                  <source src={`${videoId}?autoplay=0`} type="video/mp4" />
+                </video>
+              )}
+            </>
           )}
         </div>
       ) : (

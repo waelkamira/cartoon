@@ -21,6 +21,7 @@ export default function SpacetoonSongs({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  // console.log('newSpacetoonSong', newSpacetoonSong);
   const [spacetoonSongsSliderRef, spacetoonSongsInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -148,11 +149,11 @@ export default function SpacetoonSongs({
                   payload: song?.spacetoonSongName,
                 });
                 router.push(
-                  `/spacetoonSong?songName=${song?.spacetoonSongName}`
+                  `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
                 );
                 setTimeout(() => {
                   window?.location?.reload();
-                }, 2000);
+                }, 3000);
               }}
             >
               <div

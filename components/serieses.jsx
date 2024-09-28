@@ -21,7 +21,7 @@ export default function Serieses() {
     <div className="w-full">
       {/* <VideoPlayer /> */}
       <NewSerieses />
-      {/* <div className="w-full h-72 bg-sky-400">
+      {/* <div className="w-full h-72">
         <AdScript />
       </div> */}
       <ZomurodaPlanet />

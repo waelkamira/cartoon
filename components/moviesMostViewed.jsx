@@ -92,7 +92,7 @@ export default function MoviesPlanetMostViewed() {
                   router.push(`/movie?movieName=${movie.movieName}`);
                   setTimeout(() => {
                     window?.location?.reload();
-                  }, 2000);
+                  }, 3000);
                 }}
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden hover:cursor-pointer">

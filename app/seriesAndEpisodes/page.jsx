@@ -7,8 +7,8 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
-import FantasticTagAntiAdBlock from '../../components/ads/fantasticTagAntiAdBlock';
-export default function Page() {
+
+export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(1); // حالة للتحكم برقم الحلقة
   const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +104,7 @@ export default function Page() {
   };
 
   return (
-    <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one">
+    <div className="relative w-full h-screen sm:p-4 lg:p-8 rounded-lg bg-one">
       <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
         <TfiMenuAlt
           className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
@@ -158,48 +158,49 @@ export default function Page() {
           اسم المسلسل <span className="text-white">{seriesName}</span>
         </h1>
       </div>
-
-      <div className="my-8 p-2">
-        {episodes.length === 0 && !isLoading && (
-          <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
-        )}
-
-        <div className="grid grid-cols-1 gap-8 justify-center items-center">
-          {episodes.map((episode) => (
-            <div
-              key={episode.id}
-              className="flex flex-col items-center justify-center rounded-lg overflow-hidden "
-            >
-              <VideoPlayer
-                videoUrl={episode?.episodeLink}
-                image={series?.seriesImage}
-                episodeName={episode?.episodeName}
-                showAd={isTrue}
-              />
-              <h1 className="text-white">{episode?.episodeName}</h1>
-            </div>
-          ))}
-        </div>
-
-        {isLoading && <Loading myMessage={'جاري تحميل المزيد...'} />}
-      </div>
-
       {/* أزرار التنقل بين الحلقات */}
-      <div className="flex justify-between w-full p-4">
-        <button
-          onClick={handlePreviousEpisode}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
-          disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
-        >
-          الحلقة السابقة
-        </button>
+      <div className="flex justify-between w-full p-4 items-start">
         <button
           onClick={handleNextEpisode}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
+          className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
           disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
         >
           الحلقة التالية
         </button>
+        <button
+          onClick={handlePreviousEpisode}
+          className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+          disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
+        >
+          الحلقة السابقة
+        </button>
+      </div>
+      <div className="my-2 p-2">
+        {episodes.length === 0 && !isLoading && (
+          <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
+        )}
+
+        <div>
+          {episodes.map((episode) => (
+            <div
+              key={episode.id}
+              className="flex flex-col items-center justify-start rounded-lg overflow-hidden "
+            >
+              <div className={'w-full'}>
+                <h1 className="text-white text-center p-2">
+                  {episode?.episodeName}
+                </h1>
+                <VideoPlayer
+                  videoUrl={episode?.episodeLink}
+                  image={series?.seriesImage}
+                  episodeName={episode?.episodeName}
+                  showAd={isTrue}
+                  onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

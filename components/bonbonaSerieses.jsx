@@ -170,7 +170,7 @@ export default function BonbonaPlanet({ vertical = false }) {
                   );
                   setTimeout(() => {
                     window?.location?.reload();
-                  }, 2000);
+                  }, 3000);
                 }}
               >
                 <div

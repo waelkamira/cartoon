@@ -21,18 +21,17 @@ export default function SearchBar() {
   const [searchedWord, setSearchedWord] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchTriggered, setSearchTriggered] = useState(false);
-  const [seriesImage, setSeriesImage] = useState({}); // تخزين صور المسلسلات
+  const [seriesImages, setSeriesImages] = useState({}); // تخزين صور المسلسلات
   const router = useRouter();
   const session = useSession();
   const user = CurrentUser();
 
-  // console.log('seriesImage', seriesImage[0]);
   // Function to perform search
   const search = async () => {
     setSearchTriggered(true);
     const queryParams = new URLSearchParams({
       page: pageNumber?.toString(),
-      limit: '10',
+      limit: '5',
     });
 
     const normalizedSearchedWord = normalizeArabic(searchedWord);
@@ -43,11 +42,8 @@ export default function SearchBar() {
 
     const res = await fetch(`/api/search?${queryParams?.toString()}`);
     const json = await res?.json();
-    // console.log('json', json);
     if (res.ok) {
       setIsVisible(true);
-      console.log('SearchResults', json);
-
       setSearchResults(json);
     }
   };
@@ -69,9 +65,38 @@ export default function SearchBar() {
     setSearchTriggered(false);
   };
 
-  function handleEdit(id) {
-    console.log(id);
+  // Function to fetch episode image
+  async function fetchEpisodeImage(seriesName) {
+    try {
+      const res = await fetch(`/api/serieses?seriesName=${seriesName}`);
+      const json = await res?.json();
+      if (res.ok && json.length > 0) {
+        return json[0]?.seriesImage;
+      }
+    } catch (error) {
+      console.error('Error fetching series image:', error);
+    }
+    return null; // Return null if there's an error or no image
   }
+
+  // useEffect to load images for the search results
+  useEffect(() => {
+    async function loadImages() {
+      const images = {};
+      for (const result of searchResults) {
+        if (result?.episodeName && result?.seriesName) {
+          const image = await fetchEpisodeImage(result?.seriesName);
+          images[result?.seriesName] = image || result?.seriesImage;
+        }
+      }
+      setSeriesImages(images);
+    }
+
+    if (searchResults.length > 0) {
+      loadImages();
+    }
+  }, [searchResults]);
+
   return (
     <>
       <div
@@ -92,7 +117,7 @@ export default function SearchBar() {
               id="search_meal"
               name="search_meal"
               placeholder="ابحث عن مسلسل أو فيلم  ..."
-              className="relative pr-14 sm:py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-lg sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
+              className="relative pr-14 sm:py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
             />
             <div className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full">
               <h1
@@ -108,7 +133,7 @@ export default function SearchBar() {
           <div className="sticky top-0 flex flex-row-reverse justify-between items-center mt-1 w-full z-50 bg-four p-4">
             <button
               onClick={handleClose}
-              className="py-1 px-4 text-white bg-five w-24 rounded-full sm:text-lg hover:bg-one bg-green-400 border hover:scale-55"
+              className="btn p-1 sm:px-4 text-white bg-five w-24 rounded-full text-sm sm:text-lg hover:bg-one shadow-lg border hover:scale-55"
             >
               إغلاق
             </button>
@@ -121,14 +146,12 @@ export default function SearchBar() {
           <div className="relative w-full flex flex-col items-center justify-start p-2 overflow-y-auto h-screen rounded-lg content-center ">
             {searchResults &&
               searchResults.map((result) => {
-                // console.log('result', result);
-                // إذا كانت النتيجة عبارة عن حلقة، استخدم صورة المسلسل إذا لم تكن هناك صورة خاصة للحلقة
-                const imageSrc = result?.episodeName
-                  ? seriesImage
-                  : result?.seriesImage ||
-                    result?.movieImage ||
-                    result?.songImage ||
-                    result?.spacetoonSongImage;
+                const imageSrc =
+                  seriesImages[result?.seriesName] ||
+                  result?.seriesImage ||
+                  result?.movieImage ||
+                  result?.songImage ||
+                  result?.spacetoonSongImage;
 
                 return (
                   <>
@@ -147,10 +170,20 @@ export default function SearchBar() {
                       )}
                     <div
                       onClick={() => {
-                        if (result?.seriesName) {
+                        if (result?.episodeName) {
+                          router.push(
+                            `/episodes?episodeName=${result?.episodeName}`
+                          );
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
+                        } else if (result?.seriesName) {
                           router.push(
                             `/seriesAndEpisodes?seriesName=${result?.seriesName}`
                           );
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.movieName) {
                           router.push(`/movie?movieName=${result?.movieName}`);
                         } else if (result?.songName) {
@@ -159,6 +192,9 @@ export default function SearchBar() {
                             payload: result?.songName,
                           });
                           router.push(`/song?songName=${result?.songName}`);
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.spacetoonSongName) {
                           dispatch({
                             type: 'SPACETOON_SONG_NAME',
@@ -167,6 +203,9 @@ export default function SearchBar() {
                           router.push(
                             `/spacetoonSong?spacetoonSongName=${result?.spacetoonSongName}`
                           );
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         }
                       }}
                       className="my-2 cursor-pointer"
@@ -181,7 +220,8 @@ export default function SearchBar() {
                         />
                       </div>
                       <h1 className="text-white text-center m-2 text-[10px] w-full line-clamp-2 font-bold">
-                        {result?.movieName ||
+                        {result?.episodeName ||
+                          result?.movieName ||
                           result?.seriesName ||
                           result?.songName ||
                           result?.spacetoonSongName}

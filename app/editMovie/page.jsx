@@ -17,12 +17,12 @@ export default function EditMovie() {
   });
   // console.log('data?.image', data?.image);
   // console.log('inputs', inputs);
-  console.log('movie:', movie);
+  // console.log('movie:', movie);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const getMovieName = params.get('movieName');
-    console.log('getMovieName', getMovieName);
+    // console.log('getMovieName', getMovieName);
 
     if (getMovieName) {
       bringMovie(getMovieName);
@@ -40,7 +40,7 @@ export default function EditMovie() {
 
   async function bringMovie(getMovieName) {
     if (getMovieName) {
-      console.log('Fetching movie:', getMovieName);
+      // console.log('Fetching movie:', getMovieName);
       const response = await fetch(`/api/movies?movieName=${getMovieName}`);
       const json = await response?.json();
       if (response.ok) {
@@ -50,7 +50,7 @@ export default function EditMovie() {
           movieImage: json[0]?.movieImage,
           movieLink: json[0]?.movieLink,
         });
-        console.log('Fetched movie data:', json);
+        // console.log('Fetched movie data:', json);
       } else {
         console.error('Failed to fetch movie');
       }
@@ -70,7 +70,7 @@ export default function EditMovie() {
     });
 
     if (response.ok) {
-      console.log('movie updated');
+      // console.log('movie updated');
       toast.custom((t) => (
         <CustomToast t={t} message={'تم تعديل الفيلم بنجاح'} />
       ));

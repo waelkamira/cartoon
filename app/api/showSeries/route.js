@@ -5,7 +5,8 @@ export async function GET(req) {
   const searchParams = url.searchParams;
   const seriesName = searchParams.get('seriesName') || '';
   const episodeName = searchParams.get('episodeName') || '';
-  // console.log('seriesName', seriesName);
+  console.log('seriesName', seriesName);
+  console.log('episodeName', episodeName);
 
   if (!seriesName || !episodeName) {
     return new Response(

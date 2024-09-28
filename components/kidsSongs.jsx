@@ -134,11 +134,11 @@ export default function KidsSongs({
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
               onClick={() => {
-                dispatch({ type: 'SONG_NAME', payload: song?.songName });
+                dispatch({ type: 'KIDS_SONG_NAME', payload: song?.songName });
                 router.push(`/song?songName=${song?.songName}`);
-                // setTimeout(() => {
-                //   window?.location?.reload();
-                // }, 2000);
+                setTimeout(() => {
+                  window?.location?.reload();
+                }, 3000);
               }}
             >
               <div

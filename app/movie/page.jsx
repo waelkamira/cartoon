@@ -8,7 +8,6 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
-import VideoWithAd from '../../components/VideoWithAd';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,10 +98,10 @@ export default function Page() {
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
 
-          <div className=" flex justify-center items-center">
+          <div className=" flex justify-center items-center w-full h-full">
             {movie?.length > 0 &&
               movie.map((item, index) => (
-                <div key={index} className="">
+                <div key={index} className="w-full h-fit">
                   <VideoPlayer
                     videoUrl={item?.movieLink}
                     showAd={isTrue}

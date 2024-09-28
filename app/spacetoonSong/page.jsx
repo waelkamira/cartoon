@@ -13,8 +13,8 @@ import HappyTagAd from '../../components/ads/happyTagAd';
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
-  const { spacetoonSongName } = useContext(inputsContext);
-  const [songName, setSongName] = useState('');
+  const { SpacetoonSongName } = useContext(inputsContext);
+  const [spacetoonSongName, setSpacetoonSongName] = useState('');
 
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {
@@ -22,26 +22,29 @@ export default function Page() {
       // تأكد من أن الكود يعمل على العميل فقط
       if (typeof window !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search);
-        const songNameFromUrl = urlParams.get('songName');
-        console.log('songNameFromUrl', songNameFromUrl);
-        if (songNameFromUrl && songNameFromUrl !== songName) {
-          setSongName(songNameFromUrl);
+        const spacetoonSongNameFromUrl = urlParams.get('spacetoonSongName');
+        // console.log('spacetoonSongNameFromUrl', spacetoonSongNameFromUrl);
+        if (
+          spacetoonSongNameFromUrl &&
+          spacetoonSongNameFromUrl !== spacetoonSongName
+        ) {
+          setSpacetoonSongName(spacetoonSongNameFromUrl);
         }
       }
     };
 
     handleUrlChange();
-  }, [songName]); // إعادة التشغيل عند تغيير songName
+  }, [spacetoonSongName]); // إعادة التشغيل عند تغيير spacetoonSongName
 
   useEffect(() => {
-    if (songName) {
+    if (spacetoonSongName) {
       fetchSpacetoonSong();
     }
-  }, [songName, spacetoonSongName]);
+  }, [spacetoonSongName, SpacetoonSongName]);
 
   async function fetchSpacetoonSong() {
     const response = await fetch(
-      `/api/spacetoonSongs?spacetoonSongName=${songName}`
+      `/api/spacetoonSongs?spacetoonSongName=${spacetoonSongName}`
     );
     const json = await response?.json();
     if (response.ok) {
@@ -92,7 +95,7 @@ export default function Page() {
           {spacetoonSong?.length === 0 && (
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
-          <div className="flex gap-8 justify-center items-center w-full bg-sky-400">
+          <div className="flex gap-8 justify-center items-center w-full">
             {spacetoonSong?.length > 0 &&
               spacetoonSong?.map((item) => {
                 return (

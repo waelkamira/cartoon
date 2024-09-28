@@ -7,6 +7,7 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get('limit') || '10', 10);
   const searchTerm = searchParams.get('searchTerm') || '';
   const skip = (page - 1) * limit;
+
   try {
     console.log('searchTerm', searchTerm);
     const results = [];
@@ -17,7 +18,6 @@ export async function GET(req) {
       .select('*')
       .ilike('seriesName', `%${searchTerm}%`)
       .range(skip, skip + limit - 1);
-    // console.log('series', series);
 
     if (seriesError) throw seriesError;
     results.push(...series);
@@ -28,7 +28,6 @@ export async function GET(req) {
       .select('*')
       .ilike('movieName', `%${searchTerm}%`)
       .range(skip, skip + limit - 1);
-    // console.log('movies', movies);
 
     if (moviesError) throw moviesError;
     results.push(...movies);
@@ -39,7 +38,6 @@ export async function GET(req) {
       .select('*')
       .ilike('songName', `%${searchTerm}%`)
       .range(skip, skip + limit - 1);
-    // console.log('songs', songs);
 
     if (songsError) throw songsError;
     results.push(...songs);
@@ -50,10 +48,19 @@ export async function GET(req) {
       .select('*')
       .ilike('spacetoonSongName', `%${searchTerm}%`)
       .range(skip, skip + limit - 1);
-    // console.log('spacetoonSongs', spacetoonSongs);
 
-    if (songsError) throw songsError;
+    if (spacetoonSongsError) throw spacetoonSongsError;
     results.push(...spacetoonSongs);
+
+    // البحث في جدول episodes
+    let { data: episodes, error: episodesError } = await supabase1
+      .from('episodes')
+      .select('*')
+      .ilike('episodeName', `%${searchTerm}%`)
+      .range(skip, skip + limit - 1);
+
+    if (episodesError) throw episodesError;
+    results.push(...episodes);
 
     // دمج النتائج وإرجاعها
     return NextResponse.json(results, { status: 200 });

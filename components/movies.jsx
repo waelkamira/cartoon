@@ -166,7 +166,7 @@ export default function MoviesPlanet({ vertical = false }) {
                   router.push(`/movie?movieName=${movie?.movieName}`);
                   setTimeout(() => {
                     window?.location?.reload();
-                  }, 2000);
+                  }, 3000);
                 }}
               >
                 <div

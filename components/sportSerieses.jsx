@@ -170,7 +170,7 @@ export default function SportPlanet({ vertical = false }) {
                   );
                   setTimeout(() => {
                     window?.location?.reload();
-                  }, 2000);
+                  }, 3000);
                 }}
               >
                 <div

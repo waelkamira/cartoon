@@ -17,15 +17,15 @@ function inputsReducer(currentState, action) {
       return {
         newSong: action?.payload,
       };
-    case 'SONG_NAME':
-      // console.log('SONG_NAME', action?.payload);
+    case 'KIDS_SONG_NAME':
+      // console.log('KIDS_SONG_NAME', action?.payload);
       return {
-        songName: action?.payload,
+        kidsSongName: action?.payload,
       };
     case 'SPACETOON_SONG_NAME':
       // console.log('SONG_NAME', action?.payload);
       return {
-        spacetoonSongName: action?.payload,
+        SpacetoonSongName: action?.payload,
       };
     case 'NEW_SPACETOON_SONG':
       // console.log('NEW_SPACETOON_SONG', action?.payload);
@@ -96,9 +96,9 @@ export function InputsContextProvider({ children }) {
     serieses: [],
     newSeries: {},
     newSong: {},
-    songName: {},
+    kidsSongName: {},
     firstEpisode: '',
-    spacetoonSongName: {},
+    SpacetoonSongName: {},
     newSpacetoonSong: {},
     newMovie: {},
     deletedSeries: {},

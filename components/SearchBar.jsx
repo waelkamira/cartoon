@@ -117,7 +117,7 @@ export default function SearchBar() {
               id="search_meal"
               name="search_meal"
               placeholder="ابحث عن مسلسل أو فيلم  ..."
-              className="relative pr-14 sm:py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
+              className="relative pr-14 py-1 sm:pr-16 border border-white w-full focus:outline-none rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-16 text-right"
             />
             <div className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full">
               <h1

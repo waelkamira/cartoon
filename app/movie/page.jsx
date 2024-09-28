@@ -8,7 +8,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
-
+import HappyTagAdMovies from '../../components/ads/happyTagAdMovies';
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
@@ -62,7 +62,7 @@ export default function Page() {
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
         </div>
-
+        <HappyTagAdMovies />
         <div className="relative w-full h-44 sm:h-[500px] overflow-hidden z-40">
           {movie[0]?.movieImage ? (
             <Image

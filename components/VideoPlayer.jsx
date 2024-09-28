@@ -55,6 +55,14 @@ export default function VideoPlayer({
     };
   }, [videoUrl]);
 
+  const blockAdsAndPopups = () => {
+    window.open = () => null; // منع فتح النوافذ الجديدة
+  };
+
+  useEffect(() => {
+    blockAdsAndPopups();
+  }, []);
+
   const handleAdEnd = () => {
     // بعد انتهاء الإعلان، نعيد تشغيل الفيلم الرئيسي
     setIsAdPlaying(false);
@@ -171,8 +179,8 @@ export default function VideoPlayer({
                     allowFullScreen={true}
                     controls={true}
                     frameBorder="0"
-                    allow="autoplay; fullscreen"
                     sandbox="allow-scripts allow-same-origin"
+                    allow="autoplay; fullscreen"
                     title="Video Player"
                     autoPlay
                     style={{

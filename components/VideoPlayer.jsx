@@ -179,7 +179,7 @@ export default function VideoPlayer({
                     allowFullScreen={true}
                     controls={true}
                     frameBorder="0"
-                    // sandbox="allow-scripts allow-same-origin" // منع المحتوى الخارجي من فتح نوافذ منبثقة
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" // السماح بتشغيل الفيديو مع التحكم في الأذونات
                     allow="autoplay; fullscreen"
                     title="Video Player"
                     autoPlay

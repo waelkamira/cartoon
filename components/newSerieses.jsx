@@ -41,7 +41,7 @@ export default function NewSerieses() {
     fetchSerieses();
     const timer = setTimeout(() => {
       setShowMessage(false);
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 10000);
 
     // Cleanup timer if the component is unmounted
     return () => clearTimeout(timer);

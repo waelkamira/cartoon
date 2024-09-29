@@ -14,6 +14,7 @@ import CustomToast from './CustomToast';
 import toast from 'react-hot-toast';
 import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function MoviesPlanet({ vertical = false }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,6 +24,8 @@ export default function MoviesPlanet({ vertical = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
   const session = useSession();
+  const [showMessage, setShowMessage] = useState(true);
+
   const [moviesSliderRef, moviesInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -51,6 +54,12 @@ export default function MoviesPlanet({ vertical = false }) {
 
   useEffect(() => {
     fetchMovies();
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 80000);
+
+    // Cleanup timer if the component is unmounted
+    return () => clearTimeout(timer);
   }, [newMovie, deletedMovie, pageNumber, window?.innerWidth]);
 
   useEffect(() => {
@@ -134,7 +143,13 @@ export default function MoviesPlanet({ vertical = false }) {
           كوكب أفلام
         </h1>
       )}
+      {showMessage && (
+        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+          <MdKeyboardDoubleArrowRight />
 
+          <h6 className="text-sm w-full text-start"> اسحب لمزيد من الأفلام</h6>
+        </div>
+      )}
       <div
         ref={moviesSliderRef}
         className={

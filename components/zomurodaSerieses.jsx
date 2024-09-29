@@ -14,6 +14,7 @@ import CustomToast from './CustomToast';
 import toast from 'react-hot-toast';
 import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function ZomurodaPlanet({ vertical = false }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,6 +24,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
   const session = useSession();
+  const [showMessage, setShowMessage] = useState(true);
   const [ZumorodaSliderRef, ZumorodaInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -51,6 +53,12 @@ export default function ZomurodaPlanet({ vertical = false }) {
 
   useEffect(() => {
     fetchZumoroda();
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 30000);
+
+    // Cleanup timer if the component is unmounted
+    return () => clearTimeout(timer);
   }, [newSeries, deletedSeries, pageNumber, window?.innerWidth]);
 
   useEffect(() => {
@@ -134,7 +142,16 @@ export default function ZomurodaPlanet({ vertical = false }) {
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">كوكب زمردة</h1>
       )}
+      {showMessage && (
+        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+          <MdKeyboardDoubleArrowRight />
 
+          <h6 className="text-sm w-full text-start">
+            {' '}
+            اسحب لمزيد من المسلسلات
+          </h6>
+        </div>
+      )}
       <div
         ref={ZumorodaSliderRef}
         className={

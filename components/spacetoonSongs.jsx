@@ -10,6 +10,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
 import HappyTagAd from './ads/happyTagAd';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 export default function SpacetoonSongs({
   vertical = false,
   image = true,
@@ -20,6 +21,7 @@ export default function SpacetoonSongs({
   const { newSpacetoonSong, dispatch } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [showMessage, setShowMessage] = useState(true);
 
   // console.log('newSpacetoonSong', newSpacetoonSong);
   const [spacetoonSongsSliderRef, spacetoonSongsInstanceRef] = useKeenSlider({
@@ -50,6 +52,12 @@ export default function SpacetoonSongs({
 
   useEffect(() => {
     fetchSpacetoonSongs();
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 40000);
+
+    // Cleanup timer if the component is unmounted
+    return () => clearTimeout(timer);
   }, [newSpacetoonSong, pageNumber]);
 
   useEffect(() => {
@@ -127,6 +135,13 @@ export default function SpacetoonSongs({
         <h1 className="w-full text-start p-2 text-white my-2">
           المزيد من الأغاني
         </h1>
+      )}
+      {showMessage && (
+        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+          <MdKeyboardDoubleArrowRight />
+
+          <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>
+        </div>
       )}
       <div
         ref={spacetoonSongsSliderRef}

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
+import LoadingPhoto from './LoadingPhoto';
 
 const animation = { duration: 50000, easing: (t) => t };
 
@@ -105,13 +106,17 @@ export default function Categories() {
               <>
                 <div className={`keen-slider__slide ` + ` ${item?.number}`}>
                   <div className="relative h-full w-full">
-                    <Image
-                      src={item?.image}
-                      layout="fill"
-                      objectFit="cover"
-                      objectPosition="top"
-                      alt="photo"
-                    />
+                    {item?.image ? (
+                      <Image
+                        src={item?.image}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="top"
+                        alt="photo"
+                      />
+                    ) : (
+                      <LoadingPhoto />
+                    )}
                   </div>
                 </div>
               </>

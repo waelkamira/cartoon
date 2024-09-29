@@ -7,6 +7,7 @@ import { inputsContext } from './Context';
 import { FaUber } from 'react-icons/fa6';
 import { useSession } from 'next-auth/react';
 import CurrentUser from './CurrentUser';
+import LoadingPhoto from './LoadingPhoto';
 
 // Function to normalize Arabic text
 const normalizeArabic = (text) => {
@@ -211,13 +212,17 @@ export default function SearchBar() {
                       className="my-2 cursor-pointer"
                     >
                       <div className="relative w-52 h-32 sm:w-96 sm:h-96">
-                        <Image
-                          src={imageSrc}
-                          layout={'fill'}
-                          objectFit={'cover'}
-                          objectPosition="top"
-                          alt="photo"
-                        />
+                        {imageSrc ? (
+                          <Image
+                            src={imageSrc}
+                            layout={'fill'}
+                            objectFit={'cover'}
+                            objectPosition="top"
+                            alt="photo"
+                          />
+                        ) : (
+                          <LoadingPhoto />
+                        )}
                       </div>
                       <h1 className="text-white text-center m-2 text-[10px] w-full line-clamp-2 font-bold">
                         {result?.episodeName ||

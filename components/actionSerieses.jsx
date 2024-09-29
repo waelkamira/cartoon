@@ -14,6 +14,7 @@ import CustomToast from './CustomToast';
 import toast from 'react-hot-toast';
 import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function ActionPlanet({ vertical = false }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -23,6 +24,8 @@ export default function ActionPlanet({ vertical = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
   const session = useSession();
+  const [showMessage, setShowMessage] = useState(true);
+
   const [actionSliderRef, actionInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -51,6 +54,12 @@ export default function ActionPlanet({ vertical = false }) {
 
   useEffect(() => {
     fetchAction();
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 70000);
+
+    // Cleanup timer if the component is unmounted
+    return () => clearTimeout(timer);
   }, [newSeries, deletedSeries, pageNumber, window?.innerWidth]);
 
   useEffect(() => {
@@ -136,7 +145,16 @@ export default function ActionPlanet({ vertical = false }) {
           كوكب أكشن
         </h1>
       )}
+      {showMessage && (
+        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+          <MdKeyboardDoubleArrowRight />
 
+          <h6 className="text-sm w-full text-start">
+            {' '}
+            اسحب لمزيد من المسلسلات
+          </h6>
+        </div>
+      )}
       <div
         ref={actionSliderRef}
         className={

@@ -175,7 +175,7 @@ export default function VideoPlayer({
                   <iframe
                     ref={videoRef}
                     className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                    src={`${videoId}?autoplay=1`} // تعديل URL لتفعيل autoplay
+                    src={`${videoId}?autoplay=1`}
                     allowFullScreen={true}
                     controls={true}
                     frameBorder="0"
@@ -188,14 +188,8 @@ export default function VideoPlayer({
                       overflow: 'hidden',
                     }}
                     scrolling="no"
-                    onEnded={handleVideoEnd} // الانتقال إلى
-                    الحلقة
-                    التالية
-                    عند
-                    انتهاء
-                    الحلقة
-                    الحالية
-                    onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
+                    onEnded={handleVideoEnd}
+                    onDoubleClick={handleFullScreen}
                   ></iframe>
                 </div>
               )}

@@ -212,7 +212,7 @@ export default function Page() {
                   </h1>
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}
-                    image={episode?.episodeImage}
+                    image={episodeImage}
                     episodeName={episode?.episodeName}
                     showAd={isTrue}
                     onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية

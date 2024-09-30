@@ -6,6 +6,7 @@ const nextConfig = {
 
   // distDir: 'build',
   // output: 'export',
+  output: 'export',
   typescript: {
     ignoreBuildErrors: true,
   },

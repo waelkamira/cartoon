@@ -97,9 +97,10 @@ export default function HomePage() {
               setIsSpacetoonOpen={setIsSpacetoonOpen}
               isSpacetoonOpen={isSpacetoonOpen}
             />
-            {/* {session?.status === 'unauthenticated' && (
+            {/* انتبه يتم تفعيل هذا الخيار فقط عندما نريد اضافة مسلسل او فيلم او حلقة .. الخ وليس متاح للمستخدمين */}
+            {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
-            )} */}
+            )}
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center w-full rounded-lg sm:p-8 gap-2 ">

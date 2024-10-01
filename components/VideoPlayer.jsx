@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
+import HappyTagAd from './ads/happyTagAd';
 
 export default function VideoPlayer({
   videoUrl = ' ',
@@ -150,6 +151,7 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
+          <HappyTagAd />
           {isAdPlaying ? (
             <div className="w-full h-full flex justify-center items-center">
               <video

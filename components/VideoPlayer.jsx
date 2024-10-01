@@ -1,7 +1,5 @@
-'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
-import HappyTagAd from './ads/happyTagAd';
 
 export default function VideoPlayer({
   videoUrl = ' ',
@@ -15,7 +13,27 @@ export default function VideoPlayer({
   const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
   const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
-  const adVideoUrl = '//thubanoa.com/1?z=8130767'; // رابط الفيديو الإعلاني
+
+  useEffect(() => {
+    const handleKeydown = (event) => {
+      if (event.code === 'Space') {
+        event.preventDefault(); // منع التمرير عند الضغط على المسافة
+        if (videoRef.current.paused) {
+          videoRef.current.play(); // تشغيل الفيديو إذا كان متوقفًا
+        } else {
+          videoRef.current.pause(); // إيقاف الفيديو إذا كان مشغلاً
+        }
+      }
+    };
+
+    // إضافة مستمع للضغط على لوحة المفاتيح
+    window.addEventListener('keydown', handleKeydown);
+
+    // تنظيف المستمع عند تفكيك المكون
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };
+  }, []);
 
   useEffect(() => {
     setVideoSource('');
@@ -132,15 +150,11 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          {/* إضافة إعلان HappyTagAd */}
-          <HappyTagAd />
-
-          {/* تشغيل الفيديو الرئيسي أو الإعلان بناءً على isAdPlaying */}
           {isAdPlaying ? (
             <div className="w-full h-full flex justify-center items-center">
               <video
                 className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                src={adVideoUrl} // رابط الإعلان
+                src="//thubanoa.com/1?z=8130767" // رابط الإعلان
                 autoPlay
                 controls
                 onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان
@@ -163,13 +177,12 @@ export default function VideoPlayer({
                   referrerPolicy="no-referrer"
                   allow="fullscreen"
                   autoPlay
-                  onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
-                  onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
+                  onEnded={handleVideoEnd}
+                  onDoubleClick={handleFullScreen}
                 >
                   <source src={`${videoId}?autoplay=0`} type="video/mp4" />
                 </video>
               )}
-
               {videoSource === 'zidwish' && (
                 <div className="w-full h-full flex justify-center items-center">
                   <iframe
@@ -193,7 +206,6 @@ export default function VideoPlayer({
                   ></iframe>
                 </div>
               )}
-
               {videoSource === 'otherSources' && (
                 <video
                   ref={videoRef}
@@ -209,8 +221,8 @@ export default function VideoPlayer({
                   referrerPolicy="no-referrer"
                   allow="fullscreen"
                   autoPlay
-                  onEnded={handleVideoEnd} // الانتقال إلى الحلقة التالية عند انتهاء الحلقة الحالية
-                  onDoubleClick={handleFullScreen} // تفعيل وضع ملء الشاشة عند النقر المزدوج
+                  onEnded={handleVideoEnd}
+                  onDoubleClick={handleFullScreen}
                 >
                   <source src={`${videoId}?autoplay=0`} type="video/mp4" />
                 </video>

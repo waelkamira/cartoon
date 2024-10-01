@@ -9,6 +9,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import { inputsContext } from '../../components/Context';
 import SpacetoonSongs from '../../components/spacetoonSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
+import { ContactUs } from '../../components/sendEmail/sendEmail';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,11 +84,9 @@ export default function Page() {
         <div className="flex flex-col justify-start items-center w-full gap-4 my-8 px-2">
           <BackButton />
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
-            <span className="text-white font-bold text-lg ml-2">#</span>
+            <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية:{' '}
-            <span className="text-white text-sm ">
-              {spacetoonSong[0]?.spacetoonSongName}
-            </span>
+            <span className="">{spacetoonSong[0]?.spacetoonSongName}</span>
           </h1>
         </div>
 
@@ -128,6 +127,9 @@ export default function Page() {
         </div>
       </div>
       <SpacetoonSongs vertical={true} title={false} image={false} />
+      <div className="p-2">
+        <ContactUs />
+      </div>
     </div>
   );
 }

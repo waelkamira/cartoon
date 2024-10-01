@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@capacitor/core": "^6.1.2",
+    "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^3.4.2",
     "@libsql/client": "^0.6.2",
     "@supabase/ssr": "^0.4.0",
@@ -22,6 +23,7 @@
     "cloudinary": "^2.2.0",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
+    "emailjs": "^4.0.3",
     "html-react-parser": "^5.1.16",
     "keen-slider": "^6.8.6",
     "next": "^14.2.13",

@@ -190,9 +190,8 @@ export default function Page() {
         </div>
 
         <h1 className="grow text-lg lg:text-2xl w-full text-white">
-          <span className="text-white font-bold text-2xl ml-2">#</span>
-          اسم المسلسل{' '}
-          <span className="text-white">{episodes[0]?.seriesName}</span>
+          <span className="text-gray-500 ml-2">#</span>
+          اسم المسلسل <span className="">{episodes[0]?.seriesName}</span>
         </h1>
       </div>
       <div className="my-2 p-2">

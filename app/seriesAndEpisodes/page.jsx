@@ -7,6 +7,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
+import { ContactUs } from '../../components/sendEmail/sendEmail';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -154,8 +155,8 @@ export default function SeriesAndEpisodes() {
         </div>
 
         <h1 className="grow text-lg lg:text-2xl w-full text-white">
-          <span className="text-white font-bold text-2xl ml-2">#</span>
-          اسم المسلسل <span className="text-white">{seriesName}</span>
+          <span className="text-gray-500 ml-2">#</span>
+          اسم المسلسل <span>{seriesName}</span>
         </h1>
       </div>
       {/* أزرار التنقل بين الحلقات */}
@@ -200,6 +201,7 @@ export default function SeriesAndEpisodes() {
               </div>
             </div>
           ))}
+          <ContactUs />
         </div>
       </div>
     </div>

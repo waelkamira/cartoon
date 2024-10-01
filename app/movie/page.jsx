@@ -9,6 +9,8 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import HappyTagAdMovies from '../../components/ads/happyTagAdMovies';
+import { ContactUs } from '../../components/sendEmail/sendEmail';
+
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
@@ -82,9 +84,9 @@ export default function Page() {
             <BackButton />
           </div>
           <h1 className="grow text-lg lg:text-2xl w-full text-white">
-            <span className="text-white font-bold text-2xl ml-2">#</span>
+            <span className="text-gray-500 ml-2">#</span>
             اسم الفيلم:
-            <span className="text-white"> {movie[0]?.movieName}</span>
+            <span> {movie[0]?.movieName}</span>
           </h1>
           {showMessage && (
             <h1 className="text-yellow-400 ">
@@ -110,6 +112,7 @@ export default function Page() {
                 </div>
               ))}
           </div>
+          <ContactUs />
         </div>
       </div>
     </>

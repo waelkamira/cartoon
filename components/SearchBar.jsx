@@ -170,9 +170,9 @@ export default function SearchBar() {
                         </button>
                       )}
                     <div
-                      onClick={() => {
+                      onClick={async () => {
                         if (result?.episodeName) {
-                          router.push(
+                          await router.push(
                             `/episodes?episodeName=${result?.episodeName}`
                           );
                           setTimeout(() => {
@@ -186,13 +186,20 @@ export default function SearchBar() {
                             window?.location?.reload();
                           }, 3000);
                         } else if (result?.movieName) {
-                          router.push(`/movie?movieName=${result?.movieName}`);
+                          await router.push(
+                            `/movie?movieName=${result?.movieName}`
+                          );
+                          setTimeout(() => {
+                            window?.location?.reload();
+                          }, 3000);
                         } else if (result?.songName) {
                           dispatch({
                             type: 'SONG_NAME',
                             payload: result?.songName,
                           });
-                          router.push(`/song?songName=${result?.songName}`);
+                          await router.push(
+                            `/song?songName=${result?.songName}`
+                          );
                           setTimeout(() => {
                             window?.location?.reload();
                           }, 3000);
@@ -201,7 +208,7 @@ export default function SearchBar() {
                             type: 'SPACETOON_SONG_NAME',
                             payload: result?.spacetoonSongName,
                           });
-                          router.push(
+                          await router.push(
                             `/spacetoonSong?spacetoonSongName=${result?.spacetoonSongName}`
                           );
                           setTimeout(() => {

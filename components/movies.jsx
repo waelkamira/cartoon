@@ -60,7 +60,7 @@ export default function MoviesPlanet({ vertical = false }) {
 
     // Cleanup timer if the component is unmounted
     return () => clearTimeout(timer);
-  }, [newMovie, deletedMovie, pageNumber, window?.innerWidth]);
+  }, [newMovie, deletedMovie, pageNumber]);
 
   useEffect(() => {
     if (moviesInstanceRef.current) {
@@ -177,11 +177,9 @@ export default function MoviesPlanet({ vertical = false }) {
               <div
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
                 key={movie?.id}
-                onClick={() => {
+                onClick={async () => {
+                  // التنقل إلى الرابط الجديد
                   router.push(`/movie?movieName=${movie?.movieName}`);
-                  setTimeout(() => {
-                    window?.location?.reload();
-                  }, 3000);
                 }}
               >
                 <div

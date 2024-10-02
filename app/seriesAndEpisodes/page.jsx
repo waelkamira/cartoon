@@ -8,6 +8,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import HappyTagAd from '../../components/ads/happyTagAd';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -188,6 +189,8 @@ export default function SeriesAndEpisodes() {
               className="flex flex-col items-center justify-start rounded-lg overflow-hidden "
             >
               <div className={'w-full'}>
+                <HappyTagAd render={episode.id} />
+
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
                 </h1>

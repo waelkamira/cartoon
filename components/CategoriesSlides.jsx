@@ -5,56 +5,58 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import LoadingPhoto from './LoadingPhoto';
 
-const animation = { duration: 50000, easing: (t) => t };
-
 const photos = [
   {
     image: 'https://i.imgur.com/p7UQdQ8.png',
-    number: 'number-slide1',
-  },
-  {
-    image: 'https://i.imgur.com/EubV7nc.png',
     number: 'number-slide2',
   },
   {
-    image: 'https://i.imgur.com/1Ugllxw.png',
+    image: 'https://i.imgur.com/EubV7nc.png',
     number: 'number-slide3',
   },
   {
-    image: 'https://i.imgur.com/4A2IYpJ.png',
+    image: 'https://i.imgur.com/Aghx8tZ.png',
+    number: 'number-slide1',
+  },
+  {
+    image: 'https://i.imgur.com/1Ugllxw.png',
     number: 'number-slide4',
   },
   {
-    image: 'https://i.imgur.com/W7nzzPV.png',
+    image: 'https://i.imgur.com/4A2IYpJ.png',
     number: 'number-slide5',
   },
   {
-    image: 'https://i.imgur.com/OY4UoU4.jpg',
+    image: 'https://i.imgur.com/W7nzzPV.png',
     number: 'number-slide6',
   },
   {
-    image: 'https://i.imgur.com/SOUJJ0O.png',
+    image: 'https://i.imgur.com/OY4UoU4.jpg',
     number: 'number-slide7',
   },
   {
-    image: 'https://i.imgur.com/1eD6a06.jpg',
+    image: 'https://i.imgur.com/SOUJJ0O.png',
     number: 'number-slide8',
   },
   {
-    image: 'https://i.imgur.com/HOB8BHo.jpg',
+    image: 'https://i.imgur.com/1eD6a06.jpg',
     number: 'number-slide9',
   },
   {
-    image: 'https://i.imgur.com/R7og6B0.jpg',
+    image: 'https://i.imgur.com/HOB8BHo.jpg',
     number: 'number-slide10',
   },
   {
-    image: 'https://i.imgur.com/VUUR6NK.png',
+    image: 'https://i.imgur.com/R7og6B0.jpg',
     number: 'number-slide11',
   },
   {
-    image: 'https://i.imgur.com/tebUmkF.png',
+    image: 'https://i.imgur.com/VUUR6NK.png',
     number: 'number-slide12',
+  },
+  {
+    image: 'https://i.imgur.com/tebUmkF.png',
+    number: 'number-slide13',
   },
 ];
 

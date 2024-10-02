@@ -73,7 +73,7 @@ export default function LogInPage() {
       const values = getValues();
 
       localStorage.setItem('email', values?.email);
-      localStorage.setItem('password', values?.password);
+      // localStorage.setItem('password', values?.password);
       router.push('/');
       toast.custom((t) => (
         <CustomToast

@@ -55,7 +55,6 @@ export default function Page() {
 
   return (
     <div className="bg-one">
-      <HappyTagAd />
       <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
         <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
           <TfiMenuAlt
@@ -87,6 +86,7 @@ export default function Page() {
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية:{' '}
             <span className="">{spacetoonSong[0]?.spacetoonSongName}</span>
+            <HappyTagAd render={spacetoonSong[0]?.spacetoonSongName} />
           </h1>
         </div>
 

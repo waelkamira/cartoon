@@ -89,11 +89,8 @@ export default function SportPlanetMostViewed() {
                 key={series.id}
                 onClick={() => {
                   router.push(
-                    `/seriesAndEpisodes?seriesName=${series.seriesName}`
+                    `/seriesAndEpisodes?seriesName=${series?.seriesName}`
                   );
-                  setTimeout(() => {
-                    window?.location?.reload();
-                  }, 3000);
                 }}
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden mx-2 hover:cursor-pointer">

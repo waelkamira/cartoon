@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import { useSession } from 'next-auth/react';
 import SideBarMenu from './SideBarMenu';
@@ -23,9 +23,9 @@ export default function HomePage() {
   const [active, setActive] = useState(false);
   const session = useSession();
   const user = CurrentUser();
-  if (typeof window !== 'undefined' && session?.user?.image) {
-    localStorage.setItem('image', JSON.stringify(session.user.image));
-  }
+  useEffect(() => {
+    sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
+  }, []);
 
   return (
     <>

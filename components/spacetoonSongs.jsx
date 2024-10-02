@@ -9,7 +9,6 @@ import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
-import HappyTagAd from './ads/happyTagAd';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 export default function SpacetoonSongs({
   vertical = false,
@@ -163,6 +162,8 @@ export default function SpacetoonSongs({
                   type: 'SPACETOON_SONG_NAME',
                   payload: song?.spacetoonSongName,
                 });
+
+                // التنقل إلى الرابط الجديد
                 router.push(
                   `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
                 );

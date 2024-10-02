@@ -91,12 +91,10 @@ export default function ActionPlanetMostViewed() {
                 className=" flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
                 key={series.id}
                 onClick={() => {
+                  // التنقل إلى الرابط الجديد
                   router.push(
-                    `/seriesAndEpisodes?seriesName=${series.seriesName}`
+                    `/seriesAndEpisodes?seriesName=${series?.seriesName}`
                   );
-                  setTimeout(() => {
-                    window?.location?.reload();
-                  }, 3000);
                 }}
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden hover:cursor-pointer">

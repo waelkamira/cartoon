@@ -4,6 +4,7 @@ import { Rubik } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
+import HappyTagAd from '../components/ads/happyTagAd';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 
 const inter = Inter({ subsets: ['latin'] });
@@ -38,6 +39,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
+        {/* <HappyTagAd /> */}
+
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>
           <iframe

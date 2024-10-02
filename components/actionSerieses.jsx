@@ -60,7 +60,7 @@ export default function ActionPlanet({ vertical = false }) {
 
     // Cleanup timer if the component is unmounted
     return () => clearTimeout(timer);
-  }, [newSeries, deletedSeries, pageNumber, window?.innerWidth]);
+  }, [newSeries, deletedSeries, pageNumber]);
 
   useEffect(() => {
     if (actionInstanceRef.current) {
@@ -183,12 +183,10 @@ export default function ActionPlanet({ vertical = false }) {
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
                 key={series?.id}
                 onClick={() => {
+                  // التنقل إلى الرابط الجديد
                   router.push(
                     `/seriesAndEpisodes?seriesName=${series?.seriesName}`
                   );
-                  setTimeout(() => {
-                    window?.location?.reload();
-                  }, 3000);
                 }}
               >
                 <div

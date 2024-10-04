@@ -9,6 +9,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Songs from '../../components/kidsSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import VideoPlayer from '../../components/VideoPlayer';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function Page() {
         const songNameFromUrl = urlParams.get('songName');
         // console.log('songNameFromUrl', songNameFromUrl);
         if (songNameFromUrl && songNameFromUrl !== songName) {
+          console.log('songName', songNameFromUrl);
           setSongName(songNameFromUrl);
         }
       }
@@ -42,6 +44,7 @@ export default function Page() {
   async function fetchSong() {
     const response = await fetch(`/api/songs?songName=${songName}`);
     const json = await response?.json();
+    console.log('song', json);
     if (response.ok) {
       setSong(json);
     }
@@ -95,24 +98,12 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.songLink}
                   >
-                    <video
-                      key={item.songLink}
-                      width="100%"
-                      height="500px"
-                      controls
-                      poster={item?.songImage}
-                      oncontextmenu="return false"
-                      autoPlay
-                      loop
-                      onSeeked={() => {
-                        const video = document.querySelector('video');
-                        if (video.currentTime === 0) {
-                          window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
-                        }
-                      }}
-                    >
-                      <source src={item?.songLink} type="video/mp4" />
-                    </video>
+                    <VideoPlayer
+                      videoUrl={item?.songLink}
+                      image={item?.songImage}
+                      episodeName={item?.songName}
+                      // onNextEpisode={handleNextSong} // تمرير دالة الانتقال للحلقة التالية
+                    />
                   </div>
                 );
               })}

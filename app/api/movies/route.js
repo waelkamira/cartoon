@@ -32,9 +32,6 @@ export async function GET(req) {
   const movieName = searchParams.get('movieName') || '';
   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
 
-  // تحديد ترتيب الأفلام بناءً على قيمة mostViewed
-  const order = mostViewed ? 'updated_at' : 'created_at'; // الترتيب حسب mostViewed
-
   try {
     const movies = readMoviesFromCSV();
 
@@ -48,10 +45,17 @@ export async function GET(req) {
       });
     }
 
-    // ترتيب الأفلام حسب الحقل المحدد بترتيب تصاعدي
-    movies.sort((a, b) => new Date(a[order]) - new Date(b[order]));
+    // إذا كانت قيمة mostViewed true، قم بترتيب الأفلام حسب updated_at
+    // وإذا كانت false، قم بترتيب الأفلام بشكل عشوائي
+    if (mostViewed) {
+      movies.sort(
+        (a, b) => new Date(a['updated_at']) - new Date(b['updated_at'])
+      );
+    } else {
+      movies.sort(() => Math.random() - 0.5); // ترتيب عشوائي
+    }
 
-    // عرض الأفلام بالترتيب بناءً على mostViewed أو created_at
+    // عرض الأفلام بالترتيب بناءً على mostViewed أو الترتيب العشوائي
     const paginatedMovies = movies.slice(skip, skip + limit);
     return new Response(JSON.stringify(paginatedMovies), {
       headers: { 'Content-Type': 'application/json' },
@@ -64,6 +68,7 @@ export async function GET(req) {
     });
   }
 }
+
 export async function POST(req) {
   try {
     const { movieName, movieImage, movieLink } = await req.json();

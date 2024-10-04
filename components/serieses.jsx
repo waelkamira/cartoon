@@ -1,6 +1,7 @@
 'use client';
 
 import KidsSongs from './kidsSongs';
+import KidsSongsMostView from './kidsSongsMostView';
 import NewSerieses from './newSerieses';
 import ZomurodaPlanet from './zomurodaSerieses';
 import AdventuresPlanet from './adventuresSerieses';
@@ -14,16 +15,12 @@ import AdventuresPlanetMostViewed from './adventuresSeriesesMostViewed';
 import ActionPlanetMostViewed from './actionSeriesesMostViewed';
 import MoviesPlanetMostViewed from './moviesMostViewed';
 import BonbonaPlanetMostViewed from './bonbonaSeriesesMostViewed';
-import AdScript from './ads/ads';
 import SpacetoonSongs from './spacetoonSongs';
 export default function Serieses() {
   return (
     <div className="w-full">
-      {/* <VideoPlayer /> */}
       <NewSerieses />
-      {/* <div className="w-full h-72">
-        <AdScript />
-      </div> */}
+
       <ZomurodaPlanet />
       <ZomurodaPlanetMostViewed />
       <SpacetoonSongs />
@@ -36,6 +33,7 @@ export default function Serieses() {
       <Movies />
       <MoviesPlanetMostViewed />
       <KidsSongs />
+      <KidsSongsMostView />
       <BonbonaPlanet />
       <BonbonaPlanetMostViewed />
     </div>

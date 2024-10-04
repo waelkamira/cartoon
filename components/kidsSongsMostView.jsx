@@ -9,7 +9,6 @@ import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
-import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function KidsSongs({
   vertical = false,
@@ -21,7 +20,6 @@ export default function KidsSongs({
   const { newSong, deletedSong, dispatch } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [showMessage, setShowMessage] = useState(true);
 
   const [songsSliderRef, songsInstanceRef] = useKeenSlider({
     loop: false,
@@ -51,12 +49,6 @@ export default function KidsSongs({
 
   useEffect(() => {
     fetchSongs();
-    const timer = setTimeout(() => {
-      setShowMessage(false);
-    }, 90000);
-
-    // Cleanup timer if the component is unmounted
-    return () => clearTimeout(timer);
   }, [newSong, deletedSong, pageNumber]);
 
   useEffect(() => {
@@ -67,9 +59,7 @@ export default function KidsSongs({
 
   async function fetchSongs() {
     try {
-      const response = await fetch(
-        `/api/songs?page=${pageNumber}&limit=4&random=true`
-      );
+      const response = await fetch(`/api/songs?page=${pageNumber}&limit=4`);
       const json = await response.json();
       if (response.ok) {
         // console.log('songs', songs);
@@ -104,37 +94,22 @@ export default function KidsSongs({
         ''
       )}
 
-      {image ? (
-        <div className="relative h-44 w-48 sm:h-[300px] sm:w-80">
-          <Image
-            src={'https://i.imgur.com/rRBpVhp.png'}
-            layout="fill"
-            objectFit="cover"
-            alt={'أغاني أطفال'}
-          />{' '}
-        </div>
-      ) : (
-        ''
-      )}
       {vertical && (
         <div className="flex items-center w-full px-8 my-4">
           <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
         </div>
       )}
       {title ? (
-        <h1 className="w-full text-start p-2 text-white my-2">أغاني أطفال</h1>
+        <h1 className="w-full text-start p-2 text-white my-2">
+          {/* أغاني أطفال */}
+          الأكثر مشاهدة
+        </h1>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">
           المزيد من الأغاني
         </h1>
       )}
-      {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
-          <MdKeyboardDoubleArrowRight />
 
-          <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>
-        </div>
-      )}
       <div
         ref={songsSliderRef}
         className={

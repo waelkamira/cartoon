@@ -128,7 +128,8 @@ export default function SpacetoonSongs({
       )}
       {title ? (
         <h1 className="w-full text-start p-2 text-white my-2">
-          أغاني سبيس تون
+          {/* أغاني سبيس تون */}
+          الأكثر مشاهدة
         </h1>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">
@@ -174,7 +175,7 @@ export default function SpacetoonSongs({
             >
               <div
                 className={
-                  (vertical ? 'w-72 h-44' : 'w-40 h-24') +
+                  (vertical ? 'w-72 h-44' : 'w-40 h-20') +
                   ' relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden hover:cursor-pointer'
                 }
               >

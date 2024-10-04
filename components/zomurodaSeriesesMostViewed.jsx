@@ -49,7 +49,7 @@ export default function ZomurodaPlanetMostViewed() {
   async function fetchZomurodaMostViewed() {
     try {
       const response = await fetch(
-        `/api/serieses?page=${pageNumber}&planetName=زمردة&limit=4&&mostViewed=${true}`
+        `/api/serieses?page=${pageNumber}&planetName=زمردة&limit=4&mostViewed=${true}`
       );
       const json = await response?.json();
       if (response.ok) {

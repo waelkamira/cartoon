@@ -8,7 +8,6 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
-import HappyTagAdMovies from '../../components/ads/happyTagAdMovies';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import HappyTagAd from '../../components/ads/happyTagAd';
 

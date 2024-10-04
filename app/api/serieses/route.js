@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import Papa from 'papaparse'; // استخدام مكتبة PapaParse
-import { v4 as uuidv4 } from 'uuid';
 import { NextResponse } from 'next/server';
 
 // وظيفة مساعدة لقراءة ملف CSV وتحويله إلى كائن JSON باستخدام PapaParse
@@ -41,12 +40,9 @@ export async function GET(req) {
   const skip = (page - 1) * limit;
   const seriesName = searchParams.get('seriesName') || '';
   const planetName = searchParams.get('planetName') || '';
-  const mostViewed = searchParams.get('mostViewed') || false;
+  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
 
   try {
-    const order = mostViewed ? 'updated_at' : 'created_at';
-    const ascending = mostViewed ? true : false;
-
     // مسار ملف CSV
     const filePath = path.join(process.cwd(), 'csv', 'serieses.csv');
     const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -68,12 +64,18 @@ export async function GET(req) {
       serieses = serieses.filter((series) => series.mostViewed === 'true');
     }
 
-    // ترتيب البيانات بناءً على الحقل المحدد (created_at أو updated_at)
-    serieses.sort((a, b) => {
-      const dateA = new Date(a[order]);
-      const dateB = new Date(b[order]);
-      return ascending ? dateA - dateB : dateB - dateA;
-    });
+    // ترتيب البيانات
+    if (mostViewed) {
+      // ترتيب بناءً على updated_at إذا كان mostViewed === true
+      serieses.sort((a, b) => {
+        const dateA = new Date(a['updated_at']);
+        const dateB = new Date(b['updated_at']);
+        return dateA - dateB;
+      });
+    } else {
+      // ترتيب عشوائي إذا كان mostViewed === false
+      serieses.sort(() => Math.random() - 0.5);
+    }
 
     // تقسيم البيانات للصفحة الحالية
     const paginatedData = serieses.slice(skip, skip + limit);

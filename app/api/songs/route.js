@@ -9,7 +9,7 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get('limit')) || 4; // تحديد limit بـ 4
   const skip = (page - 1) * limit;
   const songName = searchParams.get('songName') || '';
-  const random = searchParams.get('random') === 'true'; // التحقق من random
+  const random = searchParams.get('random') || false; // التحقق من random
 
   try {
     // مسار ملف CSV
@@ -30,7 +30,7 @@ export async function GET(req) {
       songs = songs.sort(() => 0.5 - Math.random());
     } else {
       // ترتيب الأغاني بناءً على created_at
-      songs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      songs.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     }
 
     // تقسيم البيانات للصفحة الحالية

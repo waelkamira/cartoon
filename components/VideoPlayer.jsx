@@ -43,6 +43,18 @@ export default function VideoPlayer({
     const adjustedUrl = adjustVideoQuality(videoUrl);
 
     if (
+      adjustedUrl.includes('youtube.com') ||
+      adjustedUrl.includes('youtu.be')
+    ) {
+      // إذا كان الفيديو من YouTube
+      const videoIdMatch = adjustedUrl.match(
+        /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/
+      );
+      if (videoIdMatch && videoIdMatch[1]) {
+        setVideoSource('youtube');
+        setVideoId(videoIdMatch[1]); // حفظ ID الفيديو
+      }
+    } else if (
       adjustedUrl.includes('cdn.arteenz.com') ||
       adjustedUrl.includes('ooanime')
     ) {
@@ -164,6 +176,22 @@ export default function VideoPlayer({
             </div>
           ) : (
             <>
+              {videoSource === 'youtube' && (
+                <div className="w-full h-full flex justify-center items-center">
+                  <iframe
+                    ref={videoRef}
+                    className="w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                    allowFullScreen={true}
+                    allow="autoplay; fullscreen; encrypted-media"
+                    title="YouTube Video Player"
+                    onLoadedMetadata={updateAspectRatio}
+                    onEnded={handleVideoEnd}
+                    onDoubleClick={handleFullScreen}
+                    loop
+                  />
+                </div>
+              )}
               {videoSource === 'arteenz' && (
                 <video
                   ref={videoRef}
@@ -173,11 +201,8 @@ export default function VideoPlayer({
                   poster={image}
                   controlsList="nodownload"
                   onLoadedMetadata={updateAspectRatio}
-                  onPlay={() => videoRef.current.play()}
-                  onContextMenu="return false"
-                  onDragStart={(e) => e.preventDefault()}
+                  onContextMenu={(e) => e.preventDefault()}
                   referrerPolicy="no-referrer"
-                  allow="fullscreen"
                   autoPlay
                   onEnded={handleVideoEnd}
                   onDoubleClick={handleFullScreen}
@@ -192,17 +217,10 @@ export default function VideoPlayer({
                     className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
                     src={`${videoId}?autoplay=1`}
                     allowFullScreen={true}
-                    controls={true}
                     frameBorder="0"
                     allow="autoplay; fullscreen"
                     sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
                     title="Video Player"
-                    autoPlay
-                    style={{
-                      border: '0px solid #ccc',
-                      overflow: 'hidden',
-                    }}
-                    scrolling="no"
                     onEnded={handleVideoEnd}
                     onDoubleClick={handleFullScreen}
                   ></iframe>
@@ -217,16 +235,13 @@ export default function VideoPlayer({
                   poster={image}
                   controlsList="nodownload"
                   onLoadedMetadata={updateAspectRatio}
-                  onPlay={() => videoRef.current.play()}
-                  onContextMenu="return false"
-                  onDragStart={(e) => e.preventDefault()}
+                  onContextMenu={(e) => e.preventDefault()}
                   referrerPolicy="no-referrer"
-                  allow="fullscreen"
                   autoPlay
                   onEnded={handleVideoEnd}
                   onDoubleClick={handleFullScreen}
                 >
-                  <source src={`${videoId}?autoplay=0`} type="video/mp4" />
+                  <source src={`${videoId}?autoplay=1`} type="video/mp4" />
                 </video>
               )}
             </>

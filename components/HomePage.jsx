@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import SideBarMenu from './SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import CategoriesSlides from './CategoriesSlides';
@@ -23,6 +23,7 @@ export default function HomePage() {
   const [active, setActive] = useState(false);
   const session = useSession();
   const user = CurrentUser();
+  console.log('user', user);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
   }, []);
@@ -47,25 +48,9 @@ export default function HomePage() {
               />
             </div>
             <SearchBar />
-            {/* <ShareButton /> */}
           </div>
           <CategoriesSlides />
-          {/* <iframe src="" frameborder="0"></iframe> */}
-          {/* <video
-            className="w-full h-full"
-            controls
-            controlsList="nodownload"
-            oncontextmenu="return false"
-            referrerPolicy="no-referrer"
-            allow="fullscreen"
-          >
-            <source
-              src={
-                'https://tfs78.asd-dl.store/d/k4ql7svrfsrnuwfu4f6i3ypduzkygwopo3qpf2xladbdux6j5hzlbweeyopia4skf3jqb7yy/video.mp4'
-              }
-              type="video/mp4"
-            />
-          </video> */}
+
           <div className={'p-4'}>
             {user?.isAdmin && (
               <>
@@ -100,6 +85,13 @@ export default function HomePage() {
             {/* انتبه يتم تفعيل هذا الخيار فقط عندما نريد اضافة مسلسل او فيلم او حلقة .. الخ وليس متاح للمستخدمين */}
             {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
+            )}
+            {session?.status === 'authenticated' && (
+              <Button
+                title={'تسجيل الخروج'}
+                path={'/'}
+                onClick={() => signOut()}
+              />
             )}
           </div>
         </div>

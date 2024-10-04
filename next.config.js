@@ -28,6 +28,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'imgur.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
     ],
   },
 };

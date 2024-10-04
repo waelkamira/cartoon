@@ -140,9 +140,9 @@ export default function SpacetoonSongs({
                 router.push(
                   `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
                 );
-                setTimeout(() => {
-                  window?.location?.reload();
-                }, 3000);
+                // setTimeout(() => {
+                //   window?.location?.reload();
+                // }, 3000);
               }}
             >
               <div

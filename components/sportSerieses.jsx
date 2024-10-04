@@ -171,7 +171,7 @@ export default function SportPlanet({ vertical = false }) {
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"
             >
-              {session?.status === 'authenticated' && user?.isAdmin === 1 && (
+              {session?.status === 'authenticated' && user?.isAdmin === '1' && (
                 <button
                   className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
                   onClick={() => handleAdd(series?.id)}

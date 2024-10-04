@@ -86,6 +86,21 @@ export default function VideoPlayer({
     };
   }, [videoUrl]);
 
+  useEffect(() => {
+    const iframe = videoRef.current;
+    if (iframe) {
+      const handleIframeClick = (event) => {
+        event.preventDefault();
+        console.log('تم منع النقر على iframe');
+      };
+      iframe.addEventListener('click', handleIframeClick);
+
+      return () => {
+        iframe.removeEventListener('click', handleIframeClick);
+      };
+    }
+  }, [videoRef]);
+
   const blockAdsAndPopups = () => {
     window.open = () => null; // منع فتح النوافذ الجديدة
   };
@@ -101,8 +116,11 @@ export default function VideoPlayer({
   };
 
   const handleVideoEnd = () => {
-    // عند انتهاء الحلقة الحالية، الانتقال تلقائيًا إلى الحلقة التالية
-    if (onNextEpisode) onNextEpisode();
+    if (onNextEpisode) {
+      onNextEpisode(); // الانتقال إلى الحلقة التالية
+    } else {
+      videoRef.current.play(); // إعادة تشغيل الفيديو
+    }
   };
 
   const handleFullScreen = () => {
@@ -181,12 +199,12 @@ export default function VideoPlayer({
                   <iframe
                     ref={videoRef}
                     className="w-full h-full min-h-72 sm:h-96 md:h-[500px] lg:h-[700px]"
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
                     allowFullScreen={true}
-                    allow="autoplay; fullscreen; encrypted-media"
+                    sandbox="allow-same-origin allow-scripts allow-forms"
                     title="YouTube Video Player"
                     onLoadedMetadata={updateAspectRatio}
-                    onEnded={handleVideoEnd}
+                    onEnded={handleVideoEnd} // تحديث الصفحة عند انتهاء الفيديو
                     onDoubleClick={handleFullScreen}
                     loop
                   />

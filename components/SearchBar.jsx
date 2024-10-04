@@ -157,7 +157,7 @@ export default function SearchBar() {
                 return (
                   <>
                     {session?.status === 'authenticated' &&
-                      user?.isAdmin === 1 && (
+                      user?.isAdmin === '1' && (
                         <button
                           className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
                           onClick={() =>

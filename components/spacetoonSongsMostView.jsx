@@ -20,7 +20,6 @@ export default function SpacetoonSongs({
   const { newSpacetoonSong, dispatch } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [showMessage, setShowMessage] = useState(true);
 
   // console.log('newSpacetoonSong', newSpacetoonSong);
   const [spacetoonSongsSliderRef, spacetoonSongsInstanceRef] = useKeenSlider({
@@ -51,12 +50,6 @@ export default function SpacetoonSongs({
 
   useEffect(() => {
     fetchSpacetoonSongs();
-    const timer = setTimeout(() => {
-      setShowMessage(false);
-    }, 40000);
-
-    // Cleanup timer if the component is unmounted
-    return () => clearTimeout(timer);
   }, [newSpacetoonSong, pageNumber]);
 
   useEffect(() => {
@@ -68,7 +61,7 @@ export default function SpacetoonSongs({
   async function fetchSpacetoonSongs() {
     try {
       const response = await fetch(
-        `/api/spacetoonSongs?page=${pageNumber}&limit=4&random=true`
+        `/api/spacetoonSongs?page=${pageNumber}&limit=4`
       );
       const json = await response.json();
       if (response.ok) {
@@ -109,39 +102,19 @@ export default function SpacetoonSongs({
         ''
       )}
 
-      {image ? (
-        <div className="relative h-32 w-52 sm:h-60 sm:w-96">
-          <Image
-            src={'https://i.imgur.com/BWPdDAF.png'}
-            layout="fill"
-            objectFit="cover"
-            alt={'زمردة'}
-          />{' '}
-        </div>
-      ) : (
-        ''
-      )}
       {vertical && (
         <div className="flex items-center w-full px-8 my-4">
           <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
         </div>
       )}
       {title ? (
-        <h1 className="w-full text-start p-2 text-white my-2">
-          أغاني سبيس تون
-        </h1>
+        <h1 className="w-full text-start p-2 text-white my-2">الأكثر مشاهدة</h1>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">
           المزيد من الأغاني
         </h1>
       )}
-      {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
-          <MdKeyboardDoubleArrowRight />
 
-          <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>
-        </div>
-      )}
       <div
         ref={spacetoonSongsSliderRef}
         className={

@@ -16,6 +16,7 @@ import ActionPlanetMostViewed from './actionSeriesesMostViewed';
 import MoviesPlanetMostViewed from './moviesMostViewed';
 import BonbonaPlanetMostViewed from './bonbonaSeriesesMostViewed';
 import SpacetoonSongs from './spacetoonSongs';
+import SpacetoonSongsMostView from './spacetoonSongsMostView';
 export default function Serieses() {
   return (
     <div className="w-full">
@@ -24,6 +25,7 @@ export default function Serieses() {
       <ZomurodaPlanet />
       <ZomurodaPlanetMostViewed />
       <SpacetoonSongs />
+      <SpacetoonSongsMostView />
       <AdventuresPlanet />
       <AdventuresPlanetMostViewed />
       <SportPlanet />

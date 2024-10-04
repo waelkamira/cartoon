@@ -25,7 +25,8 @@ export default function ActionPlanet({ vertical = false }) {
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
-
+  console.log('session', session?.data);
+  console.log('user', user);
   const [actionSliderRef, actionInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -171,7 +172,7 @@ export default function ActionPlanet({ vertical = false }) {
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"
             >
-              {session?.status === 'authenticated' && user?.isAdmin === 1 && (
+              {session?.status === 'authenticated' && user?.isAdmin === '1' && (
                 <button
                   className="bg-green-400 rounded-full px-2 my-2 hover:scale-105 w-fit text-center mx-2"
                   onClick={() => handleAdd(series?.id)}

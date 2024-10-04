@@ -39,7 +39,7 @@ export default function SideBarMenu({ setIsOpen }) {
       </div> */}
 
         <div className="relative p-4 ">
-          {/* {session?.status === 'authenticated' && user?.isAdmin === 1 && (
+          {/* {session?.status === 'authenticated' && user?.isAdmin === '1'&& (
         <>
           {' '}
           <Button path={'/users'} title={'المستخدمين'} />

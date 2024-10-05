@@ -1,20 +1,20 @@
 'use client';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import BackButton from '../../components/BackButton';
 import Image from 'next/image';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
-import { inputsContext } from '../../components/Context';
 import SpacetoonSongs from '../../components/spacetoonSongs';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import VideoPlayer from '../../components/VideoPlayer';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
-  const { SpacetoonSongName } = useContext(inputsContext);
+  // const { spacetoonSongName } = useContext(inputsContext);
   const [spacetoonSongName, setSpacetoonSongName] = useState('');
 
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
@@ -41,7 +41,7 @@ export default function Page() {
     if (spacetoonSongName) {
       fetchSpacetoonSong();
     }
-  }, [spacetoonSongName, SpacetoonSongName]);
+  }, [spacetoonSongName]);
 
   async function fetchSpacetoonSong() {
     const response = await fetch(
@@ -80,17 +80,16 @@ export default function Page() {
           )}
         </div>
 
-        <div className="flex flex-col justify-start items-center w-full gap-4 my-8 px-2">
+        <div className="flex flex-col justify-start items-center w-full gap-4 my-4 px-2">
           <BackButton />
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
-            اسم الأغنية:{' '}
-            <span className="">{spacetoonSong[0]?.spacetoonSongName}</span>
+            اسم الأغنية: <span>{spacetoonSong[0]?.spacetoonSongName}</span>
             <HappyTagAd render={spacetoonSong[0]?.spacetoonSongName} />
           </h1>
         </div>
 
-        <div className="my-8 p-2">
+        <div className="my-2 p-2">
           {spacetoonSong?.length === 0 && (
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
@@ -102,24 +101,11 @@ export default function Page() {
                     className=" flex flex-col items-center justify-center rounded-lg overflow-hidden w-full"
                     key={item.spacetoonSongLink}
                   >
-                    <video
-                      key={item.spacetoonSongLink}
-                      width="100%"
-                      height="500px"
-                      controls
-                      poster={item?.spacetoonSongImage}
-                      oncontextmenu="return false"
-                      autoPlay
-                      loop
-                      onSeeked={() => {
-                        const video = document.querySelector('video');
-                        if (video.currentTime === 0) {
-                          window.location.reload(); // إعادة تحميل الصفحة عند بداية التشغيل بعد الدورة الأولى
-                        }
-                      }}
-                    >
-                      <source src={item?.spacetoonSongLink} type="video/mp4" />
-                    </video>
+                    <VideoPlayer
+                      videoUrl={item.spacetoonSongLink}
+                      image={item?.spacetoonSongImage}
+                      episodeName={item?.spacetoonSongName}
+                    />
                   </div>
                 );
               })}

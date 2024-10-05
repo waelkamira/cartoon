@@ -26,7 +26,6 @@ export default function Page() {
         const songNameFromUrl = urlParams.get('songName');
         // console.log('songNameFromUrl', songNameFromUrl);
         if (songNameFromUrl && songNameFromUrl !== songName) {
-          console.log('songName', songNameFromUrl);
           setSongName(songNameFromUrl);
         }
       }
@@ -44,7 +43,6 @@ export default function Page() {
   async function fetchSong() {
     const response = await fetch(`/api/songs?songName=${songName}`);
     const json = await response?.json();
-    console.log('song', json);
     if (response.ok) {
       setSong(json);
     }
@@ -77,7 +75,7 @@ export default function Page() {
           )}
         </div>
 
-        <div className="flex flex-col justify-start items-center w-full gap-4 my-8 px-2">
+        <div className="flex flex-col justify-start items-center w-full gap-4 my-2 px-2">
           <BackButton />
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
@@ -86,7 +84,7 @@ export default function Page() {
           </h1>
         </div>
 
-        <div className="my-8 p-2">
+        <div className="my-2 p-2">
           {song?.length === 0 && (
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
@@ -99,10 +97,9 @@ export default function Page() {
                     key={item.songLink}
                   >
                     <VideoPlayer
-                      videoUrl={item?.songLink}
+                      videoUrl={item.songLink}
                       image={item?.songImage}
                       episodeName={item?.songName}
-                      // onNextEpisode={handleNextSong} // تمرير دالة الانتقال للحلقة التالية
                     />
                   </div>
                 );

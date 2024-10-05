@@ -72,7 +72,7 @@ export default function Page() {
             const nextEpisodeName = `${seriesName} الحلقة ${
               parseInt(match[1]) + 1
             }`;
-            console.log('nextEpisodeName', nextEpisodeName); // طباعة اسم الحلقة التالية للتحقق
+            // console.log('nextEpisodeName', nextEpisodeName); // طباعة اسم الحلقة التالية للتحقق
 
             // إرسال طلب جديد للتحقق مما إذا كانت هناك حلقة تالية
             const nextResponse = await fetch(

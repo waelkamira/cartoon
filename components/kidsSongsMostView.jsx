@@ -20,6 +20,7 @@ export default function KidsSongs({
   const { newSong, deletedSong, dispatch } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [previousPath, setPreviousPath] = useState('');
 
   const [songsSliderRef, songsInstanceRef] = useKeenSlider({
     loop: false,
@@ -57,6 +58,19 @@ export default function KidsSongs({
     }
   }, [songs, newSong]);
 
+  const handleSongClick = (songName) => {
+    const currentPath = window?.location?.pathname + window?.location?.search;
+    setPreviousPath(currentPath);
+
+    // التنقل إلى صفحة الأغنية
+    router.push(`/song?songName=${songName}`);
+    setTimeout(() => {
+      const newPath = window?.location?.pathname + window?.location?.search;
+      if (newPath !== previousPath && newPath.includes('/song')) {
+        window?.location?.reload();
+      }
+    }, 3000);
+  };
   async function fetchSongs() {
     try {
       const response = await fetch(`/api/songs?page=${pageNumber}&limit=4`);
@@ -94,19 +108,14 @@ export default function KidsSongs({
         ''
       )}
 
-      {vertical && (
-        <div className="flex items-center w-full px-8 my-4">
-          <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
-        </div>
-      )}
       {title ? (
         <h1 className="w-full text-start p-2 text-white my-2">
           {/* أغاني أطفال */}
           الأكثر مشاهدة
         </h1>
       ) : (
-        <h1 className="w-full text-start p-2 text-white my-2">
-          المزيد من الأغاني
+        <h1 className="w-full text-start text-white">
+          {/* المزيد من الأغاني */}
         </h1>
       )}
 
@@ -130,12 +139,7 @@ export default function KidsSongs({
                   type: 'KIDS_SONG_NAME',
                   payload: song?.songName,
                 });
-
-                // التنقل إلى الرابط الجديد
-                router.push(`/song?songName=${song?.songName}`);
-                // setTimeout(() => {
-                //   window?.location?.reload();
-                // }, 3000);
+                handleSongClick(song?.songName);
               }}
             >
               <div

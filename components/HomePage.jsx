@@ -23,7 +23,7 @@ export default function HomePage() {
   const [active, setActive] = useState(false);
   const session = useSession();
   const user = CurrentUser();
-  console.log('user', user);
+  // console.log('user', user);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
   }, []);

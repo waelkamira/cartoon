@@ -11,7 +11,6 @@ export async function GET(req) {
   const spacetoonSongName = searchParams.get('spacetoonSongName') || '';
   const random = searchParams.get('random') || false; // التحقق من random
 
-  console.log('spacetoonSongName', spacetoonSongName);
   try {
     // مسار ملف CSV
     const filePath = path.join(process.cwd(), 'csv', 'spacetoonSongs.csv');
@@ -19,27 +18,29 @@ export async function GET(req) {
 
     // تحليل بيانات CSV باستخدام PapaParse
     const parsedData = Papa.parse(fileContent, { header: true });
-    let songs = parsedData.data;
+    let spacetoonSongs = parsedData.data;
 
     // فلترة الأغاني حسب اسم الأغنية إن وجد
     if (spacetoonSongName) {
-      songs = songs.filter(
+      spacetoonSongs = spacetoonSongs.filter(
         (song) => song.spacetoonSongName === spacetoonSongName
       );
     }
 
     if (random) {
       // إذا كانت random=true، نقوم بخلط النتائج عشوائيا
-      songs = songs.sort(() => 0.5 - Math.random());
+      spacetoonSongs = spacetoonSongs.sort(() => 0.5 - Math.random());
     } else {
       // ترتيب الأغاني بناءً على created_at
-      songs.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      spacetoonSongs.sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      );
     }
 
     // تقسيم البيانات للصفحة الحالية
-    const paginatedSongs = songs.slice(skip, skip + limit);
+    const paginatedSpacetoonSongs = spacetoonSongs.slice(skip, skip + limit);
 
-    return new Response(JSON.stringify(paginatedSongs), {
+    return new Response(JSON.stringify(paginatedSpacetoonSongs), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
@@ -51,8 +52,7 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-  const { spacetoonSongName, spacetoonSongImage, spacetoonSongLink } =
-    await req?.json();
+  const { spacetoonSongName, songImage, songLink } = await req?.json();
 
   try {
     // مسار ملف CSV
@@ -61,19 +61,19 @@ export async function POST(req) {
 
     // تحليل بيانات CSV باستخدام PapaParse
     const parsedData = Papa.parse(fileContent, { header: true });
-    const songs = parsedData.data;
+    const spacetoonSongs = parsedData.data;
 
     // إضافة الأغنية الجديدة
     const newSong = {
       spacetoonSongName,
-      spacetoonSongImage,
-      spacetoonSongLink,
+      songImage,
+      songLink,
       created_at: new Date().toISOString(),
     };
-    songs.push(newSong);
+    spacetoonSongs.push(newSong);
 
     // إعادة كتابة البيانات إلى ملف CSV
-    const updatedCSV = Papa.unparse(songs);
+    const updatedCSV = Papa.unparse(spacetoonSongs);
     fs.writeFileSync(filePath, updatedCSV);
 
     return new Response(JSON.stringify(newSong), {
@@ -100,7 +100,6 @@ export async function POST(req) {
 //   const spacetoonSongName = searchParams.get('spacetoonSongName') || '';
 //   const random = searchParams.get('random') === 'true'; // التحقق من random
 
-//   console.log('spacetoonSongName', spacetoonSongName);
 //   try {
 //     let query = supabase1.from('spacetoonSongs').select('*');
 
@@ -110,25 +109,28 @@ export async function POST(req) {
 
 //     if (random) {
 //       // إذا كانت random=true، نختار الأغاني بشكل عشوائي بدون استخدام order
-//       let { data: allSongs, error: fetchError } = await query;
+//       let { data: allSpacetoonSongs, error: fetchError } = await query;
 //       if (fetchError) {
 //         throw fetchError;
 //       }
 //       // خلط النتائج عشوائيا
-//       allSongs = allSongs.sort(() => 0.5 - Math.random());
+//       allSpacetoonSongs = allSpacetoonSongs.sort(() => 0.5 - Math.random());
 //       // أخذ العدد المطلوب من الأغاني
-//       const songs = allSongs.slice(skip, skip + limit);
-//       return Response.json(songs);
+//       const spacetoonSongs = allSpacetoonSongs.slice(skip, skip + limit);
+//       return Response.json(spacetoonSongs);
 //     } else {
 //       // في حال عدم وجود random=true، نستخدم الترتيب الافتراضي
 //       query = query
 //         .range(skip, skip + limit - 1)
-//         .order('created_at', { ascending: true });
-//       let { data: songs, error: createError } = await query;
+//         .order('created_at', { ascending: false });
+//       let { data: spacetoonSongs, error: createError } = await query;
+
+//       // console.log('spacetoonSongs', spacetoonSongs);
 //       if (createError) {
 //         throw createError;
 //       }
-//       return Response.json(songs);
+
+//       return Response.json(spacetoonSongs);
 //     }
 //   } catch (error) {
 //     console.error(error);
@@ -137,15 +139,14 @@ export async function POST(req) {
 // }
 
 // export async function POST(req) {
-//   const { spacetoonSongName, spacetoonSongImage, spacetoonSongLink } =
-//     await req?.json();
+//   const { spacetoonSongName, songImage, songLink } = await req?.json();
 //   try {
 //     const { data: song, error: createError } = await supabase1
 //       .from('spacetoonSongs')
-//       .insert([{ spacetoonSongName, spacetoonSongImage, spacetoonSongLink }])
+//       .insert([{ spacetoonSongName, songImage, songLink }])
 //       .select();
 
-//     // console.log(spacetoonSongName, spacetoonSongImage);
+//     // console.log(spacetoonSongName, songImage);
 //     if (createError) {
 //       throw createError;
 //     }

@@ -10,6 +10,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import BackButton from './BackButton';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
+
 export default function SpacetoonSongs({
   vertical = false,
   image = true,
@@ -21,6 +22,7 @@ export default function SpacetoonSongs({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [showMessage, setShowMessage] = useState(true);
+  const [previousPath, setPreviousPath] = useState('');
 
   // console.log('newSpacetoonSong', newSpacetoonSong);
   const [spacetoonSongsSliderRef, spacetoonSongsInstanceRef] = useKeenSlider({
@@ -91,6 +93,25 @@ export default function SpacetoonSongs({
     }
   }
 
+  const handleSongClick = (songName) => {
+    // احفظ المسار السابق
+    const currentPath = window.location.pathname + window.location.search;
+    setPreviousPath(currentPath);
+
+    // التنقل إلى صفحة الأغنية
+    router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
+    setTimeout(() => {
+      const newPath = window.location.pathname + window.location.search;
+      console.log('newPath', newPath);
+      console.log('currentPath', currentPath);
+
+      // تحديث الصفحة فقط إذا تغير المسار
+      if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
+        window?.location?.reload();
+      }
+    }, 3000);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 ">
       {vertical ? (
@@ -121,19 +142,14 @@ export default function SpacetoonSongs({
       ) : (
         ''
       )}
-      {vertical && (
-        <div className="flex items-center w-full px-8 my-4">
-          <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
-        </div>
-      )}
+
       {title ? (
-        <h1 className="w-full text-start p-2 text-white my-2">
-          أغاني سبيس تون
-        </h1>
+        <h1 className="w-full text-start p-2 text-white">أغاني سبيس تون</h1>
       ) : (
-        <h1 className="w-full text-start p-2 text-white my-2">
-          المزيد من الأغاني
-        </h1>
+        // <h1 className="w-full text-start p-2 text-white my-2">
+        //   المزيد من الأغاني
+        // </h1>
+        ''
       )}
       {showMessage && (
         <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
@@ -157,19 +173,26 @@ export default function SpacetoonSongs({
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
+              // onClick={() => {
+              //   dispatch({
+              //     type: 'SPACETOON_SONG_NAME',
+              //     payload: song?.spacetoonSongName,
+              //   });
+
+              //   // التنقل إلى الرابط الجديد
+              // router.push(
+              //   `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
+              // );
+              //   setTimeout(() => {
+              //     window?.location?.reload();
+              //   }, 3000);
+              // }}
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',
                   payload: song?.spacetoonSongName,
                 });
-
-                // التنقل إلى الرابط الجديد
-                router.push(
-                  `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
-                );
-                setTimeout(() => {
-                  window?.location?.reload();
-                }, 3000);
+                handleSongClick(song?.spacetoonSongName);
               }}
             >
               <div

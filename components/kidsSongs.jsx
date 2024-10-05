@@ -22,6 +22,7 @@ export default function KidsSongs({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [showMessage, setShowMessage] = useState(true);
+  const [previousPath, setPreviousPath] = useState('');
 
   const [songsSliderRef, songsInstanceRef] = useKeenSlider({
     loop: false,
@@ -86,6 +87,22 @@ export default function KidsSongs({
     }
   }
 
+  const handleSongClick = (songName) => {
+    // احفظ المسار السابق
+    const currentPath = window.location.pathname + window.location.search;
+    setPreviousPath(currentPath);
+
+    // التنقل إلى صفحة الأغنية
+    router.push(`/song?songName=${songName}`);
+
+    setTimeout(() => {
+      const newPath = window.location.pathname + window.location.search;
+      // تحديث الصفحة فقط إذا تغير المسار
+      if (newPath !== previousPath && newPath.includes('/song')) {
+        window?.location?.reload();
+      }
+    }, 3000);
+  };
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
       {vertical ? (
@@ -116,17 +133,14 @@ export default function KidsSongs({
       ) : (
         ''
       )}
-      {vertical && (
-        <div className="flex items-center w-full px-8 my-4">
-          <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
-        </div>
-      )}
+
       {title ? (
         <h1 className="w-full text-start p-2 text-white my-2">أغاني أطفال</h1>
       ) : (
-        <h1 className="w-full text-start p-2 text-white my-2">
-          المزيد من الأغاني
-        </h1>
+        // <h1 className="w-full text-start p-2 text-white my-2">
+        //   المزيد من الأغاني
+        // </h1>
+        ''
       )}
       {showMessage && (
         <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
@@ -151,16 +165,8 @@ export default function KidsSongs({
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
               onClick={() => {
-                dispatch({
-                  type: 'KIDS_SONG_NAME',
-                  payload: song?.songName,
-                });
-
-                // التنقل إلى الرابط الجديد
-                router.push(`/song?songName=${song?.songName}`);
-                // setTimeout(() => {
-                //   window?.location?.reload();
-                // }, 3000);
+                dispatch({ type: 'KIDS_SONG_NAME', payload: song?.songName });
+                handleSongClick(song?.songName);
               }}
             >
               <div

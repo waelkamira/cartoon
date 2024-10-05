@@ -47,7 +47,7 @@ export default function SeriesAndEpisodes() {
       );
       if (response.ok) {
         const json = await response.json();
-        console.log('json', json);
+        // console.log('json', json);
 
         if (json.length > 0) {
           setEpisodes([json[0]]); // تغيير لجلب حلقة واحدة بدلاً من تكديس الحلقات
@@ -74,7 +74,7 @@ export default function SeriesAndEpisodes() {
   async function fetchSeries(seriesName) {
     const response = await fetch(`/api/serieses?seriesName=${seriesName}`);
     const json = await response?.json();
-    console.log('fetchSeries', json);
+    // console.log('fetchSeries', json);
     if (response.ok) {
       setSeries(json[0]);
     }

@@ -25,8 +25,8 @@ export default function ActionPlanet({ vertical = false }) {
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
-  console.log('session', session?.data);
-  console.log('user', user);
+  // console.log('session', session?.data);
+  // console.log('user', user);
   const [actionSliderRef, actionInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',

@@ -14,7 +14,7 @@ export default function VideoPlayer({
   const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
   const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
-
+  console.log('videoUrl', videoUrl);
   useEffect(() => {
     const handleKeydown = (event) => {
       if (event.code === 'Space') {
@@ -46,13 +46,13 @@ export default function VideoPlayer({
       adjustedUrl.includes('youtube.com') ||
       adjustedUrl.includes('youtu.be')
     ) {
-      // إذا كان الفيديو من YouTube
+      // YouTube
       const videoIdMatch = adjustedUrl.match(
         /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/
       );
       if (videoIdMatch && videoIdMatch[1]) {
         setVideoSource('youtube');
-        setVideoId(videoIdMatch[1]); // حفظ ID الفيديو
+        setVideoId(videoIdMatch[1]);
       }
     } else if (
       adjustedUrl.includes('cdn.arteenz.com') ||
@@ -67,20 +67,24 @@ export default function VideoPlayer({
     ) {
       setVideoSource('zidwish');
       setVideoId(adjustedUrl);
+    } else if (adjustedUrl.includes('dropbox.com')) {
+      // Dropbox
+      const directLink = adjustedUrl.replace('?dl=0', '?dl=1'); // تعديل الرابط إلى رابط مباشر
+      setVideoSource('dropbox');
+      setVideoId(directLink);
     } else {
       setVideoSource('otherSources');
       setVideoId(adjustedUrl);
     }
 
-    // إعداد المؤقت لتشغيل الإعلان كل نصف ساعة
+    // إعلان كل 30 دقيقة
     if (!adTimer) {
       const timer = setInterval(() => {
-        setIsAdPlaying(true); // إظهار الإعلان
-      }, 1800000); // 30 دقيقة بالمللي ثانية (1800000 مللي ثانية)
+        setIsAdPlaying(true);
+      }, 1800000);
       setAdTimer(timer);
     }
 
-    // تنظيف المؤقت عند تفكيك المكون
     return () => {
       if (adTimer) clearInterval(adTimer);
     };
@@ -91,7 +95,7 @@ export default function VideoPlayer({
     if (iframe) {
       const handleIframeClick = (event) => {
         event.preventDefault();
-        console.log('تم منع النقر على iframe');
+        // console.log('تم منع النقر على iframe');
       };
       iframe.addEventListener('click', handleIframeClick);
 
@@ -260,6 +264,24 @@ export default function VideoPlayer({
                   onDoubleClick={handleFullScreen}
                 >
                   <source src={`${videoId}?autoplay=1`} type="video/mp4" />
+                </video>
+              )}
+              {videoSource === 'dropbox' && (
+                <video
+                  ref={videoRef}
+                  className="w-full h-[100%]"
+                  style={{ width: '100%', height: '100%' }}
+                  controls
+                  poster={image}
+                  controlsList="nodownload"
+                  onLoadedMetadata={updateAspectRatio}
+                  onContextMenu={(e) => e.preventDefault()}
+                  referrerPolicy="no-referrer"
+                  autoPlay
+                  onEnded={handleVideoEnd}
+                  onDoubleClick={handleFullScreen}
+                >
+                  <source src={`${videoId}`} type="video/mp4" />
                 </video>
               )}
             </>

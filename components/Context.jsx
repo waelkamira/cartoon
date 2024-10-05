@@ -81,6 +81,10 @@ function inputsReducer(currentState, action) {
       return {
         firstEpisode: action?.payload,
       };
+    case 'IS_SONG_NAME':
+      return {
+        isSongName: action?.payload,
+      };
 
     default:
       return currentState;
@@ -105,6 +109,7 @@ export function InputsContextProvider({ children }) {
     deleteFavoritePost: {},
     action: {},
     mySerieses: [],
+    isSongName: '',
   });
   // console.log('from Context', state);
 

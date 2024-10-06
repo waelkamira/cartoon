@@ -22,9 +22,9 @@ export default function Serieses() {
   return (
     <div className="w-full">
       <NewSerieses />
+      <NasohSeries />
       <ZomurodaPlanet />
       <ZomurodaPlanetMostViewed />
-      <NasohSeries />
       <SpacetoonSongs />
       <SpacetoonSongsMostView />
       <AdventuresPlanet />

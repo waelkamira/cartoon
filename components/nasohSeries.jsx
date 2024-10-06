@@ -58,7 +58,6 @@ export default function NasohSeries({ vertical = false }) {
       );
       if (response.ok) {
         const json = await response.json();
-        console.log('json', json);
         if (json.length === 0) {
           setHasMoreEpisodes(false);
         } else {

@@ -33,17 +33,17 @@ const nextConfig = {
     ],
   },
 
-  // webpack: (config) => {
-  //   config.resolve.fallback = {
-  //     crypto: require.resolve('crypto-browserify'),
-  //     stream: require.resolve('stream-browserify'),
-  //     http: require.resolve('http-browserify'),
-  //     https: require.resolve('https-browserify'),
-  //     querystring: require.resolve('querystring'), // أضف هذا السطر
-  //     buffer: require.resolve('buffer'), // إذا كنت بحاجة إلى buffer
-  //   };
-  //   return config;
-  // },
+  webpack: (config) => {
+    config.resolve.fallback = {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      http: require.resolve('http-browserify'),
+      https: require.resolve('https-browserify'),
+      querystring: require.resolve('querystring'), // أضف هذا السطر
+      buffer: require.resolve('buffer'), // إذا كنت بحاجة إلى buffer
+    };
+    return config;
+  },
 };
 
 module.exports = nextConfig;

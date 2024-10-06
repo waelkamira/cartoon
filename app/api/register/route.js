@@ -1,7 +1,7 @@
 // import bcrypt from 'bcrypt';
 import { supabase } from '../../../lib/supabaseClient';
 import { v4 as uuidv4 } from 'uuid';
-export const runtime = 'edge';
+// export const runtime = 'edge';
 // export async function POST(req) {
 //   try {
 //     const { name, email, password } = await req.json();

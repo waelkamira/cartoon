@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid'; // استخدام مكتبة UUID لتوليد معرفات فريدة
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 // روابط ملفات CSV من GitHub
 const csvUrls = {

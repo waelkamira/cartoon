@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 // إعداد الكاش لتخزين البيانات
 const cache = {

@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 import { v4 as uuidv4 } from 'uuid';
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 const cache = new Map();
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes

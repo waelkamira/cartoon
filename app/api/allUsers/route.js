@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 // روابط ملفات CSV من GitHub
 const csvUrls = {

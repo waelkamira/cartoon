@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@capacitor/core": "^6.1.2",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^6.1.2",
+    "@cloudflare/next-on-pages": "^1.13.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "html-loader": "^5.0.0",

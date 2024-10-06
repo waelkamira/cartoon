@@ -154,7 +154,10 @@ export default function Page() {
   };
 
   return (
-    <div className="relative w-full h-screen sm:p-4 lg:p-8 rounded-lg bg-one">
+    <div
+      className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px]
+overflow-y-auto"
+    >
       <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
         <TfiMenuAlt
           className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
@@ -203,7 +206,7 @@ export default function Page() {
             {episodes.map((episode) => (
               <div
                 key={episode.id}
-                className="flex flex-col items-center justify-start rounded-lg overflow-hidden"
+                className="flex flex-col items-center justify-start  overflow-hidden"
               >
                 <div className={'w-full'}>
                   <h1 className="text-white text-center p-2">

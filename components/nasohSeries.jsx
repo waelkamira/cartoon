@@ -76,7 +76,7 @@ export default function NasohSeries({ vertical = false }) {
   }, [pageNumber, episodes]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
       {/* <HappyTagAd /> */}
       <h1 className="w-full text-start p-2 text-white">عائلة نصوح</h1>
       <div

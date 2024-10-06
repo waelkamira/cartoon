@@ -175,23 +175,23 @@ export default function SearchBar() {
                           await router.push(
                             `/episodes?episodeName=${result?.episodeName}`
                           );
-                          setTimeout(() => {
-                            window?.location?.reload();
-                          }, 3000);
+                          // setTimeout(() => {
+                          //   window?.location?.reload();
+                          // }, 3000);
                         } else if (result?.seriesName) {
                           router.push(
                             `/seriesAndEpisodes?seriesName=${result?.seriesName}`
                           );
-                          setTimeout(() => {
-                            window?.location?.reload();
-                          }, 3000);
+                          // setTimeout(() => {
+                          //   window?.location?.reload();
+                          // }, 3000);
                         } else if (result?.movieName) {
                           await router.push(
                             `/movie?movieName=${result?.movieName}`
                           );
-                          setTimeout(() => {
-                            window?.location?.reload();
-                          }, 3000);
+                          // setTimeout(() => {
+                          //   window?.location?.reload();
+                          // }, 3000);
                         } else if (result?.songName) {
                           dispatch({
                             type: 'SONG_NAME',
@@ -200,9 +200,9 @@ export default function SearchBar() {
                           await router.push(
                             `/song?songName=${result?.songName}`
                           );
-                          setTimeout(() => {
-                            window?.location?.reload();
-                          }, 3000);
+                          // setTimeout(() => {
+                          //   window?.location?.reload();
+                          // }, 3000);
                         } else if (result?.spacetoonSongName) {
                           dispatch({
                             type: 'SPACETOON_SONG_NAME',
@@ -211,9 +211,9 @@ export default function SearchBar() {
                           await router.push(
                             `/spacetoonSong?spacetoonSongName=${result?.spacetoonSongName}`
                           );
-                          setTimeout(() => {
-                            window?.location?.reload();
-                          }, 3000);
+                          // setTimeout(() => {
+                          //   window?.location?.reload();
+                          // }, 3000);
                         }
                       }}
                       className="my-2 cursor-pointer"

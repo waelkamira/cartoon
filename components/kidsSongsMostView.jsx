@@ -102,7 +102,7 @@ export default function KidsSongs({
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
           </div>
-          <BackButton />
+          {/* <BackButton /> */}
         </>
       ) : (
         ''

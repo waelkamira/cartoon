@@ -186,7 +186,7 @@ export default function Page() {
             setIsTrue(false);
           }}
         >
-          <BackButton />
+          {/* <BackButton /> */}
         </div>
 
         <h1 className="grow text-lg lg:text-2xl w-full text-white">

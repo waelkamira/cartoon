@@ -81,7 +81,7 @@ export default function Page() {
         </div>
 
         <div className="flex flex-col justify-start items-center w-full gap-4 my-4 px-2">
-          <BackButton />
+          {/* <BackButton /> */}
           <h1 className="grow text-sm lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الأغنية: <span>{spacetoonSong[0]?.spacetoonSongName}</span>

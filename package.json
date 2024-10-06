@@ -39,6 +39,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.13.0",
     "react-select": "^5.8.0",
+    "react-swipe": "^6.0.4",
     "uuid": "^10.0.0",
     "video.js": "^8.17.4",
     "videojs-contrib-ads": "^7.5.2",

@@ -51,11 +51,11 @@ export const authOptions = {
       async authorize(credentials) {
         const email = credentials?.email;
         const password = credentials?.password;
-        console.log('email', email);
-        console.log('password', password);
+        // console.log('email', email);
+        // console.log('password', password);
         // قراءة بيانات المستخدمين من ملف CSV
         const users = readUsersFromCSV();
-        console.log('users', users);
+        // console.log('users', users);
 
         // البحث عن المستخدم بناءً على البريد الإلكتروني
         const user = users.find((u) => u.email === email);

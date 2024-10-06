@@ -14,7 +14,7 @@ export default function VideoPlayer({
   const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
   const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
-  console.log('videoUrl', videoUrl);
+  // console.log('videoUrl', videoUrl);
   useEffect(() => {
     const handleKeydown = (event) => {
       if (event.code === 'Space') {

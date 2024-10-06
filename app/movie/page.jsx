@@ -64,7 +64,7 @@ export default function Page() {
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
         </div>
-        <div className="relative w-full h-44 sm:h-[500px] overflow-hidden z-40">
+        <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-40">
           {movie[0]?.movieImage ? (
             <Image
               priority
@@ -72,6 +72,7 @@ export default function Page() {
               layout="fill"
               objectFit="cover"
               alt="photo"
+              objectPosition="top"
             />
           ) : (
             <LoadingPhoto />
@@ -79,9 +80,7 @@ export default function Page() {
         </div>
 
         <div className="flex flex-col justify-start items-center w-full gap-4 my-8">
-          <div onClick={() => setIsTrue(false)}>
-            <BackButton />
-          </div>
+          <div onClick={() => setIsTrue(false)}>{/* <BackButton /> */}</div>
           <h1 className="grow text-lg lg:text-2xl w-full text-white">
             <span className="text-gray-500 ml-2">#</span>
             اسم الفيلم:

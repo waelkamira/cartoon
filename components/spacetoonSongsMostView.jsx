@@ -112,7 +112,7 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
           </div>
-          <BackButton />
+          {/* <BackButton /> */}
         </>
       ) : (
         ''

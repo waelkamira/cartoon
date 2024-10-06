@@ -3,6 +3,19 @@ import path from 'path';
 import Papa from 'papaparse'; // استخدام مكتبة PapaParse
 import { NextResponse } from 'next/server';
 
+const cache = {
+  data: null,
+  lastUpdated: null,
+};
+
+// مدة الـ cache بالمللي ثانية (مثلاً 15 دقيقة)
+const CACHE_DURATION = 15 * 60 * 1000;
+
+// وظيفة للتحقق إذا كان الـ cache صالحًا
+function isCacheValid() {
+  return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
+}
+
 // وظيفة مساعدة لقراءة ملف CSV وتحويله إلى كائن JSON باستخدام PapaParse
 async function readCSVFile(filePath) {
   return new Promise((resolve, reject) => {
@@ -31,7 +44,6 @@ async function writeCSVFile(filePath, data) {
     });
   });
 }
-
 export async function GET(req) {
   const url = new URL(req.url);
   const searchParams = url.searchParams;
@@ -43,13 +55,24 @@ export async function GET(req) {
   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
 
   try {
-    // مسار ملف CSV
-    const filePath = path.join(process.cwd(), 'csv', 'serieses.csv');
-    const fileContent = fs.readFileSync(filePath, 'utf8');
+    let serieses;
 
-    // تحليل بيانات CSV باستخدام PapaParse
-    const parsedData = Papa.parse(fileContent, { header: true });
-    let serieses = parsedData.data;
+    // تحقق مما إذا كانت بيانات الـ cache صالحة
+    if (isCacheValid()) {
+      serieses = cache.data;
+    } else {
+      // مسار ملف CSV
+      const filePath = path.join(process.cwd(), 'csv', 'serieses.csv');
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+
+      // تحليل بيانات CSV باستخدام PapaParse
+      const parsedData = Papa.parse(fileContent, { header: true });
+      serieses = parsedData.data;
+
+      // تحديث الـ cache
+      cache.data = serieses;
+      cache.lastUpdated = Date.now();
+    }
 
     // فلترة البيانات حسب اسم المسلسل أو الكوكب
     if (seriesName) {
@@ -90,6 +113,64 @@ export async function GET(req) {
     });
   }
 }
+// export async function GET(req) {
+//   const url = new URL(req.url);
+//   const searchParams = url.searchParams;
+//   const page = parseInt(searchParams.get('page')) || 1;
+//   const limit = parseInt(searchParams.get('limit')) || 4; // تحديد limit بـ 4
+//   const skip = (page - 1) * limit;
+//   const seriesName = searchParams.get('seriesName') || '';
+//   const planetName = searchParams.get('planetName') || '';
+//   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
+
+//   try {
+//     // مسار ملف CSV
+//     const filePath = path.join(process.cwd(), 'csv', 'serieses.csv');
+//     const fileContent = fs.readFileSync(filePath, 'utf8');
+
+//     // تحليل بيانات CSV باستخدام PapaParse
+//     const parsedData = Papa.parse(fileContent, { header: true });
+//     let serieses = parsedData.data;
+
+//     // فلترة البيانات حسب اسم المسلسل أو الكوكب
+//     if (seriesName) {
+//       serieses = serieses.filter((series) => series.seriesName === seriesName);
+//     }
+
+//     if (planetName) {
+//       serieses = serieses.filter((series) => series.planetName === planetName);
+//     }
+
+//     if (planetName && mostViewed) {
+//       serieses = serieses.filter((series) => series.mostViewed === 'true');
+//     }
+
+//     // ترتيب البيانات
+//     if (mostViewed) {
+//       // ترتيب بناءً على updated_at إذا كان mostViewed === true
+//       serieses.sort((a, b) => {
+//         const dateA = new Date(a['updated_at']);
+//         const dateB = new Date(b['updated_at']);
+//         return dateA - dateB;
+//       });
+//     } else {
+//       // ترتيب عشوائي إذا كان mostViewed === false
+//       serieses.sort(() => Math.random() - 0.5);
+//     }
+
+//     // تقسيم البيانات للصفحة الحالية
+//     const paginatedData = serieses.slice(skip, skip + limit);
+
+//     return new Response(JSON.stringify(paginatedData), {
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//     });
+//   }
+// }
 
 export async function POST(req) {
   const { seriesName, seriesImage, planetName } = await req.json();

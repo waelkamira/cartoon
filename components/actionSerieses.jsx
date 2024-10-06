@@ -139,7 +139,7 @@ export default function ActionPlanet({ vertical = false }) {
           <h1 className="w-fit text-start p-2 text-white my-2 bg-one">
             كوكب أكشن
           </h1>
-          <BackButton />
+          {/* <BackButton /> */}
         </>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2 bg-one">

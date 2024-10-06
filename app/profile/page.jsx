@@ -74,13 +74,12 @@ export default function Profile() {
           <div className="flex flex-col justify-between items-center gap-4 w-full">
             <Button title={'تسجيل الدخول'} style={''} path="/login" />
 
-            <BackButton />
+            {/* <BackButton /> */}
           </div>
         </div>
       )}
       {session?.status === 'authenticated' && (
         <div className="relative grow bg-gray-400 flex justify-start items-start w-full bg-four  xl:p-8 rounded-lg text-md sm:text-lg lg:text-xl">
-          <BackButton />
           <div className="absolute flex flex-col items-start gap-2 z-50 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
             <TfiMenuAlt
               className=" p-1 rounded-lg text-3xl lg:text-5xl text-one cursor-pointer z-50  "

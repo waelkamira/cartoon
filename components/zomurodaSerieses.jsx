@@ -5,9 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Loading from './Loading';
-import 'keen-slider/keen-slider.min.css';
 import Image from 'next/image';
-import BackButton from './BackButton';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import CustomToast from './CustomToast';
@@ -137,7 +135,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
             <hr className="w-full h-0.5 bg-gray-400 rounded-lg border-hidden " />
           </div>
           <h1 className="w-fit text-start p-2 text-white my-2 ">كوكب زمردة</h1>
-          <BackButton />
+          {/* <BackButton /> */}
         </>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2">كوكب زمردة</h1>

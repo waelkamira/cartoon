@@ -243,6 +243,8 @@ export default function VideoPlayer({
                     allow="autoplay; fullscreen"
                     sandbox="allow-same-origin allow-scripts allow-forms allow-top-navigation"
                     title="Video Player"
+                    onFocus={() => (document.body.style.overflow = 'hidden')}
+                    onBlur={() => (document.body.style.overflow = 'auto')}
                     onEnded={handleVideoEnd}
                     onDoubleClick={handleFullScreen}
                   ></iframe>

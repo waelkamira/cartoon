@@ -24,10 +24,10 @@ html {
   /* background-color: #c99944; */
 }
 
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #c9c9c9;
   border-radius: 20px;
-}
+} */
 
 ::-webkit-scrollbar-track {
   border-radius: 20px;

@@ -77,7 +77,7 @@ export default function NasohSeries({ vertical = false }) {
 
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      <HappyTagAd />
+      {/* <HappyTagAd /> */}
       <h1 className="w-full text-start p-2 text-white">عائلة نصوح</h1>
       <div
         ref={nasohSliderRef}
@@ -98,9 +98,7 @@ export default function NasohSeries({ vertical = false }) {
                 className=" flex flex-col items-center justify-start flex-shrink-0 w-full h-full mr-1"
                 key={episode?.id}
                 onClick={() => {
-                  router.push(
-                    `/seriesAndEpisodes?seriesName=${episode?.seriesName}`
-                  );
+                  router.push(`/episodes?episodeName=${episode?.episodeName}`);
                 }}
               >
                 <div

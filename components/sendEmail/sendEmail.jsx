@@ -58,7 +58,7 @@ export const ContactUs = () => {
         className=" btn w-fit tex-lg sm:text-xl text-white p-2 cursor-pointer rounded-lg shadow-lg"
         onClick={() => setIsOpen(!isOpen)}
       >
-        الإبلاغ عن رابط لا يعمل
+        {isOpen ? 'إغلاق' : 'الإبلاغ عن رابط لا يعمل'}
       </h1>
       <div className="w-full bg-one">
         {isOpen && (

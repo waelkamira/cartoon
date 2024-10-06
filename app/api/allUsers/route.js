@@ -1,9 +1,30 @@
-import fs from 'fs';
-import path from 'path';
 import Papa from 'papaparse';
 
-const filePath = path.join(process.cwd(), 'csv', 'User.csv'); // تأكد من المسار الصحيح للملف
+export const runtime = 'edge';
 
+// روابط ملفات CSV من GitHub
+const csvUrls = {
+  User: 'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/User.csv',
+  // episodes:
+  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/episodes.csv',
+  // movies:
+  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/movies.csv',
+  // serieses:
+  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/serieses.csv',
+  // songs:
+  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/songs.csv',
+  // spacetoonSongs:
+  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/spacetoonSongs.csv',
+};
+
+// دالة لجلب وتحليل محتوى CSV
+async function fetchCsvData(url) {
+  const response = await fetch(url);
+  const csvText = await response.text();
+  return Papa.parse(csvText, { header: true }).data;
+}
+
+// معالجة GET
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10);
@@ -12,20 +33,24 @@ export async function GET(req) {
   const isAdmin = searchParams.get('isAdmin') === 'true';
 
   try {
-    const file = fs.readFileSync(filePath, 'utf8');
-    const parsedData = Papa.parse(file, { header: true }).data;
+    const users = await fetchCsvData(csvUrls.User);
 
     // تصفية البيانات
-    let users = parsedData;
+    let filteredUsers = users;
 
     if (searchQuery) {
-      users = users.filter((user) => user.email.includes(searchQuery));
+      filteredUsers = filteredUsers.filter((user) =>
+        user.email.includes(searchQuery)
+      );
     }
 
     if (isAdmin) {
       // تطبيق التصفح
       const startIndex = (pageNumber - 1) * limit;
-      const paginatedUsers = users.slice(startIndex, startIndex + limit);
+      const paginatedUsers = filteredUsers.slice(
+        startIndex,
+        startIndex + limit
+      );
 
       return new Response(JSON.stringify(paginatedUsers), {
         status: 200,
@@ -40,12 +65,11 @@ export async function GET(req) {
   }
 }
 
+// معالجة PUT
 export async function PUT(req) {
   try {
     const { email, image, name } = await req.json();
-    const file = fs.readFileSync(filePath, 'utf8');
-    const parsedData = Papa.parse(file, { header: true });
-    const users = parsedData.data;
+    const users = await fetchCsvData(csvUrls.User);
 
     // تحديث المستخدم
     const userIndex = users.findIndex((user) => user.email === email);
@@ -58,10 +82,6 @@ export async function PUT(req) {
     users[userIndex].image = image;
     users[userIndex].name = name;
 
-    // كتابة البيانات المحدثة إلى ملف CSV
-    const csv = Papa.unparse(users);
-    fs.writeFileSync(filePath, csv);
-
     return new Response(JSON.stringify(users[userIndex]), { status: 200 });
   } catch (error) {
     console.error('Error updating user:', error);
@@ -71,12 +91,11 @@ export async function PUT(req) {
   }
 }
 
+// معالجة DELETE
 export async function DELETE(req) {
   try {
     const { email } = await req.json();
-    const file = fs.readFileSync(filePath, 'utf8');
-    const parsedData = Papa.parse(file, { header: true });
-    const users = parsedData.data;
+    const users = await fetchCsvData(csvUrls.User);
 
     // التحقق من وجود المستخدم
     const userIndex = users.findIndex((user) => user.email === email);
@@ -89,10 +108,6 @@ export async function DELETE(req) {
     // حذف المستخدم
     users.splice(userIndex, 1);
 
-    // كتابة البيانات المحدثة إلى ملف CSV
-    const csv = Papa.unparse(users);
-    fs.writeFileSync(filePath, csv);
-
     return new Response(
       JSON.stringify({ message: 'User deleted successfully' }),
       { status: 200 }
@@ -104,6 +119,113 @@ export async function DELETE(req) {
     });
   }
 }
+
+// import fs from 'fs';
+// import path from 'path';
+// import Papa from 'papaparse';
+// export const runtime = 'edge';
+// const filePath = path.join(process.cwd(), 'csv', 'User.csv'); // تأكد من المسار الصحيح للملف
+
+// export async function GET(req) {
+//   const { searchParams } = new URL(req.url);
+//   const pageNumber = parseInt(searchParams.get('pageNumber') || '1', 10);
+//   const limit = parseInt(searchParams.get('limit') || '5', 10);
+//   const searchQuery = searchParams.get('searchQuery') || '';
+//   const isAdmin = searchParams.get('isAdmin') === 'true';
+
+//   try {
+//     const file = fs.readFileSync(filePath, 'utf8');
+//     const parsedData = Papa.parse(file, { header: true }).data;
+
+//     // تصفية البيانات
+//     let users = parsedData;
+
+//     if (searchQuery) {
+//       users = users.filter((user) => user.email.includes(searchQuery));
+//     }
+
+//     if (isAdmin) {
+//       // تطبيق التصفح
+//       const startIndex = (pageNumber - 1) * limit;
+//       const paginatedUsers = users.slice(startIndex, startIndex + limit);
+
+//       return new Response(JSON.stringify(paginatedUsers), {
+//         status: 200,
+//         headers: { 'Content-Type': 'application/json' },
+//       });
+//     }
+//   } catch (error) {
+//     console.error('Error fetching users:', error);
+//     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+//       status: 500,
+//     });
+//   }
+// }
+
+// export async function PUT(req) {
+//   try {
+//     const { email, image, name } = await req.json();
+//     const file = fs.readFileSync(filePath, 'utf8');
+//     const parsedData = Papa.parse(file, { header: true });
+//     const users = parsedData.data;
+
+//     // تحديث المستخدم
+//     const userIndex = users.findIndex((user) => user.email === email);
+//     if (userIndex === -1) {
+//       return new Response(JSON.stringify({ error: 'User not found' }), {
+//         status: 404,
+//       });
+//     }
+
+//     users[userIndex].image = image;
+//     users[userIndex].name = name;
+
+//     // كتابة البيانات المحدثة إلى ملف CSV
+//     const csv = Papa.unparse(users);
+//     fs.writeFileSync(filePath, csv);
+
+//     return new Response(JSON.stringify(users[userIndex]), { status: 200 });
+//   } catch (error) {
+//     console.error('Error updating user:', error);
+//     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+//       status: 500,
+//     });
+//   }
+// }
+
+// export async function DELETE(req) {
+//   try {
+//     const { email } = await req.json();
+//     const file = fs.readFileSync(filePath, 'utf8');
+//     const parsedData = Papa.parse(file, { header: true });
+//     const users = parsedData.data;
+
+//     // التحقق من وجود المستخدم
+//     const userIndex = users.findIndex((user) => user.email === email);
+//     if (userIndex === -1) {
+//       return new Response(JSON.stringify({ error: 'User not found' }), {
+//         status: 404,
+//       });
+//     }
+
+//     // حذف المستخدم
+//     users.splice(userIndex, 1);
+
+//     // كتابة البيانات المحدثة إلى ملف CSV
+//     const csv = Papa.unparse(users);
+//     fs.writeFileSync(filePath, csv);
+
+//     return new Response(
+//       JSON.stringify({ message: 'User deleted successfully' }),
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error('Error deleting user:', error);
+//     return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+//       status: 500,
+//     });
+//   }
+// }
 
 // import { supabase } from '../../../lib/supabaseClient';
 

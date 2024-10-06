@@ -4,12 +4,10 @@ const nextConfig = {
     // missingSuspenseWithCSRBailout: false,
   },
 
-  // distDir: 'build',
-  // output: 'export',
-
   typescript: {
     ignoreBuildErrors: true,
   },
+
   images: {
     remotePatterns: [
       {
@@ -33,6 +31,18 @@ const nextConfig = {
         hostname: 'i.ytimg.com',
       },
     ],
+  },
+
+  webpack: (config) => {
+    config.resolve.fallback = {
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      http: require.resolve('http-browserify'),
+      https: require.resolve('https-browserify'),
+      querystring: require.resolve('querystring'), // أضف هذا السطر
+      buffer: require.resolve('buffer'), // إذا كنت بحاجة إلى buffer
+    };
+    return config;
   },
 };
 

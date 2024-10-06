@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
-import bcrypt from 'bcrypt';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import fs from 'fs';
-import path from 'path';
-import Papa from 'papaparse';
+export const runtime = 'edge';
+// import bcrypt from 'bcrypt';
+// import CredentialsProvider from 'next-auth/providers/credentials';
+// import GoogleProvider from 'next-auth/providers/google';
+// import fs from 'fs';
+// import path from 'path';
+// import Papa from 'papaparse';
 
 // إعداد Supabase (للبقاء على التوافق مع الكود الحالي، لكن لن تستخدمه بعد الآن)
 const supabase = createClient(
@@ -12,94 +13,94 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_API
 );
 
-const readUsersFromCSV = () => {
-  // قراءة ملف User.csv
-  const filePath = path.join(process.cwd(), 'csv', '/User.csv'); // قم بتعديل المسار حسب مكان وجود ملف CSV
-  const fileContent = fs.readFileSync(filePath, 'utf8');
+// const readUsersFromCSV = () => {
+//   // قراءة ملف User.csv
+//   const filePath = path.join(process.cwd(), 'csv', '/User.csv'); // قم بتعديل المسار حسب مكان وجود ملف CSV
+//   const fileContent = fs.readFileSync(filePath, 'utf8');
 
-  // استخدام PapaParse لتحليل البيانات
-  const { data: users } = Papa.parse(fileContent, {
-    header: true, // يتوقع أن يكون أول صف كعناوين
-    skipEmptyLines: true,
-  });
+//   // استخدام PapaParse لتحليل البيانات
+//   const { data: users } = Papa.parse(fileContent, {
+//     header: true, // يتوقع أن يكون أول صف كعناوين
+//     skipEmptyLines: true,
+//   });
 
-  return users; // إرجاع بيانات المستخدمين
-};
+//   return users; // إرجاع بيانات المستخدمين
+// };
 
-export const authOptions = {
-  secret: process.env.NEXT_PUBLIC_SECRET,
-  providers: [
-    GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true,
-    }),
-    CredentialsProvider({
-      name: 'credentials',
-      credentials: {
-        email: {
-          label: 'Your email',
-          type: 'email',
-          placeholder: 'Your email',
-        },
-        password: {
-          label: 'Your password',
-          type: 'password',
-          placeholder: 'Your password',
-        },
-      },
-      async authorize(credentials) {
-        const email = credentials?.email;
-        const password = credentials?.password;
-        // console.log('email', email);
-        // console.log('password', password);
-        // قراءة بيانات المستخدمين من ملف CSV
-        const users = readUsersFromCSV();
-        // console.log('users', users);
+// export const authOptions = {
+//   secret: process.env.NEXT_PUBLIC_SECRET,
+//   providers: [
+//     GoogleProvider({
+//       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+//       allowDangerousEmailAccountLinking: true,
+//     }),
+//     CredentialsProvider({
+//       name: 'credentials',
+//       credentials: {
+//         email: {
+//           label: 'Your email',
+//           type: 'email',
+//           placeholder: 'Your email',
+//         },
+//         password: {
+//           label: 'Your password',
+//           type: 'password',
+//           placeholder: 'Your password',
+//         },
+//       },
+//       async authorize(credentials) {
+//         const email = credentials?.email;
+//         const password = credentials?.password;
+//         // console.log('email', email);
+//         // console.log('password', password);
+//         // قراءة بيانات المستخدمين من ملف CSV
+//         const users = readUsersFromCSV();
+//         // console.log('users', users);
 
-        // البحث عن المستخدم بناءً على البريد الإلكتروني
-        const user = users.find((u) => u.email === email);
+//         // البحث عن المستخدم بناءً على البريد الإلكتروني
+//         const user = users.find((u) => u.email === email);
 
-        // التحقق من وجود المستخدم
-        if (!user) {
-          throw new Error('Email not found');
-        }
+//         // التحقق من وجود المستخدم
+//         if (!user) {
+//           throw new Error('Email not found');
+//         }
 
-        // التحقق من كلمة المرور
-        const checkPassword = await bcrypt.compare(password, user.password);
-        if (!checkPassword) {
-          throw new Error('Incorrect password');
-        }
+//         // التحقق من كلمة المرور
+//         const checkPassword = await bcrypt.compare(password, user.password);
+//         if (!checkPassword) {
+//           throw new Error('Incorrect password');
+//         }
 
-        return user; // إرجاع المستخدم عند نجاح التحقق
-      },
-    }),
-  ],
-  callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.sub; // إضافة معرف المستخدم للجلسة
-      return session;
-    },
-    async signIn({ account, profile }) {
-      // يمكنك إضافة منطق لتسجيل الدخول عبر Google إذا كان لديك
-      return true;
-    },
-    async jwt({ token, account }) {
-      if (account) {
-        token.accessToken = account.access_token; // إضافة رمز الوصول للجلسة
-      }
-      return token;
-    },
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
-    },
-  },
-  session: {
-    strategy: 'jwt', // استخدام JWT للجلسات
-  },
-  debug: process.env.NODE_ENV === 'development', // تفعيل وضع التصحيح في بيئة التطوير
-  pages: { signIn: '/login' }, // تخصيص صفحة تسجيل الدخول
-};
+//         return user; // إرجاع المستخدم عند نجاح التحقق
+//       },
+//     }),
+//   ],
+//   callbacks: {
+//     async session({ session, token }) {
+//       session.user.id = token.sub; // إضافة معرف المستخدم للجلسة
+//       return session;
+//     },
+//     async signIn({ account, profile }) {
+//       // يمكنك إضافة منطق لتسجيل الدخول عبر Google إذا كان لديك
+//       return true;
+//     },
+//     async jwt({ token, account }) {
+//       if (account) {
+//         token.accessToken = account.access_token; // إضافة رمز الوصول للجلسة
+//       }
+//       return token;
+//     },
+//     async redirect({ url, baseUrl }) {
+//       return url.startsWith(baseUrl) ? url : baseUrl;
+//     },
+//   },
+//   session: {
+//     strategy: 'jwt', // استخدام JWT للجلسات
+//   },
+//   debug: process.env.NODE_ENV === 'development', // تفعيل وضع التصحيح في بيئة التطوير
+//   pages: { signIn: '/login' }, // تخصيص صفحة تسجيل الدخول
+// };
 
 // import { createClient } from '@supabase/supabase-js';
 // import bcrypt from 'bcrypt';

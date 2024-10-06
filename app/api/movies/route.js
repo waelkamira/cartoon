@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
-import path from 'path';
 import Papa from 'papaparse';
+import { v4 as uuidv4 } from 'uuid';
+export const runtime = 'edge';
 
+// الكاش لتخزين البيانات محليًا
 const cache = {
   data: null,
   lastUpdated: null,
@@ -10,41 +10,21 @@ const cache = {
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 دقيقة
 
+// رابط ملف movies من GitHub
+const moviesUrl =
+  'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/movies.csv';
+
+// دالة للتحقق من صلاحية الكاش
 const isCacheValid = () => {
   return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
 };
 
-// دالة لقراءة ملف movies.csv
-const readMoviesFromCSV = () => {
-  if (isCacheValid()) {
-    // إذا كان الكاش صالح، نعيد البيانات من الكاش
-    return cache.data;
-  }
-
-  const filePath = path.join(process.cwd(), 'csv', '/movies.csv');
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data: movies } = Papa.parse(fileContent, {
-    header: true,
-    skipEmptyLines: true,
-  });
-
-  // تحديث الكاش بالبيانات الجديدة
-  cache.data = movies;
-  cache.lastUpdated = Date.now();
-
-  return movies;
-};
-
-// دالة لكتابة البيانات إلى ملف movies.csv وتحديث الكاش
-const writeMoviesToCSV = (movies) => {
-  const filePath = path.join(process.cwd(), 'csv', '/movies.csv');
-  const csv = Papa.unparse(movies);
-  fs.writeFileSync(filePath, csv, 'utf8');
-
-  // تحديث الكاش بعد الكتابة
-  cache.data = movies;
-  cache.lastUpdated = Date.now();
-};
+// دالة لجلب وتحليل محتوى CSV من رابط
+async function fetchCsvData(url) {
+  const response = await fetch(url);
+  const csvText = await response.text();
+  return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+}
 
 export async function GET(req) {
   const url = new URL(req.url);
@@ -56,7 +36,18 @@ export async function GET(req) {
   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
 
   try {
-    const movies = readMoviesFromCSV();
+    let movies = [];
+
+    if (isCacheValid()) {
+      // إذا كانت بيانات الكاش صالحة، نستخدمها
+      movies = cache.data;
+    } else {
+      // قراءة البيانات من ملف CSV عبر الرابط
+      movies = await fetchCsvData(moviesUrl);
+      // تحديث الكاش بالبيانات الجديدة
+      cache.data = movies;
+      cache.lastUpdated = Date.now();
+    }
 
     // البحث عن فيلم معين بناءً على الاسم
     if (movieName) {
@@ -94,10 +85,16 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
+    // قراءة البيانات من الطلب
     const { movieName, movieImage, movieLink } = await req.json();
 
-    // قراءة الأفلام الحالية
-    const movies = readMoviesFromCSV();
+    // قراءة الأفلام الحالية من الكاش أو من الرابط
+    let movies = [];
+    if (isCacheValid()) {
+      movies = cache.data;
+    } else {
+      movies = await fetchCsvData(moviesUrl);
+    }
 
     // إضافة فيلم جديد
     const newMovie = {
@@ -110,11 +107,12 @@ export async function POST(req) {
       updated_at: new Date().toISOString(), // إضافة updated_at
     };
 
+    // إضافة الفيلم إلى الكاش فقط
     movies.push(newMovie);
+    cache.data = movies;
+    cache.lastUpdated = Date.now();
 
-    // كتابة البيانات إلى ملف CSV
-    writeMoviesToCSV(movies);
-
+    console.log('New movie added (cached only):', newMovie);
     return new Response(JSON.stringify(newMovie), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },
@@ -134,8 +132,13 @@ export async function PUT(req) {
     const url = new URL(req.url);
     const movieName = url.searchParams.get('movieName'); // استخراج movieName من معلمات البحث
 
-    // قراءة الأفلام الحالية
-    const movies = readMoviesFromCSV();
+    // قراءة الأفلام الحالية من الكاش أو من الرابط
+    let movies = [];
+    if (isCacheValid()) {
+      movies = cache.data;
+    } else {
+      movies = await fetchCsvData(moviesUrl);
+    }
 
     // تحديث الفيلم بناءً على id أو movieName
     const updatedMovies = movies.map((movie) => {
@@ -152,8 +155,9 @@ export async function PUT(req) {
       return movie;
     });
 
-    // كتابة التحديثات إلى ملف CSV
-    writeMoviesToCSV(updatedMovies);
+    // تحديث الكاش بعد التعديل
+    cache.data = updatedMovies;
+    cache.lastUpdated = Date.now();
 
     const updatedMovie = updatedMovies.find(
       (movie) => movie.id === id || movie.movieName === movieName
@@ -170,6 +174,179 @@ export async function PUT(req) {
     });
   }
 }
+
+// import { v4 as uuidv4 } from 'uuid';
+// import fs from 'fs';
+// import path from 'path';
+// import Papa from 'papaparse';
+// export const runtime = 'edge';
+// const cache = {
+//   data: null,
+//   lastUpdated: null,
+// };
+
+// const CACHE_DURATION = 15 * 60 * 1000; // 15 دقيقة
+
+// const isCacheValid = () => {
+//   return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
+// };
+
+// // دالة لقراءة ملف movies.csv
+// const readMoviesFromCSV = () => {
+//   if (isCacheValid()) {
+//     // إذا كان الكاش صالح، نعيد البيانات من الكاش
+//     return cache.data;
+//   }
+
+//   const filePath = path.join(process.cwd(), 'csv', '/movies.csv');
+//   const fileContent = fs.readFileSync(filePath, 'utf8');
+//   const { data: movies } = Papa.parse(fileContent, {
+//     header: true,
+//     skipEmptyLines: true,
+//   });
+
+//   // تحديث الكاش بالبيانات الجديدة
+//   cache.data = movies;
+//   cache.lastUpdated = Date.now();
+
+//   return movies;
+// };
+
+// // دالة لكتابة البيانات إلى ملف movies.csv وتحديث الكاش
+// const writeMoviesToCSV = (movies) => {
+//   const filePath = path.join(process.cwd(), 'csv', '/movies.csv');
+//   const csv = Papa.unparse(movies);
+//   fs.writeFileSync(filePath, csv, 'utf8');
+
+//   // تحديث الكاش بعد الكتابة
+//   cache.data = movies;
+//   cache.lastUpdated = Date.now();
+// };
+
+// export async function GET(req) {
+//   const url = new URL(req.url);
+//   const searchParams = url.searchParams;
+//   const page = parseInt(searchParams.get('page')) || 1;
+//   const limit = parseInt(searchParams.get('limit')) || 4;
+//   const skip = (page - 1) * limit;
+//   const movieName = searchParams.get('movieName') || '';
+//   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
+
+//   try {
+//     const movies = readMoviesFromCSV();
+
+//     // البحث عن فيلم معين بناءً على الاسم
+//     if (movieName) {
+//       const filteredMovies = movies.filter((movie) =>
+//         movie.movieName.toLowerCase().includes(movieName.toLowerCase())
+//       );
+//       return new Response(JSON.stringify(filteredMovies), {
+//         headers: { 'Content-Type': 'application/json' },
+//       });
+//     }
+
+//     // إذا كانت قيمة mostViewed true، قم بترتيب الأفلام حسب updated_at
+//     // وإذا كانت false، قم بترتيب الأفلام بشكل عشوائي
+//     if (mostViewed) {
+//       movies.sort(
+//         (a, b) => new Date(a['updated_at']) - new Date(b['updated_at'])
+//       );
+//     } else {
+//       movies.sort(() => Math.random() - 0.5); // ترتيب عشوائي
+//     }
+
+//     // عرض الأفلام بالترتيب بناءً على mostViewed أو الترتيب العشوائي
+//     const paginatedMovies = movies.slice(skip, skip + limit);
+//     return new Response(JSON.stringify(paginatedMovies), {
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   }
+// }
+
+// export async function POST(req) {
+//   try {
+//     const { movieName, movieImage, movieLink } = await req.json();
+
+//     // قراءة الأفلام الحالية
+//     const movies = readMoviesFromCSV();
+
+//     // إضافة فيلم جديد
+//     const newMovie = {
+//       id: uuidv4(),
+//       movieName,
+//       movieImage,
+//       movieLink,
+//       mostViewed: false,
+//       created_at: new Date().toISOString(), // إضافة created_at
+//       updated_at: new Date().toISOString(), // إضافة updated_at
+//     };
+
+//     movies.push(newMovie);
+
+//     // كتابة البيانات إلى ملف CSV
+//     writeMoviesToCSV(movies);
+
+//     return new Response(JSON.stringify(newMovie), {
+//       status: 201,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   }
+// }
+
+// export async function PUT(req) {
+//   try {
+//     const { id, ...data } = await req.json(); // الحصول على البيانات المرسلة
+//     const url = new URL(req.url);
+//     const movieName = url.searchParams.get('movieName'); // استخراج movieName من معلمات البحث
+
+//     // قراءة الأفلام الحالية
+//     const movies = readMoviesFromCSV();
+
+//     // تحديث الفيلم بناءً على id أو movieName
+//     const updatedMovies = movies.map((movie) => {
+//       if (movie.id === id || (movieName && movie.movieName === movieName)) {
+//         return {
+//           ...movie,
+//           movieName: data?.movieName || movie.movieName,
+//           movieImage: data?.movieImage || movie.movieImage,
+//           movieLink: data?.movieLink || movie.movieLink,
+//           mostViewed: data?.mostViewed || movie.mostViewed,
+//           updated_at: new Date().toISOString(), // تحديث updated_at عند التعديل
+//         };
+//       }
+//       return movie;
+//     });
+
+//     // كتابة التحديثات إلى ملف CSV
+//     writeMoviesToCSV(updatedMovies);
+
+//     const updatedMovie = updatedMovies.find(
+//       (movie) => movie.id === id || movie.movieName === movieName
+//     );
+//     return new Response(JSON.stringify(updatedMovie), {
+//       status: 200,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error('Error:', error);
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   }
+// }
 
 // import { v4 as uuidv4 } from 'uuid';
 // import fs from 'fs';

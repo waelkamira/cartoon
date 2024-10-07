@@ -2,8 +2,6 @@ import Papa from 'papaparse';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid'; // استخدام مكتبة UUID لتوليد معرفات فريدة
 
-// export const runtime = 'edge';
-
 // روابط ملفات CSV من GitHub
 const csvUrls = {
   serieses:
@@ -13,19 +11,28 @@ const csvUrls = {
 // مدة الـ cache بالمللي ثانية (مثلاً 15 دقيقة)
 const CACHE_DURATION = 15 * 60 * 1000;
 
+// التخزين المؤقت للبيانات
 const cache = {
   data: null,
   lastUpdated: null,
+  params: {}, // لتخزين معايير الفلترة
 };
 
-// وظيفة للتحقق إذا كان الـ cache صالحًا
-function isCacheValid() {
-  return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
+// وظيفة للتحقق إذا كان الـ cache صالحًا بناءً على المعايير
+function isCacheValid(seriesName, planetName, mostViewed) {
+  return (
+    cache.data &&
+    Date.now() - cache.lastUpdated < CACHE_DURATION &&
+    cache.params.seriesName === seriesName &&
+    cache.params.planetName === planetName &&
+    cache.params.mostViewed === mostViewed
+  );
 }
 
 // وظيفة مساعدة لجلب وتحليل محتوى CSV من رابط
 async function fetchCsvData(url) {
   const response = await fetch(url);
+  if (!response.ok) throw new Error('Failed to fetch CSV data');
   const csvText = await response.text();
   return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
 }
@@ -52,16 +59,19 @@ export async function GET(req) {
   try {
     let serieses;
 
-    // تحقق مما إذا كانت بيانات الـ cache صالحة
-    if (isCacheValid()) {
+    // تحقق مما إذا كانت بيانات الـ cache صالحة بناءً على معايير البحث
+    if (isCacheValid(seriesName, planetName, mostViewed)) {
+      console.log('Serving from cache...');
       serieses = cache.data;
     } else {
+      console.log('Fetching new data from CSV...');
       // قراءة وتحليل البيانات من CSV على GitHub
       serieses = await fetchCsvData(csvUrls.serieses);
 
-      // تحديث الـ cache
+      // تحديث الـ cache مع المعايير الجديدة
       cache.data = serieses;
       cache.lastUpdated = Date.now();
+      cache.params = { seriesName, planetName, mostViewed };
     }
 
     // فلترة البيانات حسب اسم المسلسل أو الكوكب
@@ -124,6 +134,9 @@ export async function POST(req) {
     // تحديث البيانات في CSV باستخدام دالة محاكاة للكتابة
     await writeCsvData(serieses);
 
+    // مسح الكاش لضمان التحديث في الاستعلامات التالية
+    cache.data = null;
+
     return new Response(JSON.stringify(newSeries), {
       headers: { 'Content-Type': 'application/json' },
     });
@@ -152,6 +165,9 @@ export async function PUT(req) {
 
     // تحديث البيانات في CSV باستخدام دالة محاكاة للكتابة
     await writeCsvData(updatedSerieses);
+
+    // مسح الكاش لضمان التحديث في الاستعلامات التالية
+    cache.data = null;
 
     const updatedSeries = updatedSerieses.find((series) => series.id === id);
 

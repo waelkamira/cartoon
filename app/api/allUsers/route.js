@@ -5,16 +5,6 @@ import Papa from 'papaparse';
 // روابط ملفات CSV من GitHub
 const csvUrls = {
   User: 'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/User.csv',
-  // episodes:
-  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/episodes.csv',
-  // movies:
-  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/movies.csv',
-  // serieses:
-  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/serieses.csv',
-  // songs:
-  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/songs.csv',
-  // spacetoonSongs:
-  //   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/spacetoonSongs.csv',
 };
 
 // دالة لجلب وتحليل محتوى CSV

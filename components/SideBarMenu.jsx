@@ -89,6 +89,26 @@ export default function SideBarMenu({ setIsOpen }) {
             planetImage={'https://i.imgur.com/DnKrRt2.png'}
             planetRoute={'/bonbonaPlanet'}
           />
+          <ItemForSideBarMenu
+            planetName={'كرتون لغة انجليزية'}
+            planetImage={'https://i.imgur.com/bw6ZZCJ.png'}
+            planetRoute={'/englishCartoonPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال لغة انجليزية'}
+            planetImage={'https://i.imgur.com/3PEEhLC.png'}
+            planetRoute={'/englishSongsPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'كرتون لغة تركية'}
+            planetImage={'https://i.imgur.com/gfdEgLt.png'}
+            planetRoute={'/turkishCartoonPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال لغة تركية'}
+            planetImage={'https://i.imgur.com/GTuV1My.png'}
+            planetRoute={'/turkishSongsPlanet'}
+          />
           {/* {session?.status === 'unauthenticated' && (
         <div>
           <Button title={'تسجيل الدخول'} path={'/login'} />

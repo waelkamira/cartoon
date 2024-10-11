@@ -20,7 +20,7 @@ export default function SideBarMenu({ setIsOpen }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
-          <div className="flex justify-center items-center w-full cursor-pointer line-clamp-2 bg-one p-4">
+          <div className="flex justify-center items-center w-full cursor-pointer line-clamp-2 bg-one">
             <div className="relative size-20 ml-4">
               <Image
                 priority

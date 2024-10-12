@@ -2,12 +2,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
-import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import TurkishCartoon from '../../components/turkishCartoon';
 
@@ -16,11 +14,7 @@ export default function Page() {
   const [episodeNumber, setEpisodeNumber] = useState(1); // التحكم برقم الحلقة
   const [isLoading, setIsLoading] = useState(false);
   const [episodeName, setEpisodeName] = useState('');
-  const [episodeImage, setEpisodeImage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [isTrue, setIsTrue] = useState(true);
-  const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
-  const router = useRouter();
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
@@ -96,7 +90,6 @@ overflow-y-auto"
         <div
           onClick={() => {
             localStorage.removeItem('episodeNumber');
-            setIsTrue(false);
           }}
         >
           {/* <BackButton /> */}

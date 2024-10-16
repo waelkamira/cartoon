@@ -64,7 +64,7 @@ export async function GET(req) {
       console.log('Serving from cache...');
       serieses = cache.data;
     } else {
-      console.log('Fetching new data from CSV...');
+      // console.log('Fetching new data from CSV...');
       // قراءة وتحليل البيانات من CSV على GitHub
       serieses = await fetchCsvData(csvUrls.serieses);
 
@@ -85,6 +85,7 @@ export async function GET(req) {
 
     if (planetName && mostViewed) {
       serieses = serieses.filter((series) => series.mostViewed === 'true');
+      // console.log('serieses most view', serieses);
     }
 
     // ترتيب البيانات

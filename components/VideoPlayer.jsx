@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
 import HappyTagAd from './ads/happyTagAd';

@@ -50,7 +50,7 @@
     "react-swipe": "^6.0.4",
     "stream-browserify": "^3.0.0",
     "uuid": "^10.0.0",
-    "video.js": "^8.17.4",
+    "video.js": "^8.18.1",
     "videojs-contrib-ads": "^7.5.2",
     "videojs-ima": "^2.3.0",
     "videojs-vast-vpaid": "^3.0.0-beta.8",

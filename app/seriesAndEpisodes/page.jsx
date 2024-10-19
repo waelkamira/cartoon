@@ -15,7 +15,6 @@ import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
 import ExoclickBanner from '../../components/ads/exoclickBanner';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
-import VastVideoPlayer from '../../components/VastVideoPlayer';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -26,7 +25,6 @@ export default function SeriesAndEpisodes() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
-  const vastUrl = 'https://s.magsrv.com/v1/vast.php?idzone=5447624';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -203,11 +201,6 @@ export default function SeriesAndEpisodes() {
                   {episode?.episodeName}
                   {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
-
-                <VastVideoPlayer
-                  vastUrl={vastUrl}
-                  videoUrl={episode?.episodeLink}
-                />
 
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}

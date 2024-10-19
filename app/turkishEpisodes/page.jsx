@@ -8,7 +8,8 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import HappyTagAd from '../../components/ads/happyTagAd';
 import TurkishCartoon from '../../components/turkishCartoon';
-
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
   const [episodeNumber, setEpisodeNumber] = useState(1); // التحكم برقم الحلقة
@@ -118,12 +119,16 @@ overflow-y-auto"
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
+                    <ExoclickOutStreamVideo />
+
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
+                  <ExoclickVideoSlider />
+
                   <TurkishCartoon vertical={true} image={false} />
                 </div>
               );

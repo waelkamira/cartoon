@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoadingPhoto from './LoadingPhoto';
 import HappyTagAd from './ads/happyTagAd';
-
 export default function VideoPlayer({
   videoUrl = ' ',
   image,
@@ -16,6 +15,7 @@ export default function VideoPlayer({
   const [isAdPlaying, setIsAdPlaying] = useState(false); // حالة تتبع للإعلان
   const [adTimer, setAdTimer] = useState(null); // المؤقت لتشغيل الإعلان
   const videoRef = useRef(null);
+
   // console.log('videoUrl', videoUrl);
   useEffect(() => {
     const handleKeydown = (event) => {
@@ -187,12 +187,12 @@ export default function VideoPlayer({
     >
       {videoId ? (
         <div className="w-full">
-          <HappyTagAd />
+          {/* <HappyTagAd /> */}
           {isAdPlaying ? (
             <div className="w-full h-full flex justify-center items-center">
               <video
                 className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                src="//thubanoa.com/1?z=8256749" // رابط الإعلان
+                // src="//thubanoa.com/1?z=8259389" // رابط الإعلان
                 autoPlay
                 controls
                 onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان

@@ -9,6 +9,13 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import HappyTagAd from '../../components/ads/happyTagAd';
+import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
+import AdsterraBanner from '../../components/ads/adsterraBanner';
+import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
+import ExoclickBanner from '../../components/ads/exoclickBanner';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import VastVideoPlayer from '../../components/VastVideoPlayer';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -18,8 +25,8 @@ export default function SeriesAndEpisodes() {
   const [series, setSeries] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
-  const observer = useRef();
   const [isTrue, setIsTrue] = useState(true);
+  const vastUrl = 'https://s.magsrv.com/v1/vast.php?idzone=5447624';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -192,12 +199,16 @@ export default function SeriesAndEpisodes() {
               className="flex flex-col items-center justify-start rounded-lg overflow-hidden "
             >
               <div className={'w-full'}>
-                <HappyTagAd render={episode.id} />
-
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
-                  <HappyTagAd render={episode?.episodeName} />
+                  {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
+
+                <VastVideoPlayer
+                  vastUrl={vastUrl}
+                  videoUrl={episode?.episodeLink}
+                />
+
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
                   image={series?.seriesImage}
@@ -205,10 +216,16 @@ export default function SeriesAndEpisodes() {
                   showAd={isTrue}
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
+                <ContactUs />
+                <ExoclickOutStreamVideo />
+                <ExoclickVideoSlider />
+                {/* <ExoclickBanner /> */}
+                {/* <AdsterraNativeBanner /> */}
+                {/* <AdsterraBanner /> */}
+                {/* <AdsterraPopunderFor /> */}
               </div>
             </div>
           ))}
-          <ContactUs />
         </div>
       </div>
     </div>

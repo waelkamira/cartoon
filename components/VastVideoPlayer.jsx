@@ -22,8 +22,8 @@ function VastVideoPlayer({ vastUrl, videoUrl }) {
   }, [vastUrl]);
 
   return (
-    <div className="bg-green-400 min-w-44 min-h-40">
-      <video
+    <div>
+      {/* <video
         ref={videoRef}
         className="w-full h-full"
         style={{ width: '100%', height: '100%' }}
@@ -33,7 +33,7 @@ function VastVideoPlayer({ vastUrl, videoUrl }) {
         autoPlay
       >
         <source src={`${videoUrl}?autoplay=0`} type="video/mp4" />
-      </video>
+      </video> */}
     </div>
   );
 }

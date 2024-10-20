@@ -1,35 +1,19 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://cartoonz.top', // Add your production origin
-];
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
 
-export function middleware(request: Request) {
-  const origin = request.headers.get('origin');
-
-  // Check if the origin is allowed
-  if (origin && !allowedOrigins.includes(origin)) {
-    return new NextResponse('Invalid origin', { status: 403 });
+export function middleware(request: NextRequest) {
+  if (request.method === 'OPTIONS') {
+    return NextResponse.json({}, { headers: corsHeaders });
   }
-
-  const response = NextResponse.next({
-    request: {
-      ...request,
-      headers: request.headers,
-    },
+  const response = NextResponse.next();
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    response.headers.append(key, value);
   });
-
-  // Set CORS headers
-  response.headers.set('Access-Control-Allow-Origin', origin || '*');
-  response.headers.set(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PUT, DELETE, OPTIONS'
-  );
-  response.headers.set(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization'
-  );
 
   return response;
 }

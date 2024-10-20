@@ -58,46 +58,37 @@
 
 // export default ExoclickOutStreamVideo;
 
-'use client';
 import React, { useEffect } from 'react';
 
-const ExoclickOutStreamVideo = () => {
+const AdComponent = () => {
   useEffect(() => {
-    // Fetch ad script from the /api/proxy
-    const loadAdScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://a.magsrv.com/ad-provider.js'; // Ensure this URL is correct
-      script.async = true;
+    // إضافة السكريبت غير المتزامن
+    const script1 = document.createElement('script');
+    script1.src = 'https://a.magsrv.com/ad-provider.js';
+    script1.async = true;
+    document.body.appendChild(script1);
 
-      script.onload = () => {
-        // Handle script loaded
-      };
+    // إضافة العنصر <ins>
+    const ins = document.createElement('ins');
+    ins.className = 'eas6a97888e37';
+    ins.setAttribute('data-zoneid', '5448580');
+    document.body.appendChild(ins);
 
-      script.onerror = (error) => {
-        console.error('Error loading ad script:', error);
-      };
+    // إضافة السكريبت الثاني لتنفيذ AdProvider
+    const script2 = document.createElement('script');
+    script2.innerHTML =
+      '(AdProvider = window.AdProvider || []).push({"serve": {}});';
+    document.body.appendChild(script2);
 
-      document.body.appendChild(script);
+    // تنظيف بعد إزالة المكون
+    return () => {
+      document.body.removeChild(script1);
+      document.body.removeChild(ins);
+      document.body.removeChild(script2);
     };
-
-    // Load the ad when component mounts
-    loadAdScript();
   }, []);
 
-  return (
-    <div
-      id="outstream-video-ad-container"
-      className="outstream-video-ad-container"
-    >
-      {/* Placeholder for the outstream video ad */}
-      <ins
-        className="eas6a97888e37"
-        data-zoneid="5448580"
-        id="outstream-video-ad"
-        style={{ display: 'block', width: '100%', height: 'auto' }} // Set dimensions
-      ></ins>
-    </div>
-  );
+  return null;
 };
 
-export default ExoclickOutStreamVideo;
+export default AdComponent;

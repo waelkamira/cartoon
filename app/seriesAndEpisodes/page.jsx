@@ -201,7 +201,6 @@ export default function SeriesAndEpisodes() {
                   {episode?.episodeName}
                   <HappyTagAd render={episode?.episodeName} />
                 </h1>
-
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
                   image={series?.seriesImage}
@@ -211,7 +210,8 @@ export default function SeriesAndEpisodes() {
                 />
                 <ContactUs />
                 <ExoclickOutStreamVideo />
-                <ExoclickVideoSlider />
+                {/* <ExoclickVideoSlider /> */}
+
                 {/* <ExoclickBanner /> */}
                 {/* <AdsterraNativeBanner /> */}
                 {/* <AdsterraBanner /> */}

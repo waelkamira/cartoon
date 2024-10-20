@@ -99,7 +99,6 @@ export default function Page() {
                     key={item.songLink}
                   >
                     <ExoclickOutStreamVideo />
-
                     <VideoPlayer
                       videoUrl={item.songLink}
                       image={item?.songImage}
@@ -111,8 +110,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <ExoclickVideoSlider />
-
+      {/* <ExoclickVideoSlider /> */}
       <EnglishSongs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />

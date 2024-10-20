@@ -104,7 +104,6 @@ export default function Page() {
                     key={item.spacetoonSongLink}
                   >
                     <ExoclickOutStreamVideo />
-
                     <VideoPlayer
                       videoUrl={item.spacetoonSongLink}
                       image={item?.spacetoonSongImage}
@@ -116,7 +115,8 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <ExoclickVideoSlider />
+      {/* <ExoclickVideoSlider /> */}
+
       <SpacetoonSongs vertical={true} title={false} image={false} />
       <div className="p-2">
         <ContactUs />

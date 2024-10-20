@@ -123,20 +123,17 @@ overflow-y-auto"
                 >
                   <div className={'w-full'}>
                     <HappyTagAd render={episode?.episodeLink} />
-
                     <ExoclickOutStreamVideo />
                     <h1 className="text-white text-center p-2">
                       {episode?.episodeName}
                     </h1>
-
                     <VideoPlayer
                       videoUrl={episode?.episodeLink}
                       image={episode?.episodeImage}
                       episodeName={episode?.episodeName}
                     />
                   </div>
-                  <ExoclickVideoSlider />
-
+                  {/* <ExoclickVideoSlider /> */}
                   <EnglishCartoon vertical={true} image={false} />
                 </div>
               );

@@ -1,6 +1,6 @@
 // pages/api/your-api.js
 import Cors from 'cors';
-import initMiddleware from '../../lib/init-middleware';
+import initMiddleware from '../../../lib/init-middleware';
 
 // إعداد CORS مع السماح للروابط المحددة فقط
 const cors = initMiddleware(

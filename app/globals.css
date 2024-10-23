@@ -160,23 +160,28 @@ iframe {
   background-color: #f9f9f9;
   border: 2px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.5;
+  opacity: 0.1;
   padding: 5px;
   margin: 20px;
 }
 
 /* حاص ب ExoclickOutStreamVideo */
 [class*='_main_outstream'] {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 [class*='video-slider-container-wrapper'] {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 #ad {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 .ad {
-  opacity: 0.5;
+  opacity: 0.1;
+}
+
+img[src*="https://s3t3d2y8.afcdn.net"]
+{
+  opacity: 0.1; /* 50% شفافية */
 }

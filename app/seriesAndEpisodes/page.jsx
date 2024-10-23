@@ -25,7 +25,7 @@ export default function SeriesAndEpisodes() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
-
+  const [showMessage, setShowMessage] = useState(true);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const seriesNameParam = params.get('seriesName');
@@ -38,6 +38,9 @@ export default function SeriesAndEpisodes() {
   useEffect(() => {
     if (seriesName && hasMoreEpisodes) {
       fetchEpisode();
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 10000);
     }
   }, [seriesName, episodeNumber]);
 
@@ -167,6 +170,12 @@ export default function SeriesAndEpisodes() {
           <span className="text-gray-500 ml-2">#</span>
           اسم المسلسل <span>{seriesName}</span>
         </h1>
+        {showMessage && (
+          <h1 className="text-sm lg:text-2xl w-full text-white p-4">
+            اذا لم يتم تفعيل زر التشغيل بسبب الضغط على السيرفر انتظر 15 ثانية ثم
+            اضغط على زر الحلقة التالية ثم ارجع الى الحلقة التي تريدها
+          </h1>
+        )}
       </div>
       {/* أزرار التنقل بين الحلقات */}
       <div className="flex justify-between w-full p-4 items-start">
@@ -199,7 +208,7 @@ export default function SeriesAndEpisodes() {
               <div className={'w-full'}>
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
-                  <HappyTagAd render={episode?.episodeName} />
+                  {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
@@ -210,9 +219,9 @@ export default function SeriesAndEpisodes() {
                 />
                 <ContactUs />
                 <ExoclickOutStreamVideo />
-                {/* <ExoclickVideoSlider /> */}
+                <ExoclickVideoSlider />
 
-                {/* <ExoclickBanner /> */}
+                <ExoclickBanner />
                 {/* <AdsterraNativeBanner /> */}
                 {/* <AdsterraBanner /> */}
                 {/* <AdsterraPopunderFor /> */}

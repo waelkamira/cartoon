@@ -29,7 +29,7 @@ export default function Page() {
     const params = new URLSearchParams(window.location.search);
     const episodeNameParam = params.get('episodeName');
     if (episodeNameParam) {
-      console.log('episodeNameParam', episodeNameParam);
+      // console.log('episodeNameParam', episodeNameParam);
 
       setEpisodeName(episodeNameParam);
       fetchEpisode(episodeNameParam);
@@ -47,6 +47,7 @@ export default function Page() {
         );
 
         const json = await response.json();
+        console.log('json', json);
 
         // التحقق من نجاح الاستجابة
         if (response.ok) {

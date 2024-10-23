@@ -62,6 +62,7 @@ export default function Page() {
         );
 
         const json = await response.json();
+        // console.log('json', json);
 
         // التحقق من نجاح الاستجابة
         if (response.ok) {
@@ -85,7 +86,7 @@ export default function Page() {
 
             // إذا كانت الاستجابة للحلقة التالية غير ناجحة أو لم يتم العثور على حلقة تالية (الطول 0)
             if (res?.length > 0) {
-              console.log('لايوجد حلقات اضافية'); // طباعة رسالة تفيد بعدم وجود حلقات إضافية
+              // console.log('لايوجد حلقات اضافية'); // طباعة رسالة تفيد بعدم وجود حلقات إضافية
               setHasMoreEpisodes(true); // تعيين الحالة للإشارة إلى عدم وجود حلقات إضافية
             } else {
               setHasMoreEpisodes(false); // تعيين الحالة للإشارة إلى عدم وجود حلقات إضافية

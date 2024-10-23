@@ -1,8 +1,7 @@
 import Papa from 'papaparse';
 import { v4 as uuidv4 } from 'uuid';
-// export const runtime = 'edge';
 
-// الكاش لتخزين البيانات محليًا
+// الكاش لتخزين البيانات مؤقتًا
 const cache = {
   data: null,
   lastUpdated: null,
@@ -10,7 +9,7 @@ const cache = {
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 دقيقة
 
-// رابط ملف movies من GitHub
+// رابط ملف الأفلام من GitHub
 const moviesUrl =
   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/movies.csv';
 
@@ -19,9 +18,12 @@ const isCacheValid = () => {
   return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
 };
 
-// دالة لجلب وتحليل محتوى CSV من رابط
+// دالة لجلب وتحليل محتوى CSV من الرابط
 async function fetchCsvData(url) {
   const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Failed to fetch CSV data');
+  }
   const csvText = await response.text();
   return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
 }
@@ -29,27 +31,27 @@ async function fetchCsvData(url) {
 export async function GET(req) {
   const url = new URL(req.url);
   const searchParams = url.searchParams;
-  const page = parseInt(searchParams.get('page')) || 1;
-  const limit = parseInt(searchParams.get('limit')) || 4;
-  const skip = (page - 1) * limit;
-  const movieName = searchParams.get('movieName') || '';
-  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
+  const page = parseInt(searchParams.get('page')) || 1; // رقم الصفحة
+  const limit = parseInt(searchParams.get('limit')) || 4; // عدد العناصر لكل صفحة
+  const skip = (page - 1) * limit; // حساب بداية العرض
+  const movieName = searchParams.get('movieName') || ''; // البحث عن فيلم محدد
+  const mostViewed = searchParams.get('mostViewed') === 'true'; // التحقق إذا كانت الأكثر مشاهدة
 
   try {
     let movies = [];
 
+    // التحقق من الكاش
     if (isCacheValid()) {
-      // إذا كانت بيانات الكاش صالحة، نستخدمها
       movies = cache.data;
     } else {
-      // قراءة البيانات من ملف CSV عبر الرابط
+      // جلب البيانات من ملف CSV
       movies = await fetchCsvData(moviesUrl);
       // تحديث الكاش بالبيانات الجديدة
       cache.data = movies;
       cache.lastUpdated = Date.now();
     }
 
-    // البحث عن فيلم معين بناءً على الاسم
+    // البحث عن فيلم معين بناءً على الاسم إذا تم تقديمه
     if (movieName) {
       const filteredMovies = movies.filter((movie) =>
         movie.movieName.toLowerCase().includes(movieName.toLowerCase())
@@ -59,29 +61,115 @@ export async function GET(req) {
       });
     }
 
-    // إذا كانت قيمة mostViewed true، قم بترتيب الأفلام حسب updated_at
-    // وإذا كانت false، قم بترتيب الأفلام بشكل عشوائي
+    // ترتيب الأفلام بناءً على الأكثر مشاهدة أو بشكل عشوائي
     if (mostViewed) {
       movies.sort(
-        (a, b) => new Date(a['updated_at']) - new Date(b['updated_at'])
+        (a, b) => new Date(b['updated_at']) - new Date(a['updated_at'])
       );
     } else {
       movies.sort(() => Math.random() - 0.5); // ترتيب عشوائي
     }
 
-    // عرض الأفلام بالترتيب بناءً على mostViewed أو الترتيب العشوائي
+    // تطبيق pagination
     const paginatedMovies = movies.slice(skip, skip + limit);
+
     return new Response(JSON.stringify(paginatedMovies), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error(error);
+    // التعامل مع أي أخطاء تحدث أثناء جلب البيانات أو معالجتها
+    console.error('Error fetching movies:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 }
+
+// import Papa from 'papaparse';
+// import { v4 as uuidv4 } from 'uuid';
+// // export const runtime = 'edge';
+
+// // الكاش لتخزين البيانات محليًا
+// const cache = {
+//   data: null,
+//   lastUpdated: null,
+// };
+
+// const CACHE_DURATION = 15 * 60 * 1000; // 15 دقيقة
+
+// // رابط ملف movies من GitHub
+// const moviesUrl =
+//   'https://raw.githubusercontent.com/waelkamira/csv/refs/heads/main/movies.csv';
+
+// // دالة للتحقق من صلاحية الكاش
+// const isCacheValid = () => {
+//   return cache.data && Date.now() - cache.lastUpdated < CACHE_DURATION;
+// };
+
+// // دالة لجلب وتحليل محتوى CSV من رابط
+// async function fetchCsvData(url) {
+//   const response = await fetch(url);
+//   const csvText = await response.text();
+//   return Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+// }
+
+// export async function GET(req) {
+//   const url = new URL(req.url);
+//   const searchParams = url.searchParams;
+//   const page = parseInt(searchParams.get('page')) || 1;
+//   const limit = parseInt(searchParams.get('limit')) || 4;
+//   const skip = (page - 1) * limit;
+//   const movieName = searchParams.get('movieName') || '';
+//   const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل إلى Boolean
+
+//   try {
+//     let movies = [];
+
+//     if (isCacheValid()) {
+//       // إذا كانت بيانات الكاش صالحة، نستخدمها
+//       movies = cache.data;
+//     } else {
+//       // قراءة البيانات من ملف CSV عبر الرابط
+//       movies = await fetchCsvData(moviesUrl);
+//       // تحديث الكاش بالبيانات الجديدة
+//       cache.data = movies;
+//       cache.lastUpdated = Date.now();
+//     }
+
+//     // البحث عن فيلم معين بناءً على الاسم
+//     if (movieName) {
+//       const filteredMovies = movies.filter((movie) =>
+//         movie.movieName.toLowerCase().includes(movieName.toLowerCase())
+//       );
+//       return new Response(JSON.stringify(filteredMovies), {
+//         headers: { 'Content-Type': 'application/json' },
+//       });
+//     }
+
+//     // إذا كانت قيمة mostViewed true، قم بترتيب الأفلام حسب updated_at
+//     // وإذا كانت false، قم بترتيب الأفلام بشكل عشوائي
+//     if (mostViewed) {
+//       movies.sort(
+//         (a, b) => new Date(a['updated_at']) - new Date(b['updated_at'])
+//       );
+//     } else {
+//       movies.sort(() => Math.random() - 0.5); // ترتيب عشوائي
+//     }
+
+//     // عرض الأفلام بالترتيب بناءً على mostViewed أو الترتيب العشوائي
+//     const paginatedMovies = movies.slice(skip, skip + limit);
+//     return new Response(JSON.stringify(paginatedMovies), {
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return new Response(JSON.stringify({ error: error.message }), {
+//       status: 500,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   }
+// }
 
 export async function POST(req) {
   try {

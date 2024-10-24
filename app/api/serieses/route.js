@@ -45,7 +45,7 @@ export async function GET(req) {
   const skip = (page - 1) * limit;
   const seriesName = searchParams.get('seriesName') || '';
   const planetName = searchParams.get('planetName') || '';
-  const mostViewed = searchParams.get('mostViewed') === 'true'; // تحويل القيمة إلى Boolean
+  const mostViewed = searchParams.get('mostViewed') === false; // تحويل القيمة إلى Boolean
 
   try {
     let serieses;
@@ -84,6 +84,8 @@ export async function GET(req) {
       serieses.sort((a, b) => {
         const dateA = new Date(a['updated_at']);
         const dateB = new Date(b['updated_at']);
+        console.log('dateA - dateB', dateA - dateB);
+
         return dateA - dateB;
       });
     } else {
@@ -93,6 +95,7 @@ export async function GET(req) {
 
     // تقسيم البيانات للصفحة الحالية
     const paginatedData = serieses.slice(skip, skip + limit);
+    // console.log('paginatedData', paginatedData);
 
     return new Response(JSON.stringify(paginatedData), {
       headers: { 'Content-Type': 'application/json' },

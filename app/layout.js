@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="!scroll-smooth" dir="rtl">
       <head>
+        <link rel="manifest" href="/manifest.json" />
         {/* إضافة كود Google Tag Manager */}
         <Script
           id="gtm-script"

@@ -160,28 +160,32 @@ iframe {
   background-color: #f9f9f9;
   border: 2px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.1;
+  opacity: 0.01;
   padding: 5px;
   margin: 20px;
 }
 
 /* حاص ب ExoclickOutStreamVideo */
 [class*='_main_outstream'] {
-  opacity: 0.1;
+  opacity: 0.01;
 }
 
 [class*='video-slider-container-wrapper'] {
-  opacity: 0.1;
+  opacity: 0.01;
 }
 
 #ad {
-  opacity: 0.1;
+  opacity: 0.01;
 }
-.ad {
-  opacity: 0.1;
+body[onload='iosfix()'] {
+  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
 }
 
 img[src*="https://s3t3d2y8.afcdn.net"]
 {
-  opacity: 0.1; /* 50% شفافية */
+  opacity: 0.01; /* 50% شفافية */
+}
+
+#ad-container {
+  opacity: 0.01;
 }

@@ -53,7 +53,7 @@ export async function GET(req) {
 
     // تحقق مما إذا كانت بيانات الكاش صالحة
     if (isCacheValid(seriesName, planetName, mostViewed)) {
-      console.log('Serving from cache...');
+      // console.log('Serving from cache...');
       serieses = cache.data;
     } else {
       // جلب البيانات من CSV على GitHub

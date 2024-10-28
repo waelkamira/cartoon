@@ -52,7 +52,7 @@ export async function GET(req) {
 
     // تحقق مما إذا كانت بيانات الـ cache صالحة بناءً على معايير البحث
     if (isCacheValid(seriesName, planetName, mostViewed)) {
-      console.log('Serving from cache...');
+      // console.log('Serving from cache...');
       serieses = cache.data;
     } else {
       // تحميل البيانات من CSV إذا لم تكن متاحة في الكاش

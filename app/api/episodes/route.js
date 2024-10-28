@@ -37,7 +37,7 @@ export async function GET(req) {
 
   // التحقق إذا كانت البيانات موجودة في الكاش ولم تنتهي مدة صلاحيتها
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
-    console.log('Serving from cache:', episodeName);
+    // console.log('Serving from cache:', episodeName);
     return new Response(JSON.stringify(cachedData.data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

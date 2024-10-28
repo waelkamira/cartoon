@@ -15,6 +15,7 @@ import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
 import ExoclickBanner from '../../components/ads/exoclickBanner';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import ExoClickAd from '../../components/ads/exoclickAd';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -26,6 +27,7 @@ export default function SeriesAndEpisodes() {
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
   const [showMessage, setShowMessage] = useState(true);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const seriesNameParam = params.get('seriesName');
@@ -55,7 +57,7 @@ export default function SeriesAndEpisodes() {
       );
       if (response.ok) {
         const json = await response.json();
-        // console.log('json', json);
+        console.log('json', json);
 
         if (json.length > 0) {
           setEpisodes([json[0]]); // تغيير لجلب حلقة واحدة بدلاً من تكديس الحلقات
@@ -222,6 +224,7 @@ export default function SeriesAndEpisodes() {
                 <ExoclickVideoSlider render={episode?.episodeLink} />
 
                 <ExoclickBanner render={episode?.episodeLink} />
+                <ExoClickAd />
                 {/* <AdsterraNativeBanner /> */}
                 {/* <AdsterraBanner /> */}
                 {/* <AdsterraPopunderFor /> */}

@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const withPWA = require('next-pwa')({
   dest: 'public',
+  register: true,
+  skipWaiting: true,
+  swSrc: 'public/random-domain.js', // تحديد مسار service worker المخصص
 });
-const nextConfig = {
-  // output: 'export',
 
+const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },

@@ -160,35 +160,38 @@ iframe {
   background-color: #f9f9f9;
   border: 2px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 1;
+  opacity: 0.01;
   padding: 5px;
   margin: 20px;
 }
 
 /* حاص ب ExoclickOutStreamVideo */
 [class*='_main_outstream'] {
-  opacity: 1;
+  opacity: 0.01;
 }
 
 [class*='video-slider-container-wrapper'] {
-  opacity: 1;
+  opacity: 0.01;
 }
 
 #ad {
-  opacity: 1;
+  opacity: 0.01;
 }
 body[onload='iosfix()'] {
-  opacity: 1 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
+  opacity: 0.01 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
 }
 
 img[src*="https://s3t3d2y8.afcdn.net"]
 {
-  opacity: 1; /* 50% شفافية */
+  opacity: 0.01; /* 50% شفافية */
 }
 img[alt*='ExoClick Ad'] {
-  opacity: 1; /* 50% شفافية */
+  opacity: 0.01; /* 50% شفافية */
+}
+img[id*='logo'] {
+  opacity: 0.01; /* 50% شفافية */
 }
 
 #ad-container {
-  opacity: 1;
+  opacity: 0.01;
 }

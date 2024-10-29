@@ -6,6 +6,7 @@ import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
+import RandomizeDomain from '../components/RandomizeDomain';
 
 const inter = Inter({ subsets: ['latin'] });
 const rubik = Rubik({
@@ -40,7 +41,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        {/* <HappyTagAd /> */}
+        <RandomizeDomain />
         <BackButton />
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>

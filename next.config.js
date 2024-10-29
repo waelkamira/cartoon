@@ -1,9 +1,39 @@
-/** @type {import('next').NextConfig} */
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
   skipWaiting: true,
-  swSrc: 'public/random-domain.js', // تحديد مسار service worker المخصص
+  sw: 'service-worker.js',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/your-domain\.com\/.*$/, // استبدل your-domain.com بنطاق موقعك
+      handler: 'NetworkFirst', // استخدام استراتيجية الشبكة أولاً مع النسخ الاحتياطي من الكاش عند عدم الاتصال
+      options: {
+        cacheName: 'pages-cache',
+        expiration: {
+          maxEntries: 50, // الحد الأقصى للصفحات المخزنة
+          maxAgeSeconds: 30 * 24 * 60 * 60, // مدة التخزين 30 يوماً
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/.*\.(?:png|jpg|jpeg|svg|gif)$/, // تخزين الصور في الكاش
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'images-cache',
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/.*\.(?:js|css)$/, // تخزين الملفات الثابتة في الكاش
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-resources-cache',
+      },
+    },
+  ],
 });
 
 const nextConfig = {

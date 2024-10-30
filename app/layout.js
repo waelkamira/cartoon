@@ -26,6 +26,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="!scroll-smooth" dir="rtl">
       <head>
+        <meta
+          name="juicyads-site-verification"
+          content="d664049d6381fcb9b73e29f6b38da992"
+        ></meta>
         <link rel="manifest" href="/manifest.json" />
         {/* إضافة كود Google Tag Manager */}
         <Script
@@ -41,7 +45,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        <RandomizeDomain />
+        {/* <RandomizeDomain /> */}
         <BackButton />
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>

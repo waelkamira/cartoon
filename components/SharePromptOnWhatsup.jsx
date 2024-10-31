@@ -6,47 +6,20 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // طلب الإذن لعرض الإشعارات
-    if (Notification.permission !== 'granted') {
-      Notification.requestPermission();
+    // استرجاع عدد الفتحات
+    const openCount = parseInt(localStorage.getItem('openCount')) || 0;
+
+    // تحديث العداد وتخزينه
+    localStorage.setItem('openCount', openCount + 1);
+
+    // تحقق من عدد الفتحات لعرض رسالة المشاركة بعد 10 ثوانٍ
+    if (openCount > 0) {
+      const timer = setTimeout(() => {
+        setShowModal(true);
+      }, 10000); // 10000 ملي ثانية = 10 ثوانٍ
+
+      return () => clearTimeout(timer); // تنظيف المؤقت عند التفريغ
     }
-
-    const handlePageLoad = () => {
-      // استرجاع عدد الفتحات
-      let openCount = parseInt(localStorage.getItem('openCount')) || 0;
-
-      // تحديث العداد وتخزينه
-      openCount += 1;
-      localStorage.setItem('openCount', openCount);
-
-      // تحقق من عدد الفتحات لعرض رسالة المشاركة
-      if (openCount > 1) {
-        // 1 لعرض الرسالة بدءًا من الفتح الثاني
-        // إضافة تأخير لمدة 5 ثوانٍ قبل عرض الرسالة
-        setTimeout(() => {
-          setShowModal(true);
-          showNotification(); // عرض الإشعار
-        }, 5000); // 5000ms = 5 ثوانٍ
-      }
-    };
-
-    const showNotification = () => {
-      // تحقق من سماح المستخدم للإشعارات
-      if (Notification.permission === 'granted') {
-        new Notification('كرتون بهيجة', {
-          body: 'قم بمشاركة التطبيق على واتساب للأستمرار في استخدامه مجاناً!',
-          icon: '/android/android-launchericon-96-96.png', // رابط صورة الأيقونة
-        });
-      }
-    };
-
-    // انتظر حتى يتم تحميل الصفحة بالكامل
-    window.addEventListener('load', handlePageLoad);
-
-    // تنظيف الحدث عند إلغاء تثبيت المكون
-    return () => {
-      window.removeEventListener('load', handlePageLoad);
-    };
   }, []);
 
   // دالة لمشاركة التطبيق على واتساب أو عرض قائمة المشاركة
@@ -61,7 +34,7 @@ const SharePrompt = () => {
         .share({
           title: 'كرتون بهيجة',
           text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون!',
-          url: 'https://cartoon-cloudflare-repo2-brs.pages.dev/', // ضع هنا رابط التطبيق
+          url: 'https://cartoon.example.com', // ضع هنا رابط التطبيق
         })
         .then(() => localStorage.setItem('openCount', 0))
         .catch((error) => console.log('مشاركة ألغيت', error));
@@ -104,8 +77,6 @@ const SharePrompt = () => {
               <Image
                 src="/android/android-launchericon-96-96.png" // رابط صورة التطبيق
                 alt="App Icon"
-                width={80}
-                height={80}
               />
             </div>
             <p>!قم بمشاركة التطبيق على واتس أب للأستمرار في استخدامه مجاناً</p>

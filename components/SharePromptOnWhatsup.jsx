@@ -6,16 +6,42 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // استرجاع عدد الفتحات
-    const openCount = parseInt(localStorage.getItem('openCount')) || 0;
-
-    // تحديث العداد وتخزينه
-    localStorage.setItem('openCount', openCount + 1);
-
-    // تحقق من عدد الفتحات لعرض رسالة المشاركة
-    if (openCount > 0) {
-      setShowModal(true);
+    // طلب الإذن لعرض الإشعارات
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission();
     }
+
+    const handlePageLoad = () => {
+      // استرجاع عدد الفتحات
+      const openCount = parseInt(localStorage.getItem('openCount')) || 0;
+
+      // تحديث العداد وتخزينه
+      localStorage.setItem('openCount', openCount + 1);
+
+      // تحقق من عدد الفتحات لعرض رسالة المشاركة
+      if (openCount > 0) {
+        setShowModal(true);
+        showNotification(); // عرض الإشعار
+      }
+    };
+
+    const showNotification = () => {
+      // تحقق من سماح المستخدم للإشعارات
+      if (Notification.permission === 'granted') {
+        new Notification('كرتون بهيجة', {
+          body: 'قم بمشاركة التطبيق على واتساب للأستمرار في استخدامه مجاناً!',
+          icon: '/android/android-launchericon-96-96.png', // رابط صورة الأيقونة
+        });
+      }
+    };
+
+    // انتظر حتى يتم تحميل الصفحة بالكامل
+    window.addEventListener('load', handlePageLoad);
+
+    // تنظيف الحدث عند إلغاء تثبيت المكون
+    return () => {
+      window.removeEventListener('load', handlePageLoad);
+    };
   }, []);
 
   // دالة لمشاركة التطبيق على واتساب أو عرض قائمة المشاركة
@@ -73,6 +99,8 @@ const SharePrompt = () => {
               <Image
                 src="/android/android-launchericon-96-96.png" // رابط صورة التطبيق
                 alt="App Icon"
+                width={80}
+                height={80}
               />
             </div>
             <p>!قم بمشاركة التطبيق على واتس أب للأستمرار في استخدامه مجاناً</p>

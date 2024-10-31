@@ -12,13 +12,11 @@ const SharePrompt = () => {
     // تحديث العداد وتخزينه
     localStorage.setItem('openCount', openCount + 1);
 
-    // تحقق من عدد الفتحات لعرض رسالة المشاركة بعد 10 ثوانٍ
+    // تحقق من عدد الفتحات لعرض رسالة المشاركة
     if (openCount > 0) {
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setShowModal(true);
-      }, 10000); // 10000 ملي ثانية = 10 ثوانٍ
-
-      return () => clearTimeout(timer); // تنظيف المؤقت عند التفريغ
+      }, 10000);
     }
   }, []);
 
@@ -77,6 +75,8 @@ const SharePrompt = () => {
               <Image
                 src="/android/android-launchericon-96-96.png" // رابط صورة التطبيق
                 alt="App Icon"
+                layout="fill"
+                objectFit="contain"
               />
             </div>
             <p>!قم بمشاركة التطبيق على واتس أب للأستمرار في استخدامه مجاناً</p>

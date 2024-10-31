@@ -19,6 +19,11 @@ import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoClickAd from '../../components/ads/exoclickAd';
 import ExoclickNative from '../../components/ads/exoclickNative';
 import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
+import JuicyAdsAd from '../../components/ads/JuicyAdsAd';
+import HillTopAdsVideo from '../../components/ads/HillTopAdsVideo';
+import HillTopAdsVideoSlider from '../../components/ads/HillTopAdsVideoSlider';
+import HillTopAdsMultiTagBanner from '../../components/ads/HillTopAdsMultiTagBanner';
+import HillTopAdsMultiTagBannerMobile from '../../components/ads/HillTopAdsMultiTagBannerMobile';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -60,7 +65,7 @@ export default function SeriesAndEpisodes() {
       );
       if (response.ok) {
         const json = await response.json();
-        console.log('json', json);
+        // console.log('json', json);
 
         if (json.length > 0) {
           setEpisodes([json[0]]); // تغيير لجلب حلقة واحدة بدلاً من تكديس الحلقات
@@ -229,8 +234,14 @@ export default function SeriesAndEpisodes() {
                 <ExoClickAd />
                 <ExoclickNative />
                 <AdsterraBanner />
-                <AdsterraNativeBanner /> 
-                <AdsterraBanner468x60 />*/}
+                <AdsterraNativeBanner />
+                <AdsterraBanner468x60 />
+                <JuicyAdsAd /> */}
+                {/* <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} /> */}
+                {/* <HillTopAdsMultiTagBanner render={episode?.episodeLink} /> */}
+
+                {/* <HillTopAdsVideoSlider /> */}
+                {/* <HillTopAdsVideo /> */}
               </div>
             </div>
           ))}

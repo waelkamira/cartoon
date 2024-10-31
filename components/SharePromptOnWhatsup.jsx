@@ -22,8 +22,11 @@ const SharePrompt = () => {
       // تحقق من عدد الفتحات لعرض رسالة المشاركة
       if (openCount > 1) {
         // 1 لعرض الرسالة بدءًا من الفتح الثاني
-        setShowModal(true);
-        showNotification(); // عرض الإشعار
+        // إضافة تأخير لمدة 5 ثوانٍ قبل عرض الرسالة
+        setTimeout(() => {
+          setShowModal(true);
+          showNotification(); // عرض الإشعار
+        }, 5000); // 5000ms = 5 ثوانٍ
       }
     };
 
@@ -58,7 +61,7 @@ const SharePrompt = () => {
         .share({
           title: 'كرتون بهيجة',
           text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون!',
-          url: 'https://cartoon.example.com', // ضع هنا رابط التطبيق
+          url: 'https://cartoon-cloudflare-repo2-brs.pages.dev/', // ضع هنا رابط التطبيق
         })
         .then(() => localStorage.setItem('openCount', 0))
         .catch((error) => console.log('مشاركة ألغيت', error));

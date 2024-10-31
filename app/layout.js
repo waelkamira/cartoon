@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        {/* <RandomizeDomain /> */}
+        <RandomizeDomain />
         <SharePrompt />
         <BackButton />
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}

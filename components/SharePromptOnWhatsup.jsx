@@ -1,7 +1,10 @@
 'use client';
-import React, { useEffect } from 'react';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 const SharePrompt = () => {
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     // استرجاع عدد الفتحات
     const openCount = parseInt(localStorage.getItem('openCount')) || 0;
@@ -9,84 +12,89 @@ const SharePrompt = () => {
     // تحديث العداد وتخزينه
     localStorage.setItem('openCount', openCount + 1);
 
-    // دالة لعرض الإشعار
-    const showNotification = () => {
-      if (Notification.permission === 'granted') {
-        const notification = new Notification('كرتون بهيجة', {
-          body: 'قم بمشاركة تطبيق كرتون بهيجة على واتساب للاستمرار!',
-          icon: '/android/android-launchericon-96-96.png', // رابط صورة الأيقونة
-        });
-
-        // إعادة توجيه المستخدم إلى التطبيق عند الضغط على الإشعار
-        notification.onclick = () => {
-          window.focus();
-        };
-      }
-    };
-
-    // طلب إذن الإشعارات إن لم يكن ممنوحًا مسبقًا
-    if (
-      Notification.permission !== 'granted' &&
-      Notification.permission !== 'denied'
-    ) {
-      Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') {
-          showNotification();
-        }
-      });
-    } else if (Notification.permission === 'granted') {
-      showNotification();
-    }
-
-    // دالة لمحاولة فتح واتساب إذا كان مثبتًا
-    const openWhatsApp = () => {
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-        'جرب تطبيق "كرتون بهيجة" الرائع!'
-      )}`;
-
-      // محاولة فتح رابط WhatsApp مباشرة
-      window.location.href = whatsappUrl;
-
-      // إعادة تعيين العداد بعد المشاركة
-      localStorage.setItem('openCount', 0);
-    };
-
-    // دالة لعرض قائمة المشاركة عند عدم توفر واتساب
-    const shareFallback = () => {
-      if (navigator.share) {
-        navigator
-          .share({
-            title: 'كرتون بهيجة',
-            text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون!',
-            url: '/android/android-launchericon-96-96.png', // رابط التطبيق
-          })
-          .then(() => localStorage.setItem('openCount', 0))
-          .catch((error) => console.log('مشاركة ألغيت', error));
-      } else {
-        alert('ميزة المشاركة غير مدعومة في متصفحك.');
-      }
-    };
-
     // تحقق من عدد الفتحات لعرض رسالة المشاركة
     if (openCount > 0) {
-      const shareMessage =
-        'قم بمشاركة تطبيق "كرتون بهيجة" على واتساب للاستمرار في استخدامه!';
-
-      // عرض رسالة التأكيد
-      if (window.confirm(shareMessage)) {
-        // حاول فتح واتساب، وإذا لم يكن متوفرًا فافتح قائمة المشاركة
-        openWhatsApp();
-        setTimeout(() => {
-          // إذا لم يتم التوجيه لواتساب بعد 500 مللي ثانية، فافتح قائمة المشاركة
-          if (window.location.href === whatsappUrl) {
-            shareFallback();
-          }
-        }, 500);
-      }
+      setShowModal(true);
     }
   }, []);
 
-  return null; // هذا المكون يعمل فقط عند تحميل الصفحة
+  // دالة لمشاركة التطبيق على واتساب أو عرض قائمة المشاركة
+  const handleShare = () => {
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+      'جرب تطبيق "كرتون بهيجة" الرائع!'
+    )}`;
+
+    // تحقق مما إذا كان واتساب مثبتًا، وإلا عرض قائمة المشاركة
+    if (navigator.share) {
+      navigator
+        .share({
+          title: 'كرتون بهيجة',
+          text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون!',
+          url: 'https://cartoon.example.com', // ضع هنا رابط التطبيق
+        })
+        .then(() => localStorage.setItem('openCount', 0))
+        .catch((error) => console.log('مشاركة ألغيت', error));
+    } else {
+      window.location.href = whatsappUrl;
+    }
+
+    // إعادة تعيين العداد بعد المشاركة
+    localStorage.setItem('openCount', 0);
+    setShowModal(false); // إغلاق النافذة بعد المشاركة
+  };
+
+  return (
+    <>
+      {showModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#fff',
+              padding: '20px',
+              borderRadius: '8px',
+              textAlign: 'center',
+              maxWidth: '300px',
+            }}
+          >
+            <div className="relative size-14">
+              <Image
+                src="/android/android-launchericon-96-96.png" // رابط صورة التطبيق
+                alt="App Icon"
+              />
+            </div>
+            <p>!قم بمشاركة التطبيق على واتس أب للأستمرار في استخدامه مجاناً</p>
+            <button
+              onClick={handleShare}
+              style={{
+                backgroundColor: '#25D366',
+                color: '#fff',
+                padding: '10px 20px',
+                borderRadius: '5px',
+                border: 'none',
+                cursor: 'pointer',
+                marginTop: '10px',
+              }}
+            >
+              مشاركة
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default SharePrompt;

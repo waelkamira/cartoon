@@ -13,13 +13,15 @@ const SharePrompt = () => {
 
     const handlePageLoad = () => {
       // استرجاع عدد الفتحات
-      const openCount = parseInt(localStorage.getItem('openCount')) || 0;
+      let openCount = parseInt(localStorage.getItem('openCount')) || 0;
 
       // تحديث العداد وتخزينه
-      localStorage.setItem('openCount', openCount + 1);
+      openCount += 1;
+      localStorage.setItem('openCount', openCount);
 
       // تحقق من عدد الفتحات لعرض رسالة المشاركة
-      if (openCount > 0) {
+      if (openCount > 1) {
+        // 1 لعرض الرسالة بدءًا من الفتح الثاني
         setShowModal(true);
         showNotification(); // عرض الإشعار
       }

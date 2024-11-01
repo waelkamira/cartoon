@@ -22,6 +22,8 @@ import ExoClickAd from '../../components/ads/exoclickAd';
 import ExoclickNative from '../../components/ads/exoclickNative';
 import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
 import JuicyAdsAd from '../../components/ads/JuicyAdsAd';
+import JuicyAdsAdVideo from '../../components/ads/JuicyAdsAdVideo';
+import JuicyAdsImage from '../../components/ads/JuicyAdsImage';
 import HillTopAdsVideo from '../../components/ads/HillTopAdsVideo';
 import HillTopAdsVideoSlider from '../../components/ads/HillTopAdsVideoSlider';
 import HillTopAdsMultiTagBanner from '../../components/ads/HillTopAdsMultiTagBanner';
@@ -239,10 +241,11 @@ export default function SeriesAndEpisodes() {
                 <AdsterraBanner />
                 <AdsterraNativeBanner />
                 <AdsterraBanner468x60 />
-                <JuicyAdsAd /> */}
-                {/* <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} /> */}
-                {/* <HillTopAdsMultiTagBanner render={episode?.episodeLink} /> */}
-
+                <HillTopAdsMultiTagBannerMobile render={episode?.episodeLink} />
+                <HillTopAdsMultiTagBanner render={episode?.episodeLink} /> */}
+                {/* <JuicyAdsAd />
+                <JuicyAdsAdVideo />
+                <JuicyAdsImage /> */}
                 {/* <HillTopAdsVideoSlider /> */}
                 {/* <HillTopAdsVideo /> */}
               </div>

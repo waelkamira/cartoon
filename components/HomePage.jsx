@@ -14,6 +14,8 @@ import EpisodForm from './createEpisode';
 import MovieForm from './createMovie';
 import SongForm from './createSong';
 import SpacetoonSongForm from './createSpacetoonSong';
+import SharePrompt from './SharePromptOnWhatsup';
+
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSpacetoonOpen, setIsSpacetoonOpen] = useState(false);
@@ -30,6 +32,8 @@ export default function HomePage() {
 
   return (
     <>
+      <SharePrompt />
+
       <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
         <div className=" w-full ">
           <div className="fixed top-0 right-0 z-50 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">

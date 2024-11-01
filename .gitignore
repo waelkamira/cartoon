@@ -37,3 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vscode
+
+#pwa
+public/sw.js
+public/workbox-00a24876.js

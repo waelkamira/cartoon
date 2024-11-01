@@ -5,7 +5,7 @@ const withPWA = require('next-pwa')({
   sw: 'service-worker.js',
   runtimeCaching: [
     {
-      urlPattern: /^https:\/\/your-domain\.com\/.*$/, // استبدل your-domain.com بنطاق موقعك
+      urlPattern: /^https:\/\/cartoon-cloudflare-repo2-brs.pages\.dev\/.*$/, // استبدل your-domain.com بنطاق موقعك
       handler: 'NetworkFirst', // استخدام استراتيجية الشبكة أولاً مع النسخ الاحتياطي من الكاش عند عدم الاتصال
       options: {
         cacheName: 'pages-cache',
@@ -37,6 +37,8 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig = {
+  output: 'standalone',
+
   typescript: {
     ignoreBuildErrors: true,
   },

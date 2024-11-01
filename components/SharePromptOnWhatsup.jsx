@@ -6,43 +6,46 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // استرجاع عدد الفتحات
-    const openCount = parseInt(localStorage.getItem('openCount')) || 0;
+    // Check if the prompt has already been shown in this session
+    const hasShownPrompt = localStorage.getItem('hasShownPrompt');
 
-    // تحديث العداد وتخزينه
-    localStorage.setItem('openCount', openCount + 1);
-
-    // تحقق من عدد الفتحات لعرض رسالة المشاركة
-    if (openCount > 0) {
-      setTimeout(() => {
-        setShowModal(true);
-      }, 15000);
+    // If the prompt hasn't been shown yet, show it immediately
+    if (!hasShownPrompt) {
+      setShowModal(true);
+      localStorage.setItem('hasShownPrompt', 'true'); // Set flag to avoid repeat prompt in this session
     }
+
+    // Remove hasShownPrompt when the app (or page) is closed
+    const handleUnload = () => localStorage.removeItem('hasShownPrompt');
+    window.addEventListener('beforeunload', handleUnload);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
   }, []);
 
-  // دالة لمشاركة التطبيق على واتساب أو عرض قائمة المشاركة
+  // Sharing function
   const handleShare = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
       'جرب تطبيق "كرتون بهيجة" الرائع'
     )}`;
 
-    // تحقق مما إذا كان واتساب مثبتًا، وإلا عرض قائمة المشاركة
     if (navigator.share) {
       navigator
         .share({
           title: 'كرتون بهيجة',
           text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون',
-          url: 'https://cartoon.example.com', // ضع هنا رابط التطبيق
+          url: 'https://cartoon-cloudflare-repo4.pages.dev', // Replace with app link
         })
-        .then(() => localStorage.setItem('openCount', 0))
+        .then(() => console.log('shred'))
         .catch((error) => console.log('مشاركة ألغيت', error));
     } else {
       window.location.href = whatsappUrl;
     }
 
-    // إعادة تعيين العداد بعد المشاركة
-    localStorage.setItem('openCount', 0);
-    setShowModal(false); // إغلاق النافذة بعد المشاركة
+    // Close the modal after sharing
+    setShowModal(false);
   };
 
   return (
@@ -73,7 +76,7 @@ const SharePrompt = () => {
           >
             <div className="relative size-14 w-full">
               <Image
-                src="/android/android-launchericon-96-96.png" // رابط صورة التطبيق
+                src="/android/android-launchericon-96-96.png"
                 alt="App Icon"
                 layout="fill"
                 objectFit="contain"

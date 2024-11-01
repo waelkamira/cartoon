@@ -9,7 +9,7 @@ export async function GET(req) {
   const searchParams = url.searchParams;
   const seriesName = searchParams.get('seriesName') || '';
   const episodeName = searchParams.get('episodeName') || '';
-  console.log('seriesName', seriesName, episodeName);
+  // console.log('seriesName', seriesName, episodeName);
 
   // التحقق من المدخلات
   if (!seriesName || !episodeName) {
@@ -26,7 +26,7 @@ export async function GET(req) {
 
   // التحقق إذا كانت البيانات في الكاش ولم تنتهي صلاحيتها
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
-    console.log('seriesName', seriesName, episodeName);
+    // console.log('seriesName', seriesName, episodeName);
     return new Response(JSON.stringify(cachedData.data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -67,7 +67,7 @@ export async function GET(req) {
       timestamp: Date.now(),
     });
 
-    console.log('Serving from file:', seriesName, episodeName);
+    // console.log('Serving from file:', seriesName, episodeName);
     return new Response(JSON.stringify(episodes), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

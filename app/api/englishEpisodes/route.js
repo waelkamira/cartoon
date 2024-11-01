@@ -22,7 +22,7 @@ export async function GET(req) {
   const episodeName = searchParams.get('episodeName') || '';
   const cacheKey = `episode-${episodeName}`;
   const cachedData = cache.get(cacheKey);
-  console.log('episodeName', episodeName);
+  // console.log('episodeName', episodeName);
 
   // التحقق إذا كانت البيانات موجودة في الكاش ولم تنتهي مدة صلاحيتها
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_TTL) {
@@ -38,7 +38,7 @@ export async function GET(req) {
     const episode = englishEpisodes.find((ep) =>
       ep.episodeName.includes(episodeName)
     );
-    console.log('episode', episode);
+    // console.log('episode', episode);
 
     if (!episode) {
       return new Response(JSON.stringify({ error: 'Episode not found' }), {
@@ -53,7 +53,7 @@ export async function GET(req) {
       timestamp: Date.now(),
     });
 
-    console.log('Serving from file:', episodeName);
+    // console.log('Serving from file:', episodeName);
     return new Response(JSON.stringify([episode]), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -84,7 +84,7 @@ export async function POST(req) {
       timestamp: Date.now(),
     });
 
-    console.log('New episode added (cached only):', newEpisode);
+    // console.log('New episode added (cached only):', newEpisode);
     return new Response(JSON.stringify(newEpisode), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },

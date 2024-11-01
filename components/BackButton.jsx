@@ -12,7 +12,7 @@ export default function BackButton() {
         <TbArrowBigLeftLinesFilled className=" z-20 text-white text-2xl sm:text-4xl lg:text-[44px] animate-pulse transition-all duration-300  rounded-l-lg" />
         <TbArrowBigLeftLinesFilled className=" absolute -top-[4px] -left-[3px] z-10 text-gray-400 text-[33px] sm:text-4xl lg:text-[44px]  transition-all duration-300  rounded-l-lg" />
       </div>
-      <h1 className="text-white">رجوع</h1>
+      <h1 className="text-white xl:hidden">رجوع</h1>
     </Link>
   );
 }

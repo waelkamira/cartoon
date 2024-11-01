@@ -4,10 +4,9 @@
 
   "theme_color": "#F70000",
   "background_color": "#F70000",
-  "start_url": "/",
   "display": "standalone",
+  "start_url": "/home",
   "orientation": "portrait",
-
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",

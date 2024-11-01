@@ -11,8 +11,10 @@ const SharePrompt = () => {
 
     // If the prompt hasn't been shown yet, show it immediately
     if (!hasShownPrompt) {
-      setShowModal(true);
-      localStorage.setItem('hasShownPrompt', 'true'); // Set flag to avoid repeat prompt in this session
+      setTimeout(() => {
+        setShowModal(true);
+        localStorage.setItem('hasShownPrompt', 'true'); // Set flag to avoid repeat prompt in this session
+      }, 10000);
     }
 
     // Remove hasShownPrompt when the app (or page) is closed

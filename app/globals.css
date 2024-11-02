@@ -318,3 +318,11 @@ iframe {
   height: 250px;
   opacity: 0.5; /* تعيين الشفافية إلى 50% */
 }
+
+iframe {
+  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% */
+  width: 100% !important; /* عرض الإطار بكامل العرض */
+}
+.transparent-iframe {
+  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% */
+}

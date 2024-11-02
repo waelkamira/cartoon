@@ -10,7 +10,8 @@ import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import SharePrompt from '../../components/SharePromptOnWhatsup';
 
-import HappyTagAd from '../../components/ads/happyTagAd';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
+import MonetagInPagePush from '../../components/ads/MonetagInPagePush';
 import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
 import AdsterraBanner from '../../components/ads/adsterraBanner';
 import AdsterraBanner468x60 from '../../components/ads/adsterraBanner468x60';
@@ -223,7 +224,6 @@ export default function SeriesAndEpisodes() {
               <div className={'w-full'}>
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
-                  {/* <HappyTagAd render={episode?.episodeName} /> */}
                 </h1>
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
@@ -246,6 +246,9 @@ export default function SeriesAndEpisodes() {
                 {/* <JuicyAdsAd />
                 <JuicyAdsAdVideo />
                 <JuicyAdsImage /> */}
+                <MonetagInPagePush render={episode?.episodeLink} />
+
+                {/* <MonetagExcitedTag render={episode?.episodeLink} /> */}
                 {/* <HillTopAdsVideoSlider /> */}
                 {/* <HillTopAdsVideo /> */}
               </div>

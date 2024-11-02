@@ -6,31 +6,31 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Check if the prompt has already been shown in this session
+    // تحقق مما إذا كان قد تم عرض نافذة المشاركة في هذه الجلسة
     const hasShownPrompt = localStorage.getItem('hasShownPrompt');
 
-    // If the prompt hasn't been shown yet, show it immediately
+    // عرض النافذة إذا لم يتم عرضها من قبل
     if (!hasShownPrompt) {
       setTimeout(() => {
         setShowModal(true);
-        localStorage.setItem('hasShownPrompt', 'true'); // Set flag to avoid repeat prompt in this session
+        localStorage.setItem('hasShownPrompt', 'true'); // تعيين علامة لتجنب التكرار
       }, 10000);
     }
 
-    // Remove hasShownPrompt when the app (or page) is closed
+    // إزالة العلامة عند إغلاق التطبيق
     const handleUnload = () => localStorage.removeItem('hasShownPrompt');
     window.addEventListener('beforeunload', handleUnload);
 
-    // Cleanup on component unmount
+    // إزالة الحدث عند تدمير المكون
     return () => {
       window.removeEventListener('beforeunload', handleUnload);
     };
   }, []);
 
-  // Sharing function
+  // دالة المشاركة
   const handleShare = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-      'جرب تطبيق "كرتون بهيجة" الرائع'
+      'جرب تطبيق "كرتون بهيجة" الرائع https://cartoon-cloudflare-repo4.pages.dev'
     )}`;
 
     if (navigator.share) {
@@ -38,15 +38,15 @@ const SharePrompt = () => {
         .share({
           title: 'كرتون بهيجة',
           text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون',
-          url: 'https://cartoon-cloudflare-repo4.pages.dev', // Replace with app link
+          url: 'https://cartoon-cloudflare-repo4.pages.dev', // الرابط الصحيح للتطبيق
         })
-        .then(() => console.log('shred'))
+        .then(() => console.log('تمت المشاركة بنجاح'))
         .catch((error) => console.log('مشاركة ألغيت', error));
     } else {
-      window.location.href = whatsappUrl;
+      window.open(whatsappUrl, '_blank'); // فتح الرابط في نافذة جديدة
     }
 
-    // Close the modal after sharing
+    // إغلاق النافذة بعد المشاركة
     setShowModal(false);
   };
 
@@ -76,7 +76,10 @@ const SharePrompt = () => {
               maxWidth: '300px',
             }}
           >
-            <div className="relative size-14 w-full">
+            <div
+              className="relative size-14 w-full"
+              style={{ width: '96px', height: '96px', margin: '0 auto' }}
+            >
               <Image
                 src="/android/android-launchericon-96-96.png"
                 alt="App Icon"

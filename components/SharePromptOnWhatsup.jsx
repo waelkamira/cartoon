@@ -6,28 +6,22 @@ const SharePrompt = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // تحقق مما إذا كان قد تم عرض نافذة المشاركة في هذه الجلسة
-    const hasShownPrompt = localStorage.getItem('hasShownPrompt');
+    // console.log('shared');
 
-    // عرض النافذة إذا لم يتم عرضها من قبل
-    if (!hasShownPrompt) {
-      setTimeout(() => {
+    const timer = setTimeout(() => {
+      const shared = sessionStorage.getItem('shared');
+      console.log('shared');
+      if (!shared) {
         setShowModal(true);
-        localStorage.setItem('hasShownPrompt', 'true'); // تعيين علامة لتجنب التكرار
-      }, 10000);
-    }
+        sessionStorage.setItem('shared', 'true');
+        console.log('shared');
+      }
+    }, 10000);
 
-    // إزالة العلامة عند إغلاق التطبيق
-    const handleUnload = () => localStorage.removeItem('hasShownPrompt');
-    window.addEventListener('beforeunload', handleUnload);
-
-    // إزالة الحدث عند تدمير المكون
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
+    // تنظيف المؤقت عند إلغاء تحميل المكون
+    return () => clearTimeout(timer);
   }, []);
 
-  // دالة المشاركة
   const handleShare = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
       'جرب تطبيق "كرتون بهيجة" الرائع https://cartoon-cloudflare-repo4.pages.dev'
@@ -38,16 +32,18 @@ const SharePrompt = () => {
         .share({
           title: 'كرتون بهيجة',
           text: 'جرب تطبيق "كرتون بهيجة" الرائع لمشاهدة أفضل أفلام الكرتون',
-          url: 'https://cartoon-cloudflare-repo4.pages.dev', // الرابط الصحيح للتطبيق
+          url: 'https://cartoon-cloudflare-repo4.pages.dev',
         })
-        .then(() => console.log('تمت المشاركة بنجاح'))
-        .catch((error) => console.log('مشاركة ألغيت', error));
+        .then(() => {
+          console.log('تمت المشاركة بنجاح');
+          setShowModal(false);
+        })
+        .catch((error) => {
+          console.log('مشاركة ألغيت', error);
+        });
     } else {
-      window.open(whatsappUrl, '_blank'); // فتح الرابط في نافذة جديدة
+      window.open(whatsappUrl, '_blank');
     }
-
-    // إغلاق النافذة بعد المشاركة
-    setShowModal(false);
   };
 
   return (

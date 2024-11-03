@@ -8,7 +8,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import MonetagExcitedTag from '../../components/ads/monetagExcitedTag';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import EnglishCartoon from '../../components/englishCartoon';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';

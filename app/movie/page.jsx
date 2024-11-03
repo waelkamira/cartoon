@@ -9,7 +9,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import MonetagExcitedTag from '../../components/ads/monetagExcitedTag';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 

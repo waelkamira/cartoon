@@ -7,7 +7,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import EnglishSongs from '../../components/englishKidsSongs';
-import MonetagExcitedTag from '../../components/ads/monetagExcitedTag';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';

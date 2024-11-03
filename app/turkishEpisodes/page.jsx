@@ -6,7 +6,7 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
-import MonetagExcitedTag from '../../components/ads/monetagExcitedTag';
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import TurkishCartoon from '../../components/turkishCartoon';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';

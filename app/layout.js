@@ -7,7 +7,7 @@ import AuthContextProvider from '../components/authContext/AuthContext';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
 import RandomizeDomain from '../components/RandomizeDomain';
-
+import PopupBlocker from '../components/PopupBlocker';
 const inter = Inter({ subsets: ['latin'] });
 const rubik = Rubik({
   subsets: ['latin'],
@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        <RandomizeDomain />
+        {/* <RandomizeDomain /> */}
         <BackButton />
         {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>
@@ -60,6 +60,7 @@ export default function RootLayout({ children }) {
         </noscript>
         <Toaster />
         <AuthContextProvider>
+          <PopupBlocker />
           <InputsContextProvider>{children}</InputsContextProvider>
         </AuthContextProvider>
       </body>

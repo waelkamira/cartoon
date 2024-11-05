@@ -21,13 +21,13 @@ html {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  /* background-color: #c99944; */
+  background-color: #f70000;
 }
 
-/* ::-webkit-scrollbar-thumb {
-  background: #c9c9c9;
+::-webkit-scrollbar-thumb {
+  background: #fc5e5e;
   border-radius: 20px;
-} */
+}
 
 ::-webkit-scrollbar-track {
   border-radius: 20px;
@@ -54,6 +54,7 @@ html {
   width: 0%;
   height: 100%;
   background: #30353b;
+
   /* color: rgb(255, 255, 255); */
   height: 100%;
   z-index: -1;
@@ -72,7 +73,8 @@ html {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
   overflow: hidden;
 }
 
@@ -83,7 +85,8 @@ html {
   width: 100vw;
   height: 100vh;
   z-index: 1000;
-  background-color: #000; /* Optional: background color for full-screen overlay */
+  background-color: #000;
+  /* Optional: background color for full-screen overlay */
 }
 
 .close-button {
@@ -95,6 +98,7 @@ html {
   color: #fff;
   font-size: 24px;
 }
+
 /*? خاصة بالتعامل مع رفع الملف الذي هو عبارة عن صورة قمنا باخفاء الاليمنت الاساسي وعمل اليمنت مخصص  */
 input[type='file'] {
   display: none;
@@ -103,10 +107,13 @@ input[type='file'] {
   white-space: nowrap;
   font-weight: bold;
   display: inline-block;
+
   /* background-color: aqua; */
+
   /* padding: 100px; */
   cursor: pointer;
-  color: white; /* White text */
+  color: white;
+  /* White text */
   font-size: 14px;
   text-align: center;
   overflow: hidden;
@@ -118,12 +125,15 @@ input[type='file'] {
 
 /* إخفاء شريط التمرير في المتصفحات الحديثة */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
+  /* Safari and Chrome */
 }
 
 iframe {
@@ -132,10 +142,14 @@ iframe {
 }
 
 .video-poster {
-  width: 100%; /* عرض الفيديو */
-  height: 176px; /* ارتفاع الفيديو (44 * 4 = 176px) */
-  background-size: cover; /* لضبط حجم الصورة لتغطي الفيديو بالكامل */
-  background-position: center; /* لتمركز الصورة في الوسط */
+  width: 100%;
+  /* عرض الفيديو */
+  height: 176px;
+  /* ارتفاع الفيديو (44 * 4 = 176px) */
+  background-size: cover;
+  /* لضبط حجم الصورة لتغطي الفيديو بالكامل */
+  background-position: center;
+  /* لتمركز الصورة في الوسط */
 }
 
 .ad-container {
@@ -159,20 +173,25 @@ iframe {
 }
 
 #ad-container {
-  position: relative; /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
-  margin: 20px auto; /* لضمان أن يظهر في وسط الصفحة */
-  text-align: center; /* لضبط محتوى الإعلان في المنتصف */
-  width: 300px; /* تحديد العرض (مثلاً 300 بكسل) */
-  height: 250px; /* تحديد الطول (مثلاً 250 بكسل) */
-  background-color: #f9f9f9; /* لون خلفية لمساعدتك على رؤية مكان الإعلان */
-  padding: 10px; /* لإضافة مساحة حول الإعلان */
-  overflow: hidden; /* إخفاء أي محتوى يتجاوز الأبعاد المحددة */
+  position: relative;
+  /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
+  margin: 20px auto;
+  /* لضمان أن يظهر في وسط الصفحة */
+  text-align: center;
+  /* لضبط محتوى الإعلان في المنتصف */
+  width: 300px;
+  /* تحديد العرض (مثلاً 300 بكسل) */
+  height: 250px;
+  /* تحديد الطول (مثلاً 250 بكسل) */
+  background-color: #f9f9f9;
+  /* لون خلفية لمساعدتك على رؤية مكان الإعلان */
+  padding: 10px;
+  /* لإضافة مساحة حول الإعلان */
+  overflow: hidden;
+  /* إخفاء أي محتوى يتجاوز الأبعاد المحددة */
 }
 
-/* خاص ب ExoclickBanner */
-.exo-native-widget-item {
-  /* position: absolute; */
-
+/* .exo-native-widget-item {
   top: 0px;
   left: 100px;
   width: 700px;
@@ -180,149 +199,153 @@ iframe {
   background-color: #f9f9f9;
   border: 2px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
   padding: 5px;
   margin: 20px;
 }
 
-/* حاص ب ExoclickOutStreamVideo */
 [class*='_main_outstream'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 [class*='video-slider-container-wrapper'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 a[class*='ad'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 a.ad {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 video#video {
-  opacity: 0.5 !important ;
+  opacity: 0.1 !important ;
 }
 
 video.adaptive_video_player {
-  opacity: 0.5 !important ;
+  opacity: 0.1 !important ;
 }
 .ad-container {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 video#adaptive_video_player {
-  /* الأنماط هنا */
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 .adaptive_video_player {
   display: block;
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 #video {
-  /* الأنماط هنا */
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 #ad {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 #link {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 a.ad#link {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 a.ad#link,
 a.ad#link img,
 a.ad#link video {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 .ad {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 a.ad {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 body[onload='iosfix()'] {
-  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% مع إعطائها الأولوية */
+  opacity: 0.1 !important;
 }
 
 img[src*="https://s3t3d2y8.afcdn.net"]
 {
-  opacity: 0.5 !important; /* 50% شفافية */
+  opacity: 0.1 !important;
 }
 img[alt*='ExoClick Ad'] {
-  opacity: 0.5 !important; /* 50% شفافية */
+  opacity: 0.1 !important;
 }
 img[id*='logo'] {
-  opacity: 0.5 !important; /* 50% شفافية */
+  opacity: 0.1 !important;
 }
 
 #ad-container {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 .ad-container {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 iframe[src*='https://a.adtng.com']
 {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 element.style {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
-/* Adsterra */
-
 div[id*='atContainer'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 img[border='0'] {
-  opacity: 0.5 !important; /* اجعل الشفافية 50% */
+  opacity: 0.1 !important;
 }
 #atContainer-46a3b7919cc55172c06a3175cc25a2d6 {
-  opacity: 0.5;
+  opacity: 0.1;
 }
 
 [id^='atContainer-46a3b7919cc55172c06a3175cc25a2d6'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 [class*='container-f469ec57471c0a1740f3324b686039c0'] {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 iframe[allowtransparency='true'][scrolling='no'][frameborder='0'][framespacing='0'][width='160'][height='300'][src='about:blank'] {
-  opacity: 0.5; /* جعل الشفافية 50% */
+  opacity: 0.1;
 }
 
 iframe[sandbox*='allow-scripts'][frameborder='0'][scrolling='no'] {
-  opacity: 0.5; /* جعل الشفافية 50% */
+  opacity: 0.1;
 }
 
 iframe[data-ad-zone='1071478'] {
-  opacity: 0.5; /* ضبط الشفافية إلى 50% */
+  opacity: 0.1;
 }
 
 iframe {
   width: 300px;
   height: 100px;
-  opacity: 0.5; /* تعيين الشفافية إلى 50% */
+  opacity: 0.1;
 }
 iframe {
   width: 300px;
   height: 250px;
-  opacity: 0.5; /* تعيين الشفافية إلى 50% */
+  opacity: 0.1;
+  position: absolute;
+  top: 2px;
 }
 
 iframe {
-  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% */
-  width: 100% !important; /* عرض الإطار بكامل العرض */
+  opacity: 0.1 !important;
 }
 .transparent-iframe {
-  opacity: 0.5 !important; /* تطبيق الشفافية بنسبة 50% */
+  opacity: 0.1 !important;
+}
+
+.vast-blocker {
+  opacity: 0.5;
+} */
+
+.noOpacity {
+  opacity: 1 !important;
 }

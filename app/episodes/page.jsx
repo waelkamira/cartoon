@@ -217,7 +217,6 @@ overflow-y-auto"
                   <h1 className="text-white text-center p-2">
                     {episode?.episodeName}
                   </h1>
-                  <ExoclickOutStreamVideo />
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}
                     image={episodeImage}
@@ -242,7 +241,6 @@ overflow-y-auto"
                     الحلقة السابقة
                   </button>
                 </div>
-                {/* <ExoclickVideoSlider /> */}
               </div>
             ))}
           </div>

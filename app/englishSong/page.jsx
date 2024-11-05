@@ -13,6 +13,26 @@ import VideoPlayer from '../../components/VideoPlayer';
 import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 
+import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
+import MonetagInPagePush from '../../components/ads/MonetagInPagePush';
+import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
+import AdsterraBanner from '../../components/ads/adsterraBanner';
+import AdsterraBanner468x60 from '../../components/ads/adsterraBanner468x60';
+import AdsterraPopunderFor from '../../components/ads/adsterraPopunderFor';
+import ExoclickBanner from '../../components/ads/exoclickBanner';
+import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
+import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import ExoClickAd from '../../components/ads/exoclickAd';
+import ExoclickNative from '../../components/ads/exoclickNative';
+import ExoclickInStreamVideoAd from '../../components/ads/exoclickInStreamVideoAd';
+import JuicyAdsAd from '../../components/ads/JuicyAdsAd';
+import JuicyAdsAdVideo from '../../components/ads/JuicyAdsAdVideo';
+import JuicyAdsImage from '../../components/ads/JuicyAdsImage';
+import HillTopAdsVideo from '../../components/ads/HillTopAdsVideo';
+import HillTopAdsVideoSlider from '../../components/ads/HillTopAdsVideoSlider';
+import HillTopAdsMultiTagBanner from '../../components/ads/HillTopAdsMultiTagBanner';
+import HillTopAdsMultiTagBannerMobile from '../../components/ads/HillTopAdsMultiTagBannerMobile';
+
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [song, setSong] = useState([]);

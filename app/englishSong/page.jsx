@@ -7,11 +7,8 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import EnglishSongs from '../../components/englishKidsSongs';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
 
 import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import MonetagInPagePush from '../../components/ads/MonetagInPagePush';

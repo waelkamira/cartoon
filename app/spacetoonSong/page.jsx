@@ -7,13 +7,9 @@ import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import SpacetoonSongs from '../../components/spacetoonSongs';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
 
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
 import MonetagInPagePush from '../../components/ads/MonetagInPagePush';
 import AdsterraNativeBanner from '../../components/ads/adsterraNativeBanner';
 import AdsterraBanner from '../../components/ads/adsterraBanner';

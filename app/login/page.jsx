@@ -11,6 +11,7 @@ import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import CustomToast from '../../components/CustomToast';
 import { useEffect } from 'react';
+import { TbDoorEnter } from 'react-icons/tb';
 
 export default function LogInPage() {
   const session = useSession();
@@ -102,11 +103,20 @@ export default function LogInPage() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full lg:w-1/2 bg-four p-8 rounded-lg border border-one"
       >
-        <h1 className="w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
-          تسجيل الدخول 🧀
+        <h1 className="flex justify-center mb-16 w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none text-nowrap">
+          تسجيل الدخول
+          <TbDoorEnter className="text-3xl" />
         </h1>
 
-        <div className="relative flex flex-col items-start justify-center w-full">
+        <div className="relative flex justify-center h-44 w-full text-center">
+          <Image
+            src={'https://i.imgur.com/nfDVITC.png'}
+            layout="fill"
+            objectFit="contain"
+            alt="photo"
+          />
+        </div>
+        {/* <div className="relative flex flex-col items-start justify-center w-full">
           <h1 className="w-full my-4 select-none text-start text-sm sm:text-lg">
             البريد الإلكتروني
           </h1>
@@ -140,37 +150,37 @@ export default function LogInPage() {
           <h1 className="text-one text-md my-2 select-none">
             {errors?.password?.message}
           </h1>
-        )}
+        )} */}
         <div
-          className="flex justify-center w-full bg-white rounded-md px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
+          className="flex justify-center w-full bg-white rounded-md px-4 py-2 gap-2 items-center my-8 hover:shadow-md cursor-pointer hover:scale-110"
           onClick={() => signIn('google')}
         >
+          <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
+            تسجيل الدخول عن طريق جوجل
+          </h1>
           <div className="relative h-8 w-8 ">
             <Image
               priority
-              src={'/google.png'}
+              src={'https://i.imgur.com/Z4ts3yl.png'}
               alt="google image"
               layout="fill"
               objectFit="contain"
             />
           </div>
-          <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
-            تسجيل الدخول عن طريق جوجل
-          </h1>
         </div>
         <div className="flex flex-col sm:flex-row justify-between gap-8 items-center mt-4 w-full">
-          <button
+          {/* <button
             type="submit"
-            className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+            className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
           >
             تسجيل الدخول
-          </button>
+          </button> */}
 
           <div className="w-full">
             <Link href={'/'}>
               <button
                 type="submit"
-                className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+                className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
               >
                 إغلاق{' '}
               </button>{' '}
@@ -178,11 +188,9 @@ export default function LogInPage() {
           </div>
         </div>
         <Link href={'/register'}>
-          <h1 className="mt-4 text-start text-sm sm:text-lg">
-            ليس لديك حساب؟ قم بالتسجيل
-            <span className="text-one text-lg sm:text-xl hover:scale-105">
-              🧀 هنا
-            </span>
+          <h1 className="flex gap-2 mt-4 text-start text-sm sm:text-lg text-nowrap underline">
+            ليس لديك حساب؟ قم بالتسجيل هنا{' '}
+            <TbDoorEnter className="text-xl animate-pulse" />
           </h1>
         </Link>
       </form>

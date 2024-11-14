@@ -191,7 +191,7 @@ export default function VideoPlayer({
             <div className="w-full h-full flex justify-center items-center">
               <video
                 className="w-full min-w-72 min-h-44 sm:w-96 sm:h-72 md:w-[800px] md:h-[600px]"
-                src="//teestoagloupaza.net/401/8453969" // رابط الإعلان
+                src="" // رابط الإعلان
                 autoPlay
                 controls
                 onEnded={handleAdEnd} // استئناف الفيلم بعد انتهاء الإعلان

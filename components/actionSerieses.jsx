@@ -19,7 +19,7 @@ import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 export default function ActionPlanet({ vertical = false }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [action, setAction] = useState([]);
-  const { newSeries, deletedSeries, dispatch } = useContext(inputsContext);
+  const { newSeries, deletedSeries } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();

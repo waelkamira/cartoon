@@ -18,6 +18,7 @@ import BonbonaPlanetMostViewed from './bonbonaSeriesesMostViewed';
 import SpacetoonSongs from './spacetoonSongs';
 import SpacetoonSongsMostView from './spacetoonSongsMostView';
 import NasohSeries from './nasohSeries';
+
 export default function Serieses() {
   return (
     <div className="w-full">

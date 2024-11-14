@@ -23,10 +23,10 @@ export default function CurrentUser() {
       // console.log('json', json);
       if (response.ok) {
         if (typeof window !== 'undefined') {
-          localStorage.setItem('CurrentUser', JSON.stringify(json));
+          localStorage.setItem('CurrentUser', JSON.stringify(json[0]));
         }
 
-        setUser(json);
+        setUser(json[0]);
       }
     }
   }

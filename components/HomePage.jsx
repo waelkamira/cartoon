@@ -15,6 +15,7 @@ import MovieForm from './createMovie';
 import SongForm from './createSong';
 import SpacetoonSongForm from './createSpacetoonSong';
 import SharePrompt from './SharePromptOnWhatsup';
+import LoginMessage from './loginMessage';
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,10 @@ export default function HomePage() {
   const [active, setActive] = useState(false);
   const session = useSession();
   const user = CurrentUser();
+  const [open, setOpen] = useState(false);
+
   // console.log('user', user);
+  // console.log('session', session);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
     localStorage.removeItem('episodeNumber');
@@ -33,7 +37,16 @@ export default function HomePage() {
 
   return (
     <>
-      <SharePrompt />
+      {/* <SharePrompt /> */}
+
+      {session?.status === 'unauthenticated' && (
+        <div
+          className="fixed right-0 h-screen w-full z-50"
+          onClick={() => setOpen(true)}
+        >
+          {open ? <LoginMessage setOpen={setOpen} /> : ''}
+        </div>
+      )}
       <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
         <div className=" w-full ">
           <div className="fixed top-0 right-0 z-50 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
@@ -56,7 +69,7 @@ export default function HomePage() {
           <CategoriesSlides />
 
           <div className={'p-4'}>
-            {user?.isAdmin && (
+            {user?.isAdmin ? (
               <>
                 <Button title={'انشاء حلقة'} onClick={() => setShow(!show)} />
                 <Button
@@ -76,8 +89,9 @@ export default function HomePage() {
                   onClick={() => setActive(!active)}
                 />
               </>
+            ) : (
+              ''
             )}
-
             <SeriesForm setIsVisible={setIsVisible} isVisible={isVisible} />
             <EpisodForm setShow={setShow} show={show} />
             <MovieForm setDisplay={setDisplay} display={display} />
@@ -86,17 +100,10 @@ export default function HomePage() {
               setIsSpacetoonOpen={setIsSpacetoonOpen}
               isSpacetoonOpen={isSpacetoonOpen}
             />
-            {/* انتبه يتم تفعيل هذا الخيار فقط عندما نريد اضافة مسلسل او فيلم او حلقة .. الخ وليس متاح للمستخدمين */}
-            {/* {session?.status === 'unauthenticated' && (
+
+            {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
-            )} */}
-            {/* {session?.status === 'authenticated' && (
-              <Button
-                title={'تسجيل الخروج'}
-                path={'/'}
-                onClick={() => signOut()}
-              />
-            )} */}
+            )}
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center w-full rounded-lg sm:p-8 gap-2 ">

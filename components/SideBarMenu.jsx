@@ -7,9 +7,10 @@ import Link from 'next/link';
 import Button from './Button';
 import LoadingPhoto from './LoadingPhoto';
 import ItemForSideBarMenu from './itemForSideBarMenu';
+
 export default function SideBarMenu({ setIsOpen }) {
   const session = useSession();
-
+  const user = CurrentUser();
   return (
     <div
       className="absolute w-screen h-screen z-50 right-0 -top-5"
@@ -34,19 +35,8 @@ export default function SideBarMenu({ setIsOpen }) {
             <Button title={'إغلاق'} onClick={() => setIsOpen(false)} />
           </div>
         </div>
-        {/* <div className="flex items-center w-full my-2">
-        <hr className="w-full h-0.5 bg-one rounded-lg border-hidden " />
-      </div> */}
 
         <div className="relative p-4 ">
-          {/* {session?.status === 'authenticated' && user?.isAdmin === '1'&& (
-        <>
-          {' '}
-          <Button path={'/users'} title={'المستخدمين'} />
-          <Button title={'تسجيل الخروج'} path={'/'} onClick={() => signOut()} />
-        </>
-      )} */}
-
           {/* <Button title={'بروفايل'} path={'/profile'} /> */}
 
           <ItemForSideBarMenu
@@ -109,11 +99,22 @@ export default function SideBarMenu({ setIsOpen }) {
             planetImage={'https://i.imgur.com/GTuV1My.png'}
             planetRoute={'/turkishSongsPlanet'}
           />
-          {/* {session?.status === 'unauthenticated' && (
-        <div>
-          <Button title={'تسجيل الدخول'} path={'/login'} />
-        </div>
-      )} */}
+
+          {session?.status === 'authenticated' && (
+            <>
+              {/* <Button path={'/users'} title={'المستخدمين'} /> */}
+              <Button
+                title={'تسجيل الخروج'}
+                path={'/'}
+                onClick={() => signOut()}
+              />
+            </>
+          )}
+          {session?.status === 'unauthenticated' && (
+            <div>
+              <Button title={'تسجيل الدخول'} path={'/login'} />
+            </div>
+          )}
         </div>
       </div>
     </div>

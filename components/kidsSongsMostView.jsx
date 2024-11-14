@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
-import BackButton from './BackButton';
 
 export default function KidsSongs({
   vertical = false,
@@ -64,12 +63,12 @@ export default function KidsSongs({
 
     // التنقل إلى صفحة الأغنية
     router.push(`/song?songName=${songName}`);
-    setTimeout(() => {
-      const newPath = window?.location?.pathname + window?.location?.search;
-      if (newPath !== previousPath && newPath.includes('/song')) {
-        window?.location?.reload();
-      }
-    }, 3000);
+    // setTimeout(() => {
+    //   const newPath = window?.location?.pathname + window?.location?.search;
+    //   if (newPath !== previousPath && newPath.includes('/song')) {
+    //     window?.location?.reload();
+    //   }
+    // }, 3000);
   };
   async function fetchSongs() {
     try {

@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
-import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
@@ -135,9 +134,9 @@ export default function Page() {
     router.push(`/episodes?episodeName=${nextEpisodeName}`);
     setEpisodeNumber(nextEpisodeNumber);
     localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-    setTimeout(() => {
-      window?.location?.reload();
-    }, 3000);
+    // setTimeout(() => {
+    //   window?.location?.reload();
+    // }, 3000);
   };
 
   // التبديل للحلقة السابقة
@@ -147,10 +146,10 @@ export default function Page() {
       const nextEpisodeName = `${seriesName} الحلقة ${prevEpisodeNumber}`;
       router.push(`/episodes?episodeName=${nextEpisodeName}`);
       setEpisodeNumber(prevEpisodeNumber);
-      localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-      setTimeout(() => {
-        window?.location?.reload();
-      }, 3000);
+      // localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
+      // setTimeout(() => {
+      //   window?.location?.reload();
+      // }, 3000);
     }
   };
 
@@ -189,9 +188,7 @@ overflow-y-auto"
             localStorage.removeItem('episodeNumber');
             setIsTrue(false);
           }}
-        >
-          {/* <BackButton /> */}
-        </div>
+        ></div>
 
         <h1 className="grow text-lg lg:text-2xl w-full text-white">
           <span className="text-gray-500 ml-2">#</span>

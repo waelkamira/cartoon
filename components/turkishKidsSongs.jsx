@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
-import BackButton from './BackButton';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function TurkishKidsSongs({
@@ -95,13 +94,13 @@ export default function TurkishKidsSongs({
     // التنقل إلى صفحة الأغنية
     router.push(`/turkishSong?songName=${songName}`);
 
-    setTimeout(() => {
-      const newPath = window.location.pathname + window.location.search;
-      // تحديث الصفحة فقط إذا تغير المسار
-      if (newPath !== previousPath && newPath.includes('/turkishSong')) {
-        window?.location?.reload();
-      }
-    }, 3000);
+    // setTimeout(() => {
+    //   const newPath = window.location.pathname + window.location.search;
+    //   // تحديث الصفحة فقط إذا تغير المسار
+    //   if (newPath !== previousPath && newPath.includes('/turkishSong')) {
+    //     window?.location?.reload();
+    //   }
+    // }, 3000);
   };
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">

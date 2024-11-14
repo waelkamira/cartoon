@@ -8,8 +8,7 @@ import Image from 'next/image';
 import Loading from './Loading';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
-import BackButton from './BackButton';
-import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
+
 export default function SpacetoonSongs({ vertical = false, title = true }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [spacetoonSongs, setSpacetoonSongs] = useState([]);
@@ -88,16 +87,14 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
 
     // التنقل إلى صفحة الأغنية
     router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
-    setTimeout(() => {
-      const newPath = window.location.pathname + window.location.search;
-      // console.log('newPath', newPath);
-      // console.log('currentPath', currentPath);
+    // setTimeout(() => {
+    //   const newPath = window.location.pathname + window.location.search;
 
-      // تحديث الصفحة فقط إذا تغير المسار
-      if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
-        window?.location?.reload();
-      }
-    }, 3000);
+    //   // تحديث الصفحة فقط إذا تغير المسار
+    //   if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
+    //     window?.location?.reload();
+    //   }
+    // }, 3000);
   };
 
   return (
@@ -142,20 +139,6 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
-              // onClick={() => {
-              //   dispatch({
-              //     type: 'SPACETOON_SONG_NAME',
-              //     payload: song?.spacetoonSongName,
-              //   });
-
-              //   // التنقل إلى الرابط الجديد
-              //   router.push(
-              //     `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
-              //   );
-              //   setTimeout(() => {
-              //     window?.location?.reload();
-              //   }, 3000);
-              // }}
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',

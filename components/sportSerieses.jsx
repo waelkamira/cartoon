@@ -7,7 +7,6 @@ import { inputsContext } from './Context';
 import Loading from './Loading';
 import 'keen-slider/keen-slider.min.css';
 import Image from 'next/image';
-import BackButton from './BackButton';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import SideBarMenu from './SideBarMenu';
 import CustomToast from './CustomToast';
@@ -19,13 +18,12 @@ import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 export default function SportPlanet({ vertical = false }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [sport, setSport] = useState([]);
-  const { newSeries, deletedSeries, dispatch } = useContext(inputsContext);
+  const { newSeries, deletedSeries } = useContext(inputsContext);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
-
   const [sportSliderRef, sportInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -75,8 +73,6 @@ export default function SportPlanet({ vertical = false }) {
       );
       const json = await response.json();
       if (response.ok) {
-        // console.log('sport', sport);
-
         const existingIds = new Set(sport.map((series) => series.id));
         const newSport = json.filter((series) => !existingIds.has(series.id));
 
@@ -89,7 +85,6 @@ export default function SportPlanet({ vertical = false }) {
     }
   }
   async function handleAdd(id) {
-    // console.log('id', id);
     const response = await fetch('/api/serieses', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -106,6 +101,7 @@ export default function SportPlanet({ vertical = false }) {
       ));
     }
   }
+
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
       {vertical ? (
@@ -138,7 +134,6 @@ export default function SportPlanet({ vertical = false }) {
           <h1 className="w-fit text-start p-2 text-white my-2 bg-one">
             كوكب رياضة
           </h1>
-          {/* <BackButton /> */}
         </>
       ) : (
         <h1 className="w-full text-start p-2 text-white my-2 bg-one">

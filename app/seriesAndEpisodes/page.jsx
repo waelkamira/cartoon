@@ -8,6 +8,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import SubscriptionMessage from '../../components/subscriptionMessage';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -98,7 +99,7 @@ export default function SeriesAndEpisodes() {
     const nextEpisodeNumber = episodeNumber + 1;
     setEpisodeNumber(nextEpisodeNumber);
     localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-    window.location.reload(); // إعادة تحميل الصفحة
+    // window.location.reload(); // إعادة تحميل الصفحة
   };
 
   const handlePreviousEpisode = () => {
@@ -106,7 +107,7 @@ export default function SeriesAndEpisodes() {
       const prevEpisodeNumber = episodeNumber - 1;
       setEpisodeNumber(prevEpisodeNumber);
       localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-      window.location.reload(); // إعادة تحميل الصفحة
+      // window.location.reload(); // إعادة تحميل الصفحة
     }
   };
 
@@ -203,6 +204,7 @@ export default function SeriesAndEpisodes() {
                 <h1 className="text-white text-center p-2">
                   {episode?.episodeName}
                 </h1>
+
                 <VideoPlayer
                   videoUrl={episode?.episodeLink}
                   image={series?.seriesImage}
@@ -210,6 +212,7 @@ export default function SeriesAndEpisodes() {
                   showAd={isTrue}
                   onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                 />
+                <SubscriptionMessage />
                 <ContactUs />
               </div>
             </div>

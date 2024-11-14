@@ -6,10 +6,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Image from 'next/image';
 import Loading from './Loading';
-import {
-  MdKeyboardDoubleArrowRight,
-  MdKeyboardDoubleArrowLeft,
-} from 'react-icons/md';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
 export default function NewSerieses() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -17,7 +14,6 @@ export default function NewSerieses() {
   const { newSeries, deletedSeries } = useContext(inputsContext);
   const router = useRouter();
   const [showMessage, setShowMessage] = useState(true);
-
   const [seriesesSliderRef, seriesesInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -82,10 +78,6 @@ export default function NewSerieses() {
     }
   }
 
-  const handleSeriesClick = (seriesName) => {
-    router.push(`/seriesAndEpisodes?seriesName=${seriesName}`);
-  };
-
   return (
     <div className="w-full overflow-x-hidden p-2">
       <h1 className="w-full text-start p-2 text-white">جديد</h1>
@@ -112,7 +104,11 @@ export default function NewSerieses() {
               <div
                 key={series?.id}
                 className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
-                onClick={() => handleSeriesClick(series?.seriesName)}
+                onClick={() =>
+                  router.push(
+                    `/seriesAndEpisodes?seriesName=${series?.seriesName}`
+                  )
+                }
               >
                 <div className="relative w-24 h-32 sm:w-full sm:h-64 rounded-md overflow-hidden mx-2 hover:cursor-pointer">
                   <Image

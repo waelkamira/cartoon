@@ -24,7 +24,8 @@
     "**/*.ts",
     "**/*.tsx",
     "build/types/**/*.ts",
-    "proxy-server.js"
+    "proxy-server.js",
+    "app/payment-success/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

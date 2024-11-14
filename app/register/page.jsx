@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import CustomToast from '../../components/CustomToast';
 import { useEffect } from 'react';
+import { TbDoorEnter } from 'react-icons/tb';
 
 export default function RegisterPage() {
   const session = useSession();
@@ -135,10 +136,18 @@ export default function RegisterPage() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full lg:w-1/2 bg-four p-8 rounded-lg border border-one"
       >
-        <h1 className="w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
-          التسجيل 🧀
+        <h1 className="flex justify-center mb-16 w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
+          التسجيل <TbDoorEnter className="text-3xl" />
         </h1>
-        <div className="flex flex-col items-start justify-center w-full">
+        <div className="relative flex justify-center h-44 w-full text-center">
+          <Image
+            src={'https://i.imgur.com/nfDVITC.png'}
+            layout="fill"
+            objectFit="contain"
+            alt="photo"
+          />
+        </div>
+        {/* <div className="flex flex-col items-start justify-center w-full">
           <h1 className="w-full my-4 select-none text-start text-sm sm:text-lg">
             اسم المستخدم
           </h1>
@@ -188,15 +197,15 @@ export default function RegisterPage() {
           <h1 className="text-one text-md my-2 text-start">
             {errors?.password?.message}
           </h1>
-        )}
+        )} */}
         <div
-          className="flex justify-between w-full bg-white rounded-md px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
+          className="flex justify-between w-full bg-white rounded-md gap-4 px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
           onClick={() => signIn('google')}
         >
           <div className="relative h-8 w-8">
             <Image
               priority
-              src={'/google.png'}
+              src={'https://i.imgur.com/Z4ts3yl.png'}
               alt="google image"
               layout="fill"
               objectFit="contain"
@@ -206,19 +215,19 @@ export default function RegisterPage() {
             التسجيل عن طريق جوجل
           </h1>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between gap-8 items-center mt-4 w-full">
-          <button
+        <div className="flex flex-col sm:flex-row justify-between gap-4 items-center mt-4 w-full">
+          {/* <button
             type="submit"
-            className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+            className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
           >
             تسجيل
-          </button>
+          </button> */}
 
           <div className="w-full">
             <Link href={'/'}>
               <button
                 type="submit"
-                className=" text-lg p-2  my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
+                className=" text-lg p-2 shadow-lg my-3 text-white text-nowrap bg-five hover:bg-one rounded-lg hover:scale-[101%] w-full "
               >
                 إغلاق{' '}
               </button>{' '}
@@ -227,11 +236,10 @@ export default function RegisterPage() {
         </div>
         <Link href={'/login'}>
           {' '}
-          <h1 className="mt-4 text-start text-sm sm:text-lg">
-            هل لديك حساب بالفعل ؟ قم بتسجيل الدخول{' '}
-            <span className="text-one text-lg sm:text-xl hover:scale-105">
-              🧀 هنا
-            </span>
+          <h1 className="flex mt-4 text-start text-sm sm:text-lg underline">
+            لديك حساب؟ قم بتسجيل الدخول
+            <TbDoorEnter className="text-xl mx-1 animate-pulse" />
+            هنا
           </h1>
         </Link>
       </form>

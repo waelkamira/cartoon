@@ -24,11 +24,11 @@ export default function SubscriptionMessage() {
       const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
 
       if (
-        !user?.monthly_subscribed &&
-        !user?.yearly_subscribed &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false &&
         daysDifference >= 1
       ) {
-        console.log('user', 'غير مشترك');
+        console.log('user', 'غير مشترك', daysDifference);
 
         setShowSubscriptionMessage(true);
       } else if (user?.monthly_subscribed) {
@@ -46,6 +46,7 @@ export default function SubscriptionMessage() {
         const yearlySubscribedDate = new Date(user?.yearly_subscribed_date);
         const daysSinceYearlySubscribed =
           (currentDate - yearlySubscribedDate) / (1000 * 60 * 60 * 24);
+        console.log('daysSinceYearlySubscribed', daysSinceYearlySubscribed);
         console.log('daysSinceYearlySubscribed', daysSinceYearlySubscribed);
 
         if (daysSinceYearlySubscribed >= 365) {

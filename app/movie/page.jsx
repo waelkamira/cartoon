@@ -9,9 +9,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import MonetagExcitedTag from '../../components/ads/MonetagExcitedTag';
-import ExoclickOutStreamVideo from '../../components/ads/exoclickOutStreamVideo';
-import ExoclickVideoSlider from '../../components/ads/exoclickVideoSlider';
+import SubscriptionMessage from '../../components/subscriptionMessage';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +56,7 @@ export default function Page() {
 
   return (
     <>
+      <SubscriptionMessage />
       <div
         className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px]
 overflow-y-auto"
@@ -69,7 +68,7 @@ overflow-y-auto"
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
         </div>
-        <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-40">
+        <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-30">
           {movie[0]?.movieImage ? (
             <Image
               priority
@@ -90,7 +89,6 @@ overflow-y-auto"
             <span className="text-gray-500 ml-2">#</span>
             اسم الفيلم:
             <span> {movie[0]?.movieName}</span>
-            <MonetagExcitedTag render={movie[0]?.movieName} />
           </h1>
           {showMessage && (
             <h1 className="text-yellow-400 ">
@@ -109,7 +107,6 @@ overflow-y-auto"
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">
-                  <ExoclickOutStreamVideo />
                   <VideoPlayer
                     videoUrl={item?.movieLink}
                     showAd={isTrue}
@@ -118,7 +115,6 @@ overflow-y-auto"
                 </div>
               ))}
           </div>
-          {/* <ExoclickVideoSlider /> */}
 
           <ContactUs />
         </div>

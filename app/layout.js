@@ -1,5 +1,4 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { Rubik } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { InputsContextProvider } from '../components/Context';
@@ -8,7 +7,8 @@ import SubscriptionMessage from '../components/subscriptionMessage';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
 import RandomizeDomain from '../components/RandomizeDomain';
-const inter = Inter({ subsets: ['latin'] });
+import PayPalButton from '../components/paypalButton';
+
 const rubik = Rubik({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700'],
@@ -61,7 +61,10 @@ export default function RootLayout({ children }) {
         </noscript>
         <Toaster />
         <AuthContextProvider>
-          <SubscriptionMessage />
+          {/* <SubscriptionMessage />
+          
+        */}
+          <PayPalButton />
           <InputsContextProvider>{children}</InputsContextProvider>
         </AuthContextProvider>
       </body>

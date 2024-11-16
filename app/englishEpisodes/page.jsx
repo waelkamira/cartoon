@@ -13,11 +13,8 @@ export default function Page() {
   const [episodeNumber, setEpisodeNumber] = useState(1); // التحكم برقم الحلقة
   const [isLoading, setIsLoading] = useState(false);
   const [episodeName, setEpisodeName] = useState('');
-  const [episodeImage, setEpisodeImage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isTrue, setIsTrue] = useState(true);
-  const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
-  const router = useRouter();
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
@@ -73,7 +70,6 @@ overflow-y-auto"
         />
         {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
       </div>
-      <div className="hidden lg:block"></div>
       <div className="relative w-full">
         <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg">
           {episodes.length > 0 ? (
@@ -96,9 +92,7 @@ overflow-y-auto"
             localStorage.removeItem('episodeNumber');
             setIsTrue(false);
           }}
-        >
-          {/* <BackButton /> */}
-        </div>
+        ></div>
 
         <h1 className="grow text-lg lg:text-2xl w-full text-white">
           <span className="text-gray-500 mx-2">#</span>

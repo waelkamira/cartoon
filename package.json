@@ -17,6 +17,7 @@
     "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^3.4.2",
     "@libsql/client": "^0.6.2",
+    "@paypal/react-paypal-js": "^8.7.0",
     "@stripe/react-stripe-js": "^2.8.1",
     "@stripe/stripe-js": "^4.9.0",
     "@supabase/ssr": "^0.4.0",

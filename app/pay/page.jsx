@@ -42,8 +42,8 @@
 //   );
 // }
 
-import ButtonCustomerPortal from '../../components/checkout/ButtonCustomerPortal';
-import Pricing from '../../components/checkout/Pricing';
+import ButtonCustomerPortal from '../../components/stripeCheckout/ButtonCustomerPortal';
+import Pricing from '../../components/stripeCheckout/Pricing';
 
 export default function Page() {
   return (

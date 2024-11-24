@@ -9,7 +9,6 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import SubscriptionMessage from '../../components/subscriptionMessage';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +55,6 @@ export default function Page() {
 
   return (
     <>
-      {/* <SubscriptionMessage /> */}
       <div
         className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px]
 overflow-y-auto"

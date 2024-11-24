@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
 import SideBarMenu from '../../components/SideBarMenu';
@@ -7,6 +7,7 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { inputsContext } from '../../components/Context';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);

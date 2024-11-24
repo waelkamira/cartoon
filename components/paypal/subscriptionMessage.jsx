@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Button from './Button';
-import CurrentUser from './CurrentUser';
+import Button from '../Button';
+import CurrentUser from '../CurrentUser';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
@@ -57,12 +57,6 @@ export default function SubscriptionMessage() {
     // isPaymentSucceeded();
   }, [user]);
 
-  // //تحقق من نجاح عملية الدفع
-  // async function isPaymentSucceeded() {
-  //   const response = await fetch('/api/webhook/stripe');
-  //   const json = await response?.json();
-  //   console.log('json', json);
-  // }
   return (
     <div>
       {showSubscriptionMessage && !path?.includes('pay') && (

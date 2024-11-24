@@ -85,6 +85,18 @@ function inputsReducer(currentState, action) {
       return {
         isSongName: action?.payload,
       };
+    case 'RERENDER':
+      return {
+        rerender: action?.payload,
+      };
+    case 'PLAN':
+      return {
+        plan: action?.payload,
+      };
+    case 'RERENDER_SUBSCRIBED_OR_NOT':
+      return {
+        rerender_subscribed_or_not: action?.payload,
+      };
 
     default:
       return currentState;
@@ -110,11 +122,14 @@ export function InputsContextProvider({ children }) {
     action: {},
     mySerieses: [],
     isSongName: '',
+    rerender: false,
+    plan: '',
+    rerender_subscribed_or_not: false,
   });
   // console.log('from Context', state);
 
   return (
-    <inputsContext.Provider value={{ ...state, dispatch }}>
+    <inputsContext.Provider value={{ state, dispatch }}>
       {children}
     </inputsContext.Provider>
   );

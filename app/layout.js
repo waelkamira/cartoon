@@ -3,11 +3,12 @@ import { Rubik } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
-import SubscriptionMessage from '../components/subscriptionMessage';
+import SubscriptionMessage from '../components/paypal/subscriptionMessage';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
 import RandomizeDomain from '../components/RandomizeDomain';
-import PayPalButton from '../components/paypalButton';
+import SubscriptionPage from '../components/paypal/subscriptionPage';
+import SubscribedOrNot from '../components/paypal/subscribedOrNot';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -61,11 +62,9 @@ export default function RootLayout({ children }) {
         </noscript>
         <Toaster />
         <AuthContextProvider>
-          {/* <SubscriptionMessage />
-          
-        */}
-          <PayPalButton />
           <InputsContextProvider>{children}</InputsContextProvider>
+
+          <SubscriptionPage />
         </AuthContextProvider>
       </body>
     </html>

@@ -21,11 +21,11 @@ html {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #f70000;
+  background-color: #f7000005;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fc5e5e;
+  background: #e2e2e2;
   border-radius: 20px;
 }
 
@@ -172,180 +172,26 @@ iframe {
   }
 }
 
-#ad-container {
-  position: relative;
-  /* أو absolute إذا كنت تريد تحديده بشكل دقيق */
-  margin: 20px auto;
-  /* لضمان أن يظهر في وسط الصفحة */
-  text-align: center;
-  /* لضبط محتوى الإعلان في المنتصف */
-  width: 300px;
-  /* تحديد العرض (مثلاً 300 بكسل) */
-  height: 250px;
-  /* تحديد الطول (مثلاً 250 بكسل) */
-  background-color: #f9f9f9;
-  /* لون خلفية لمساعدتك على رؤية مكان الإعلان */
-  padding: 10px;
-  /* لإضافة مساحة حول الإعلان */
-  overflow: hidden;
-  /* إخفاء أي محتوى يتجاوز الأبعاد المحددة */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* .exo-native-widget-item {
-  top: 0px;
-  left: 100px;
-  width: 700px;
-  height: 150px;
-  background-color: #f9f9f9;
-  border: 2px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.1 !important;
-  padding: 5px;
-  margin: 20px;
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
 
-[class*='_main_outstream'] {
-  opacity: 0.1 !important;
-}
-
-[class*='video-slider-container-wrapper'] {
-  opacity: 0.1 !important;
-}
-
-a[class*='ad'] {
-  opacity: 0.1 !important;
-}
-
-a.ad {
-  opacity: 0.1 !important;
-}
-video#video {
-  opacity: 0.1 !important ;
-}
-
-video.adaptive_video_player {
-  opacity: 0.1 !important ;
-}
-.ad-container {
-  opacity: 0.1 !important;
-}
-video#adaptive_video_player {
-  opacity: 0.1 !important;
-}
-.adaptive_video_player {
-  display: block;
-  opacity: 0.1 !important;
-}
-#video {
-  opacity: 0.1 !important;
-}
-
-#ad {
-  opacity: 0.1 !important;
-}
-#link {
-  opacity: 0.1 !important;
-}
-a.ad#link {
-  opacity: 0.1 !important;
-}
-
-a.ad#link,
-a.ad#link img,
-a.ad#link video {
-  opacity: 0.1 !important;
-}
-
-.ad {
-  opacity: 0.1 !important;
-}
-a.ad {
-  opacity: 0.1 !important;
-}
-body[onload='iosfix()'] {
-  opacity: 0.1 !important;
-}
-
-img[src*="https://s3t3d2y8.afcdn.net"]
-{
-  opacity: 0.1 !important;
-}
-img[alt*='ExoClick Ad'] {
-  opacity: 0.1 !important;
-}
-img[id*='logo'] {
-  opacity: 0.1 !important;
-}
-
-#ad-container {
-  opacity: 0.1 !important;
-}
-.ad-container {
-  opacity: 0.1 !important;
-}
-iframe[src*='https://a.adtng.com']
-{
-  opacity: 0.1 !important;
-}
-
-element.style {
-  opacity: 0.1 !important;
-}
-
-div[id*='atContainer'] {
-  opacity: 0.1 !important;
-}
-
-img[border='0'] {
-  opacity: 0.1 !important;
-}
-#atContainer-46a3b7919cc55172c06a3175cc25a2d6 {
-  opacity: 0.1;
-}
-
-[id^='atContainer-46a3b7919cc55172c06a3175cc25a2d6'] {
-  opacity: 0.1 !important;
-}
-
-[class*='container-f469ec57471c0a1740f3324b686039c0'] {
-  opacity: 0.1 !important;
-}
-iframe[allowtransparency='true'][scrolling='no'][frameborder='0'][framespacing='0'][width='160'][height='300'][src='about:blank'] {
-  opacity: 0.1;
-}
-
-iframe[sandbox*='allow-scripts'][frameborder='0'][scrolling='no'] {
-  opacity: 0.1;
-}
-
-iframe[data-ad-zone='1071478'] {
-  opacity: 0.1;
-}
-
-iframe {
-  width: 300px;
-  height: 100px;
-  opacity: 0.1;
-}
-iframe {
-  width: 300px;
-  height: 250px;
-  opacity: 0.1;
-  position: absolute;
-  top: 2px;
-}
-
-iframe {
-  opacity: 0.1 !important;
-}
-.transparent-iframe {
-  opacity: 0.1 !important;
-}
-
-.vast-blocker {
-  opacity: 0.5;
-} */
-
-.noOpacity {
-  opacity: 1 !important;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

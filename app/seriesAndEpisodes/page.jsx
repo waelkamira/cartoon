@@ -1,5 +1,11 @@
 'use client';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from 'react';
 import VideoPlayer from '../../components/VideoPlayer';
 import Loading from '../../components/Loading';
 import BackButton from '../../components/BackButton';
@@ -8,7 +14,10 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
-import SubscriptionMessage from '../../components/subscriptionMessage';
+import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import { useSession } from 'next-auth/react';
+import CurrentUser from '../../components/CurrentUser';
+import { inputsContext } from '../../components/Context';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -20,8 +29,13 @@ export default function SeriesAndEpisodes() {
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
   const [showMessage, setShowMessage] = useState(true);
+  const session = useSession();
+  const user = CurrentUser();
+  const { dispatch } = useContext(inputsContext);
 
   useEffect(() => {
+    dispatch({ type: 'RERENDER', payload: true });
+
     const params = new URLSearchParams(window.location.search);
     const seriesNameParam = params.get('seriesName');
     if (seriesNameParam) {
@@ -96,6 +110,7 @@ export default function SeriesAndEpisodes() {
   }, []);
 
   const handleNextEpisode = () => {
+    dispatch({ type: 'RERENDER', payload: true });
     const nextEpisodeNumber = episodeNumber + 1;
     setEpisodeNumber(nextEpisodeNumber);
     localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
@@ -103,6 +118,8 @@ export default function SeriesAndEpisodes() {
   };
 
   const handlePreviousEpisode = () => {
+    dispatch({ type: 'RERENDER', payload: false });
+
     if (episodeNumber > 1) {
       const prevEpisodeNumber = episodeNumber - 1;
       setEpisodeNumber(prevEpisodeNumber);
@@ -112,113 +129,120 @@ export default function SeriesAndEpisodes() {
   };
 
   return (
-    <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
-      <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-        <TfiMenuAlt
-          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-          onClick={() => setIsOpen(!isOpen)}
-        />
-        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-      </div>
-      <div className="hidden lg:block">{/* <FantasticTagAntiAdBlock /> */}</div>
-      <div className="relative w-full">
-        <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg ">
-          {series?.seriesImage ? (
-            <Image
-              priority
-              src={series?.seriesImage}
-              layout="fill"
-              objectFit="cover"
-              alt="photo"
-            />
-          ) : (
-            <LoadingPhoto />
-          )}
-        </div>
-        <div className="absolute w-full h-44 sm:h-[500px] overflow-hidden shadow-lg top-0">
-          {series?.seriesImage ? (
-            <Image
-              priority
-              src={series?.seriesImage}
-              layout="fill"
-              objectFit="contain"
-              alt="photo"
-            />
-          ) : (
-            <LoadingPhoto />
-          )}
-        </div>
-      </div>
-      <div className="flex flex-col justify-start items-center w-full gap-4 my-8">
-        <div
-          onClick={
-            () => {
-              localStorage.removeItem('episodeNumber');
-              setIsTrue(false);
-            } // حفظ رقم الحلقة الجديد في localStorage
-          }
-        >
-          <BackButton />
-        </div>
+    <>
+      {user?.monthly_subscribed === true ||
+        (user?.yearly_subscribed === true && <SubscriptionPage />)}
 
-        <h1 className="grow text-lg lg:text-2xl w-full text-white">
-          <span className="text-gray-500 ml-2">#</span>
-          اسم المسلسل <span>{seriesName}</span>
-        </h1>
-        {showMessage && (
-          <h1 className="text-sm lg:text-2xl w-full text-white p-4">
-            اذا لم يتم تفعيل زر التشغيل بسبب الضغط على السيرفر انتظر 15 ثانية ثم
-            اضغط على زر الحلقة التالية ثم ارجع الى الحلقة التي تريدها
+      <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
+        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+          <TfiMenuAlt
+            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+        </div>
+        <div className="hidden lg:block">
+          {/* <FantasticTagAntiAdBlock /> */}
+        </div>
+        <div className="relative w-full">
+          <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg ">
+            {series?.seriesImage ? (
+              <Image
+                priority
+                src={series?.seriesImage}
+                layout="fill"
+                objectFit="cover"
+                alt="photo"
+              />
+            ) : (
+              <LoadingPhoto />
+            )}
+          </div>
+          <div className="absolute w-full h-44 sm:h-[500px] overflow-hidden shadow-lg top-0">
+            {series?.seriesImage ? (
+              <Image
+                priority
+                src={series?.seriesImage}
+                layout="fill"
+                objectFit="contain"
+                alt="photo"
+              />
+            ) : (
+              <LoadingPhoto />
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col justify-start items-center w-full gap-4 my-8">
+          <div
+            onClick={
+              () => {
+                localStorage.removeItem('episodeNumber');
+                setIsTrue(false);
+              } // حفظ رقم الحلقة الجديد في localStorage
+            }
+          >
+            <BackButton />
+          </div>
+
+          <h1 className="grow text-lg lg:text-2xl w-full text-white">
+            <span className="text-gray-500 ml-2">#</span>
+            اسم المسلسل <span>{seriesName}</span>
           </h1>
-        )}
-      </div>
-      {/* أزرار التنقل بين الحلقات */}
-      <div className="flex justify-between w-full p-4 items-start">
-        <button
-          onClick={handleNextEpisode}
-          className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-          disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
-        >
-          الحلقة التالية
-        </button>
-        <button
-          onClick={handlePreviousEpisode}
-          className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-          disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
-        >
-          الحلقة السابقة
-        </button>
-      </div>
-      <div className="my-2 p-2">
-        {episodes.length === 0 && !isLoading && (
-          <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
-        )}
+          {showMessage && (
+            <h1 className="text-sm lg:text-2xl w-full text-white p-4">
+              اذا لم يتم تفعيل زر التشغيل بسبب الضغط على السيرفر انتظر 15 ثانية
+              ثم اضغط على زر الحلقة التالية ثم ارجع الى الحلقة التي تريدها
+            </h1>
+          )}
+        </div>
+        {/* أزرار التنقل بين الحلقات */}
+        <div className="flex justify-between w-full p-4 items-start">
+          <button
+            onClick={handleNextEpisode}
+            className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+            disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
+          >
+            الحلقة التالية
+          </button>
+          <button
+            onClick={handlePreviousEpisode}
+            className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+            disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
+          >
+            الحلقة السابقة
+          </button>
+        </div>
+        <div className="my-2 p-2">
+          {episodes.length === 0 && !isLoading && (
+            <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
+          )}
 
-        <div>
-          {episodes.map((episode) => (
-            <div
-              key={episode.id}
-              className="flex flex-col items-center justify-start rounded-lg overflow-hidden "
-            >
-              <div className={'w-full'}>
-                <h1 className="text-white text-center p-2">
-                  {episode?.episodeName}
-                </h1>
+          <div>
+            {episodes.map((episode) => (
+              <div
+                key={episode.id}
+                className="flex flex-col items-center justify-start rounded-lg overflow-hidden "
+              >
+                <div className={'w-full'}>
+                  <h1 className="text-white text-center p-2">
+                    {episode?.episodeName}
+                  </h1>
 
-                <VideoPlayer
-                  videoUrl={episode?.episodeLink}
-                  image={series?.seriesImage}
-                  episodeName={episode?.episodeName}
-                  showAd={isTrue}
-                  onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
-                />
-                <SubscriptionMessage />
-                <ContactUs />
+                  <VideoPlayer
+                    videoUrl={episode?.episodeLink}
+                    image={series?.seriesImage}
+                    episodeName={episode?.episodeName}
+                    showAd={isTrue}
+                    onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
+                  />
+
+                  <ContactUs />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

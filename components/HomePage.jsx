@@ -16,6 +16,7 @@ import SongForm from './createSong';
 import SpacetoonSongForm from './createSpacetoonSong';
 import SharePrompt from './SharePromptOnWhatsup';
 import LoginMessage from './loginMessage';
+import SubscriptionPage from './paypal/subscriptionPage';
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function HomePage() {
   return (
     <>
       {/* <SharePrompt /> */}
-
+      {session?.status === 'authenticated' && <SubscriptionPage />}{' '}
       {session?.status === 'unauthenticated' && (
         <div
           className="fixed right-0 h-screen w-full z-50"

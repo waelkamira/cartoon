@@ -18,6 +18,7 @@ export default function Page() {
   const [isTrue, setIsTrue] = useState(true);
   const [hasMoreEpisodes, setHasMoreEpisodes] = useState(true);
   const router = useRouter();
+  const { dispatch } = useContext(inputsContext);
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
@@ -129,27 +130,31 @@ export default function Page() {
 
   // التبديل للحلقة التالية
   const handleNextEpisode = (seriesName) => {
+    dispatch({ type: 'RERENDER', payload: true });
+
     const nextEpisodeNumber = episodeNumber + 1;
     const nextEpisodeName = `${seriesName} الحلقة ${nextEpisodeNumber}`;
-    router.push(`/episodes?episodeName=${nextEpisodeName}`);
+
+    // تحديث الحالة فقط بدلاً من إعادة تحميل الصفحة
     setEpisodeNumber(nextEpisodeNumber);
-    localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-    // setTimeout(() => {
-    //   window?.location?.reload();
-    // }, 3000);
+    setEpisodeName(nextEpisodeName);
+    localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة في localStorage
+    fetchEpisode(nextEpisodeName); // جلب بيانات الحلقة التالية
   };
 
   // التبديل للحلقة السابقة
   const handlePreviousEpisode = (seriesName) => {
+    dispatch({ type: 'RERENDER', payload: true });
+
     if (episodeNumber > 1) {
       const prevEpisodeNumber = episodeNumber - 1;
-      const nextEpisodeName = `${seriesName} الحلقة ${prevEpisodeNumber}`;
-      router.push(`/episodes?episodeName=${nextEpisodeName}`);
+      const prevEpisodeName = `${seriesName} الحلقة ${prevEpisodeNumber}`;
+
+      // تحديث الحالة فقط بدلاً من إعادة تحميل الصفحة
       setEpisodeNumber(prevEpisodeNumber);
-      // localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
-      // setTimeout(() => {
-      //   window?.location?.reload();
-      // }, 3000);
+      setEpisodeName(prevEpisodeName);
+      localStorage.setItem('episodeNumber', prevEpisodeNumber); // حفظ رقم الحلقة في localStorage
+      fetchEpisode(prevEpisodeName); // جلب بيانات الحلقة السابقة
     }
   };
 

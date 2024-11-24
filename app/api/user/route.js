@@ -32,11 +32,38 @@ export async function GET(req) {
 
 export async function PUT(req) {
   try {
-    const { email, image, name, plan_price } = await req.json();
-    console.log('plan_price', plan_price);
+    const {
+      email,
+      image,
+      name,
+      plan_price,
+      monthly_subscribed,
+      monthly_subscribed_date,
+      yearly_subscribed,
+      yearly_subscribed_date,
+    } = await req.json();
+    console.log(
+      'plan_price',
+      email,
+      image,
+      name,
+      plan_price,
+      monthly_subscribed,
+      monthly_subscribed_date,
+      yearly_subscribed,
+      yearly_subscribed_date
+    );
     const { data: user, error } = await supabase
       .from('User')
-      .update({ image, name, plan_price })
+      .update({
+        image,
+        name,
+        plan_price,
+        monthly_subscribed,
+        monthly_subscribed_date,
+        yearly_subscribed,
+        yearly_subscribed_date,
+      })
       .eq('email', email);
 
     if (error) throw error;

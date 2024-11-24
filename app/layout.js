@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
         <AuthContextProvider>
           <InputsContextProvider>{children}</InputsContextProvider>
 
-          <SubscriptionPage />
+          {/* <SubscriptionPage /> */}
         </AuthContextProvider>
       </body>
     </html>

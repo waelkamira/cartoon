@@ -149,7 +149,12 @@ export default function LogInPage() {
         )} */}
         <div
           className="flex justify-center w-full bg-white rounded-md px-4 py-2 gap-2 items-center my-8 hover:shadow-md cursor-pointer hover:scale-110"
-          onClick={() => signIn('google', { redirect: false })}
+          onClick={() =>
+            signIn('google', {
+              redirect: false, // يمنع التنقل الكامل
+              callbackUrl: '/',
+            })
+          }
         >
           <h1 className="text-sm sm:text-lg grow text-center text-gray-500 select-none font-semibold">
             تسجيل الدخول عن طريق جوجل

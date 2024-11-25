@@ -133,7 +133,7 @@ export const authOptions = {
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       params: {
-        prompt: 'consent', // يجبر Google على استخدام نافذة منبثقة
+        prompt: 'select_account', // يجبر Google على فتح نافذة منبثقة
         access_type: 'offline',
         response_type: 'code',
       },

@@ -223,6 +223,8 @@ export const authOptions = {
       return true;
     },
     async redirect({ url, baseUrl }) {
+      console.log('url', url);
+      console.log('baseUrl', baseUrl);
       return baseUrl; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
     },
   },

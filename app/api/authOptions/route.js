@@ -108,7 +108,10 @@ export const authOptions = {
     strategy: 'jwt',
   },
   debug: process.env.NODE_ENV === 'development',
-  pages: { signIn: '/login' },
+  pages: {
+    signIn: '/auth/signin', // صفحة تسجيل الدخول
+    signOut: '/auth/signout', // صفحة تسجيل الخروج
+  },
 };
 
 // import { createClient } from '@supabase/supabase-js';

@@ -8,6 +8,7 @@ import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import { useSession } from 'next-auth/react';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);

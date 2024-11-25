@@ -37,10 +37,6 @@ export default function LogInPage() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  //! و ضعنا هذه الجملة الشرطية هنا لانه عندما يقوم المستخدم بتسجيل الدخول عن طريق جوجل مثلا
-  //! أو احد البروفايدرز يتم انشاء جلسة اي ان عملية تسجيل الدخول صحيحة وبالتالي نقوم باعادة توجيه المستخدم الى الصفحة الرئيسية
-  //! التطبيق build حتى لاتسبب مشكلة عند  useEffect يجب وضع الجملة الشرطية هذه ضمن
-
   useEffect(() => {
     if (session?.data?.user?.email) {
       router.push('/');

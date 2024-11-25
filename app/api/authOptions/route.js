@@ -132,10 +132,10 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-      authorization: {
-        params: {
-          prompt: 'consent',
-        },
+      params: {
+        prompt: 'consent', // يجبر Google على استخدام نافذة منبثقة
+        access_type: 'offline',
+        response_type: 'code',
       },
       allowDangerousEmailAccountLinking: true,
     }),

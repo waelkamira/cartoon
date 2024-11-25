@@ -30,8 +30,8 @@ export default function SubscriptionPage() {
   return (
     <>
       {!subscribed &&
-        user?.monthly_subscribed !== true &&
-        user?.yearly_subscribed !== true && (
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && (
           <div className="fixed flex-col justify-center items-center w-full h-full bg-white z-40 overflow-y-auto top-0 pb-24 text-center">
             <div className="absolute border top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full sm:w-1/3 pt-32 p-4 overflow-y-auto">
               <div className="flex flex-col text-center w-full mb-12">

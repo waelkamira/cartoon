@@ -42,7 +42,7 @@ export default function HomePage() {
       {session?.status === 'authenticated' && <SubscriptionPage />}{' '}
       {session?.status === 'unauthenticated' && (
         <div
-          className="fixed right-0 h-screen w-full z-50"
+          className="fixed right-0 h-screen w-full z-40"
           onClick={() => setOpen(true)}
         >
           {open ? <LoginMessage setOpen={setOpen} /> : ''}
@@ -50,7 +50,7 @@ export default function HomePage() {
       )}
       <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
         <div className=" w-full ">
-          <div className="fixed top-0 right-0 z-50 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
+          <div className="fixed top-0 right-0 z-40 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
             <TfiMenuAlt
               className="sm:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
               onClick={() => setIsOpen(!isOpen)}

@@ -66,10 +66,7 @@ const PayPalButton = ({ plan }) => {
                 try {
                   const capture = await actions.order.capture();
                   console.log('Payment successful:', capture);
-                  //! TODO يجب تمرير معلومات الاشتراك ان كان شهري او سنوي مع التاريخ
-                  //! وايميل المستخدم حتى يتم حفظها في قاعدة البيانات
-                  //! او عمل دالة هنا تقوم بذلك ثم استدعاء PaymentSuccess عند انتهاء الدالة
-                  // router.push('/payment-success'); // Redirect on successful payment
+
                   setSuccess(true);
                 } catch (error) {
                   console.error('Error capturing payment:', error);

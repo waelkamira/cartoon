@@ -123,13 +123,13 @@ export default function TurkishCartoon({ vertical = false, image }) {
 
     // التنقل إلى صفحة الأغنية
     router.push(`/turkishEpisodes?episodeName=${episodeName}`);
-    // setTimeout(() => {
-    //   const newPath = window.location.pathname + window.location.search;
-    //   // تحديث الصفحة فقط إذا تغير المسار
-    //   if (newPath !== previousPath && newPath.includes('/turkishEpisodes')) {
-    //     window?.location?.reload();
-    //   }
-    // }, 3000);
+    setTimeout(() => {
+      const newPath = window.location.pathname + window.location.search;
+      // تحديث الصفحة فقط إذا تغير المسار
+      if (newPath !== previousPath && newPath.includes('/turkishEpisodes')) {
+        window?.location?.reload();
+      }
+    }, 3000);
   };
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">

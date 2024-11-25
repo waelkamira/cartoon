@@ -34,7 +34,7 @@ export default function SeriesAndEpisodes() {
   const { dispatch } = useContext(inputsContext);
 
   useEffect(() => {
-    dispatch({ type: 'RERENDER', payload: true });
+    dispatch({ type: 'RERENDER' });
 
     const params = new URLSearchParams(window.location.search);
     const seriesNameParam = params.get('seriesName');
@@ -110,7 +110,7 @@ export default function SeriesAndEpisodes() {
   }, []);
 
   const handleNextEpisode = () => {
-    dispatch({ type: 'RERENDER', payload: true });
+    dispatch({ type: 'RERENDER' });
     const nextEpisodeNumber = episodeNumber + 1;
     setEpisodeNumber(nextEpisodeNumber);
     localStorage.setItem('episodeNumber', nextEpisodeNumber); // حفظ رقم الحلقة الجديد في localStorage
@@ -118,7 +118,7 @@ export default function SeriesAndEpisodes() {
   };
 
   const handlePreviousEpisode = () => {
-    dispatch({ type: 'RERENDER', payload: false });
+    dispatch({ type: 'RERENDER' });
 
     if (episodeNumber > 1) {
       const prevEpisodeNumber = episodeNumber - 1;
@@ -130,13 +130,11 @@ export default function SeriesAndEpisodes() {
 
   return (
     <>
-      {user?.monthly_subscribed === true ||
-        (user?.yearly_subscribed === true && <SubscriptionPage />)}
-
+      {session?.status === 'authenticated' && <SubscriptionPage />}
       <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
         <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
           <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-40  bg-two"
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}

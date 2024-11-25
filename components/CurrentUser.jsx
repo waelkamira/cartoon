@@ -3,8 +3,11 @@ import { inputsContext } from './Context';
 import { useSession } from 'next-auth/react';
 
 export default function CurrentUser() {
-  const { profile_image, rerender, rerender_subscribed_or_not, dispatch } =
-    useContext(inputsContext);
+  const {
+    profile_image,
+    state: { rerender },
+  } = useContext(inputsContext);
+
   const [user, setUser] = useState();
   const { data: session, status } = useSession();
   // console.log('profile_image?.image', profile_image?.image);
@@ -13,7 +16,7 @@ export default function CurrentUser() {
     if (status === 'authenticated') {
       getUserData();
     }
-    console.log('rerender');
+    // console.log('rerender');
   }, [status, profile_image?.image, rerender]);
 
   async function getUserData() {
@@ -22,7 +25,7 @@ export default function CurrentUser() {
       // console.log('email', email);
       const response = await fetch(`/api/user?email=${email}`);
       const json = await response?.json();
-      console.log('json', json);
+      // console.log('json', json);
       if (response.ok) {
         if (typeof window !== 'undefined') {
           localStorage.setItem('CurrentUser', JSON.stringify(json[0]));

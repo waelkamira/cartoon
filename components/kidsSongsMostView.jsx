@@ -63,12 +63,12 @@ export default function KidsSongs({
 
     // التنقل إلى صفحة الأغنية
     router.push(`/song?songName=${songName}`);
-    // setTimeout(() => {
-    //   const newPath = window?.location?.pathname + window?.location?.search;
-    //   if (newPath !== previousPath && newPath.includes('/song')) {
-    //     window?.location?.reload();
-    //   }
-    // }, 3000);
+    setTimeout(() => {
+      const newPath = window?.location?.pathname + window?.location?.search;
+      if (newPath !== previousPath && newPath.includes('/song')) {
+        window?.location?.reload();
+      }
+    }, 3000);
   };
   async function fetchSongs() {
     try {

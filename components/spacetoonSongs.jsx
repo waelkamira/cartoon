@@ -100,16 +100,16 @@ export default function SpacetoonSongs({
 
     // التنقل إلى صفحة الأغنية
     router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
-    // setTimeout(() => {
-    //   const newPath = window.location.pathname + window.location.search;
-    //   // console.log('newPath', newPath);
-    //   // console.log('currentPath', currentPath);
+    setTimeout(() => {
+      const newPath = window.location.pathname + window.location.search;
+      console.log('newPath', newPath);
+      console.log('currentPath', currentPath);
 
-    //   // تحديث الصفحة فقط إذا تغير المسار
-    //   if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
-    //     window?.location?.reload();
-    //   }
-    // }, 3000);
+      // تحديث الصفحة فقط إذا تغير المسار
+      if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
+        window?.location?.reload();
+      }
+    }, 3000);
   };
 
   return (

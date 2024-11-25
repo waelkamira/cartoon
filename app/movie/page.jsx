@@ -9,6 +9,8 @@ import { TfiMenuAlt } from 'react-icons/tfi';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
+import { useSession } from 'next-auth/react';
+import SubscriptionPage from '../../components/paypal/subscriptionPage';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +19,7 @@ export default function Page() {
   const [movieName, setMovieName] = useState('');
   const [showMessage, setShowMessage] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
+  const session = useSession();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -55,10 +58,9 @@ export default function Page() {
 
   return (
     <>
-      <div
-        className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px]
-overflow-y-auto"
-      >
+      {session?.status === 'authenticated' && <SubscriptionPage />}
+
+      <div className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px] overflow-y-auto">
         <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
           <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
@@ -89,7 +91,7 @@ overflow-y-auto"
             <span> {movie[0]?.movieName}</span>
           </h1>
           {showMessage && (
-            <h1 className="text-yellow-400 ">
+            <h1 className="text-yellow-400 p-2">
               الرجاء الإنتظار قليلا ... جاري إحضار الفيلم ربما تحتاج للضغط عدة
               مرات على الزر ليعمل لاننا نقوم بمنع الاعلانات المنبثقة المزعجة
             </h1>

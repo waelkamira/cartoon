@@ -87,14 +87,14 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
 
     // التنقل إلى صفحة الأغنية
     router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
-    // setTimeout(() => {
-    //   const newPath = window.location.pathname + window.location.search;
+    setTimeout(() => {
+      const newPath = window.location.pathname + window.location.search;
 
-    //   // تحديث الصفحة فقط إذا تغير المسار
-    //   if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
-    //     window?.location?.reload();
-    //   }
-    // }, 3000);
+      // تحديث الصفحة فقط إذا تغير المسار
+      if (newPath !== previousPath && newPath.includes('/spacetoonSong')) {
+        window?.location?.reload();
+      }
+    }, 3000);
   };
 
   return (

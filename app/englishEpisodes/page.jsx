@@ -16,6 +16,7 @@ export default function Page() {
   const [episodeName, setEpisodeName] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isTrue, setIsTrue] = useState(true);
+  const session = useSession();
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {

@@ -225,7 +225,9 @@ export const authOptions = {
     async redirect({ url, baseUrl }) {
       console.log('url', url);
       console.log('baseUrl', baseUrl);
-      return baseUrl; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
+      return process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://cartoon-alpha.vercel.app'; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
     },
   },
 

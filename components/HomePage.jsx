@@ -42,7 +42,7 @@ export default function HomePage() {
       {session?.status === 'authenticated' && <SubscriptionPage />}{' '}
       {session?.status === 'unauthenticated' && (
         <div
-          className="fixed right-0 h-screen w-full z-40"
+          className="fixed right-0 h-screen w-full z-50"
           onClick={() => setOpen(true)}
         >
           {open ? <LoginMessage setOpen={setOpen} /> : ''}

@@ -222,23 +222,14 @@ export const authOptions = {
       }
       return true;
     },
+
     async redirect({ url, baseUrl }) {
-      // تحقق من صحة عنوان URL قبل إعادة التوجيه
-      if (url.includes('https://cartoon-alpha.vercel.app')) {
-        // إذا كان المستخدم قد سجل الدخول بنجاح، قم بإعادة التوجيه إلى الصفحة الرئيسية أو صفحة أخرى مناسبة
-        return '/';
-      } else {
-        // إذا كان هناك خطأ، قم بإعادة التوجيه إلى صفحة الخطأ
-        return '/error';
-      }
+      console.log('url', url);
+      console.log('baseUrl', baseUrl);
+      return process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://cartoon-alpha.vercel.app'; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
     },
-    // async redirect({ url, baseUrl }) {
-    //   console.log('url', url);
-    //   console.log('baseUrl', baseUrl);
-    //   return process.env.NODE_ENV === 'development'
-    //     ? 'http://localhost:3000'
-    //     : 'https://cartoon-alpha.vercel.app'; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
-    // },
   },
 
   session: {

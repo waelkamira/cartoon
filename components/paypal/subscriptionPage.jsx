@@ -25,8 +25,16 @@ export default function SubscriptionPage() {
   const [plan, setPlan] = useState(plans[0]);
   const subscribed = SubscribedOrNot();
   const user = CurrentUser();
+  const { dispatch } = useContext(inputsContext);
+
   //   console.log('subscribed', subscribed);
   //   console.log('user', user);
+  useEffect(() => {
+    checkUser();
+  }, []);
+  function checkUser() {
+    dispatch({ type: 'RERENDER' });
+  }
   return (
     <>
       {!subscribed &&

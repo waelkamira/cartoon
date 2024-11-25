@@ -9,7 +9,7 @@ export default function PaymentSuccess({ plan }) {
   const user = CurrentUser();
   // console.log('user', user);
   const router = useRouter();
-  // const { plan, dispatch } = useContext(inputsContext);
+  const { dispatch } = useContext(inputsContext);
 
   // console.log('plan', plan);
   useEffect(() => {
@@ -51,6 +51,7 @@ export default function PaymentSuccess({ plan }) {
       }),
     });
     if (response) {
+      dispatch({ type: 'RERENDER' });
       // console.log('subscribed');
       // setTimeout(() => {
       //   if (typeof window !== 'undefined') {

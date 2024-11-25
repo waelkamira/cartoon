@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import { signOut, useSession } from 'next-auth/react';
 import SideBarMenu from './SideBarMenu';
@@ -17,6 +17,7 @@ import SpacetoonSongForm from './createSpacetoonSong';
 import SharePrompt from './SharePromptOnWhatsup';
 import LoginMessage from './loginMessage';
 import SubscriptionPage from './paypal/subscriptionPage';
+import { inputsContext } from './Context';
 
 export default function HomePage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,18 +29,26 @@ export default function HomePage() {
   const session = useSession();
   const user = CurrentUser();
   const [open, setOpen] = useState(false);
+  const { dispatch } = useContext(inputsContext);
 
-  // console.log('user', user);
+  console.log('user', user);
   // console.log('session', session);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
     localStorage.removeItem('episodeNumber');
   }, []);
 
+  // function checkUser() {
+  //   dispatch({ type: 'RERENDER' });
+  // }
+  // checkUser();
   return (
     <>
       {/* <SharePrompt /> */}
-      {session?.status === 'authenticated' && <SubscriptionPage />}{' '}
+      {user &&
+        session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}{' '}
       {session?.status === 'unauthenticated' && (
         <div
           className="fixed right-0 h-screen w-full z-50"

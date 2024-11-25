@@ -200,7 +200,7 @@ export default function RegisterPage() {
         )} */}
         <div
           className="flex justify-between w-full bg-white rounded-md gap-4 px-4 py-2 items-center my-8 hover:shadow-md cursor-pointer"
-          onClick={() => signIn('google')}
+          onClick={() => signIn('google', { callbackUrl: '/' })}
         >
           <div className="relative h-8 w-8">
             <Image

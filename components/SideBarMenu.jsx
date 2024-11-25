@@ -21,14 +21,38 @@ export default function SideBarMenu({ setIsOpen }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
-          <div className="flex justify-center items-center w-full cursor-pointer bg-one">
-            <div className="relative size-28 my-2 mt-8">
+          <div className="flex justify-end items-center w-full cursor-pointer bg-one">
+            <div className="relative size-28 my-2 mt-8 left-2">
               <Image
                 priority
                 src={'https://i.imgur.com/nfDVITC.png'}
                 fill
                 alt={'photo'}
               />
+            </div>
+            <div className="absolute flex-col justify-end items-end x-50 p-2 top-6  w-full">
+              <Image
+                priority
+                src={user?.image}
+                width={100}
+                height={100}
+                alt={'photo'}
+                className=" x-50 size-12 rounded-full bg-sky-500 right-8"
+              />
+              <h1 className="text-nowrap text-sm truncate">{user?.name}</h1>
+
+              <h1 className="text-nowrap text-sm">
+                {user?.monthly_subscribed === false &&
+                user?.yearly_subscribed === false
+                  ? 'غير مشترك'
+                  : ''}
+              </h1>
+              <h1 className="text-nowrap text-sm">
+                {user?.monthly_subscribed === true ? 'مشترك شهري' : ''}
+              </h1>
+              <h1 className="text-nowrap text-sm">
+                {user?.yearly_subscribed === true ? 'مشترك سنوي' : ''}
+              </h1>
             </div>
           </div>
           <div className="bg-white px-4">

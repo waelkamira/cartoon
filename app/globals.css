@@ -12,6 +12,15 @@ body {
 html {
   scroll-behavior: smooth;
 }
+.truncate {
+  display: inline-block;
+  direction: ltr; /* عكس اتجاه النص ليبدأ من اليمين */
+
+  white-space: nowrap; /* منع النص من الالتفاف */
+  overflow: hidden; /* إخفاء النص الزائد */
+  width: 9ch; /* عرض النص بما يعادل 5 حروف فقط */
+  text-overflow: ellipsis; /* إضافة ثلاث نقاط (...) للإشارة إلى وجود نص زائد */
+}
 
 .rubik {
   font-family: var(' --font-rubik');

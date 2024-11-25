@@ -134,7 +134,7 @@ export const authOptions = {
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          prompt: 'consent', // استخدام نافذة منبثقة لتسجيل الدخول
+          prompt: 'consent',
         },
       },
       allowDangerousEmailAccountLinking: true,
@@ -223,11 +223,7 @@ export const authOptions = {
       return true;
     },
     async redirect({ url, baseUrl }) {
-      // التأكد من أن التطبيق يبقى نشطًا عند تسجيل الدخول
-      if (url.startsWith(baseUrl)) {
-        return url;
-      }
-      return baseUrl;
+      return baseUrl; // التأكد من العودة إلى التطبيق بعد تسجيل الدخول
     },
   },
 

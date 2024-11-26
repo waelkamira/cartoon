@@ -264,6 +264,7 @@ export const authOptions = {
       return session;
     },
   },
+  debug: true, // تفعيل السجلات
 };
 
 export default NextAuth(authOptions);

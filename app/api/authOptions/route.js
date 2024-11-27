@@ -11,6 +11,10 @@ const supabase = createClient(
 );
 
 export const authOptions = {
+  cookies: {
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  },
   secret: process.env.NEXT_PUBLIC_SECRET,
   providers: [
     GoogleProvider({
@@ -52,8 +56,13 @@ export const authOptions = {
         if (!checkPassword) {
           throw new Error('Incorrect password');
         }
-
-        return user;
+        console.log('user', user);
+        // يجب أن تُرجع كائن المستخدم
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        };
       },
     }),
   ],
@@ -102,6 +111,9 @@ export const authOptions = {
       }
       return true;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl; // يعيد التوجيه دائمًا إلى الصفحة الرئيسية
+    },
   },
 
   session: {
@@ -109,8 +121,8 @@ export const authOptions = {
   },
   debug: process.env.NODE_ENV === 'development',
   pages: {
-    signIn: '/api/auth/signin',
-    signOut: '/api/auth/signout',
+    // signIn: '/api/auth/signin',
+    // signOut: '/api/auth/signout',
     error: '/auth/error', // Custom error page
   },
 };

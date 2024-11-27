@@ -3,13 +3,8 @@ import { Rubik } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
-import SubscriptionMessage from '../components/paypal/subscriptionMessage';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
-import RandomizeDomain from '../components/RandomizeDomain';
-import SubscriptionPage from '../components/paypal/subscriptionPage';
-import SubscribedOrNot from '../components/paypal/subscribedOrNot';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -49,10 +44,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={rubik.className}>
-        {/* <RandomizeDomain /> */}
-
         <BackButton />
-        {/* إضافة كود Google Tag Manager (noscript) بعد بداية <body> */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-M53ZGKJ4"
@@ -62,15 +54,9 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
         <Toaster />
-        <GoogleOAuthProvider
-          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-        >
-          {/* <AuthContextProvider> */}
+        <AuthContextProvider>
           <InputsContextProvider>{children}</InputsContextProvider>
-
-          {/* <SubscriptionPage /> */}
-          {/* </AuthContextProvider> */}
-        </GoogleOAuthProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );

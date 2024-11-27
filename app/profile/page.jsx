@@ -72,7 +72,7 @@ export default function Profile() {
             يجب عليك تسجيل الدخول أولا لرؤية هذا البروفايل
           </h1>
           <div className="flex flex-col justify-between items-center gap-4 w-full">
-            <Button title={'تسجيل الدخول'} style={''} path="/login" />
+            <Button title={'تسجيل الدخول'} style={''} path="/api/aut/login" />
 
             {/* <BackButton /> */}
           </div>

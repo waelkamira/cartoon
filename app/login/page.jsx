@@ -92,7 +92,10 @@ export default function LogInPage() {
   function handleGoogleSignIn() {
     const clientId =
       '214968631752-aquuoiiq6ffe43tbq55q3usrcjgbl685.apps.googleusercontent.com';
-    const redirectUri = 'http://localhost:3000/api/auth/callback/google';
+    const redirectUri =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000/api/auth/callback/google'
+        : 'https://cartoon-alpha.vercel.app/api/auth/callback/google';
     const scope = 'openid email profile';
     const responseType = 'code';
     const codeChallengeMethod = 'S256';

@@ -9,6 +9,7 @@ import BackButton from '../components/BackButton';
 import RandomizeDomain from '../components/RandomizeDomain';
 import SubscriptionPage from '../components/paypal/subscriptionPage';
 import SubscribedOrNot from '../components/paypal/subscribedOrNot';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -61,11 +62,15 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
         <Toaster />
-        <AuthContextProvider>
+        <GoogleOAuthProvider
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+        >
+          {/* <AuthContextProvider> */}
           <InputsContextProvider>{children}</InputsContextProvider>
 
           {/* <SubscriptionPage /> */}
-        </AuthContextProvider>
+          {/* </AuthContextProvider> */}
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

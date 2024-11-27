@@ -242,7 +242,6 @@
 //   },
 // };
 
-import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions = {
@@ -255,16 +254,16 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token;
+        token.accessToken = account.access_token; // حفظ التوكن
       }
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
+      session.accessToken = token.accessToken; // إضافة التوكن إلى الجلسة
       return session;
     },
   },
-  debug: true, // تفعيل السجلات
+  pages: {
+    signIn: '/auth/signin', // صفحة تخصيص تسجيل الدخول
+  },
 };
-
-export default NextAuth(authOptions);

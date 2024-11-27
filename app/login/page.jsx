@@ -199,71 +199,82 @@
 //   );
 // }
 
+// 'use client';
+// import { signIn } from 'next-auth/react';
+// import { toast } from 'react-hot-toast';
+
+// export default function LogInPage() {
+//   const handleGoogleSignIn = async () => {
+//     try {
+//       const res = await signIn('google', { callbackUrl: '/' });
+//       if (res?.error) {
+//         toast.error('فشل تسجيل الدخول: ' + res.error);
+//       } else {
+//         toast.success('تم تسجيل الدخول بنجاح');
+//       }
+//     } catch (error) {
+//       console.error('Login error:', error);
+//       toast.error('حدث خطأ أثناء تسجيل الدخول');
+//     }
+//   };
+
+//   return (
+//     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+//       <h1 className="text-2xl font-bold mb-4">تسجيل الدخول</h1>
+//       <button
+//         onClick={handleGoogleSignIn}
+//         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+//       >
+//         تسجيل الدخول باستخدام Google
+//       </button>
+//     </div>
+//   );
+// }
+
+// app/auth/page.js
 'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import toast from 'react-hot-toast';
+import GoogleLoginButton from '../../components/google_login/GoogleLoginButton';
+import { toast } from 'react-hot-toast';
 
-export default function LogInPage() {
-  const router = useRouter();
+export default function LoginPage() {
+  const handleGoogleLogin = async (credentialResponse) => {
+    const token = credentialResponse.credential;
 
-  useEffect(() => {
-    const loadGoogleScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://accounts.google.com/gsi/client';
-      script.async = true;
-      document.body.appendChild(script);
+    try {
+      const res = await fetch('/api/auth/google-signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ credential: token }),
+      });
 
-      script.onload = () => {
-        window.google.accounts.id.initialize({
-          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-          callback: async (response) => {
-            const token = response.credential;
-
-            // إرسال التوكن إلى NextAuth
-            const res = await signIn('google', {
-              credential: token,
-              redirect: false,
-            });
-
-            if (res.ok) {
-              toast.success('تم تسجيل الدخول بنجاح');
-              router.push('/');
-            } else {
-              toast.error('فشل تسجيل الدخول');
-            }
-          },
-        });
-
-        // عرض One-Tap تلقائيًا
-        window.google.accounts.id.prompt();
-      };
-    };
-
-    loadGoogleScript();
-  }, [router]);
-
-  // دالة تسجيل الدخول عند الضغط على الزر
-  const handleGoogleSignIn = async () => {
-    const res = await signIn('google', { redirect: true, callbackUrl: '/' });
-    if (!res.ok) {
-      toast.error('فشل تسجيل الدخول');
+      // تحقق من نوع المحتوى أولاً
+      const contentType = res.headers.get('Content-Type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await res.json(); // إذا كانت الاستجابة JSON، استخدم json()
+        console.log(data);
+      } else {
+        const textResponse = await res.text(); // في حالة عدم كونها JSON، استخدم text()
+        console.error('استجابة غير JSON:', textResponse);
+      }
+    } catch (error) {
+      console.error('حدث خطأ:', error);
     }
+  };
+
+  const handleError = () => {
+    toast.error('فشل تسجيل الدخول');
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">تسجيل الدخول</h1>
-      <button
-        onClick={handleGoogleSignIn}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        تسجيل الدخول باستخدام Google
-      </button>
-      <p className="mt-4 text-gray-500">
-        أو انتظر حتى يظهر تسجيل الدخول التلقائي.
-      </p>
+      <GoogleLoginButton
+        onSuccess={handleGoogleLogin}
+        onError={handleError}
+        auto_select // تمكين تسجيل الدخول التلقائي
+      />
     </div>
   );
 }

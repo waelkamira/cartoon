@@ -31,17 +31,13 @@ export default function HomePage() {
   const [open, setOpen] = useState(false);
   const { dispatch } = useContext(inputsContext);
 
-  console.log('user', user);
+  // console.log('user', user);
   // console.log('session', session);
   useEffect(() => {
     sessionStorage.clear(); // تفريغ جميع العناصر في sessionStorage
     localStorage.removeItem('episodeNumber');
   }, []);
 
-  // function checkUser() {
-  //   dispatch({ type: 'RERENDER' });
-  // }
-  // checkUser();
   return (
     <>
       {user &&

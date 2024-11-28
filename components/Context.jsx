@@ -99,12 +99,17 @@ function inputsReducer(currentState, action) {
     case 'PLAN':
       return {
         ...currentState,
-        plan: action?.payload,
+        plan: !action?.payload,
       };
     case 'RERENDER_SUBSCRIBED_OR_NOT':
       return {
         ...currentState,
         rerender_subscribed_or_not: action?.payload,
+      };
+    case 'CHECK_SUBSCRIPTION':
+      return {
+        ...currentState,
+        check_subscription: !action?.payload,
       };
     default:
       return currentState;
@@ -133,6 +138,7 @@ export function InputsContextProvider({ children }) {
     rerender: false,
     plan: '',
     rerender_subscribed_or_not: false,
+    check_subscription: false,
   });
   // console.log('from Context', state);
 

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import TurkishCartoon from '../../components/turkishCartoon';
 import { useSession } from 'next-auth/react';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -17,6 +18,7 @@ export default function Page() {
   const [episodeName, setEpisodeName] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
+  const user = CurrentUser();
 
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {

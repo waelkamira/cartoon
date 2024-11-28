@@ -11,6 +11,7 @@ import VideoPlayer from '../../components/VideoPlayer';
 import { ContactUs } from '../../components/sendEmail/sendEmail';
 import { useSession } from 'next-auth/react';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function Page() {
   const [showMessage, setShowMessage] = useState(true);
   const [isTrue, setIsTrue] = useState(true);
   const session = useSession();
+  const user = CurrentUser();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

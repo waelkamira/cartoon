@@ -3,7 +3,6 @@ import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import CurrentUser from '../components/CurrentUser';
 import Image from 'next/image';
-import Link from 'next/link';
 import Button from './Button';
 import LoadingPhoto from './LoadingPhoto';
 import ItemForSideBarMenu from './itemForSideBarMenu';
@@ -72,16 +71,6 @@ export default function SideBarMenu({ setIsOpen }) {
           {/* <Button title={'بروفايل'} path={'/profile'} /> */}
 
           <ItemForSideBarMenu
-            planetName={'أغاني سبيس تون'}
-            planetImage={'https://i.imgur.com/BWPdDAF.png'}
-            planetRoute={'/spacetoonSongsPlanet'}
-          />
-          <ItemForSideBarMenu
-            planetName={'أغاني أطفال'}
-            planetImage={'https://i.imgur.com/rRBpVhp.png'}
-            planetRoute={'/songsPlanet'}
-          />
-          <ItemForSideBarMenu
             planetName={'كوكب زمردة'}
             planetImage={'https://i.imgur.com/wbjwdXO.png'}
             planetRoute={'/zomurodaPlanet'}
@@ -112,6 +101,16 @@ export default function SideBarMenu({ setIsOpen }) {
             planetRoute={'/bonbonaPlanet'}
           />
           <ItemForSideBarMenu
+            planetName={'أغاني سبيس تون'}
+            planetImage={'https://i.imgur.com/BWPdDAF.png'}
+            planetRoute={'/spacetoonSongsPlanet'}
+          />
+          <ItemForSideBarMenu
+            planetName={'أغاني أطفال'}
+            planetImage={'https://i.imgur.com/rRBpVhp.png'}
+            planetRoute={'/songsPlanet'}
+          />
+          <ItemForSideBarMenu
             planetName={'كرتون لغة انجليزية'}
             planetImage={'https://i.imgur.com/bw6ZZCJ.png'}
             planetRoute={'/englishCartoonPlanet'}
@@ -132,9 +131,8 @@ export default function SideBarMenu({ setIsOpen }) {
             planetRoute={'/turkishSongsPlanet'}
           />
 
-          {session?.status === 'authenticated' && (
+          {session?.status === 'authenticated' && user?.isAdmin === 1 && (
             <>
-              {/* <Button path={'/users'} title={'المستخدمين'} /> */}
               <Button
                 title={'تسجيل الخروج'}
                 path={'/'}

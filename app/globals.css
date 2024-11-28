@@ -12,13 +12,14 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
 .truncate {
   display: inline-block;
   direction: ltr; /* عكس اتجاه النص ليبدأ من اليمين */
 
   white-space: nowrap; /* منع النص من الالتفاف */
   overflow: hidden; /* إخفاء النص الزائد */
-  width: 9ch; /* عرض النص بما يعادل 5 حروف فقط */
+  width: 15ch; /* عرض النص بما يعادل 5 حروف فقط */
   text-overflow: ellipsis; /* إضافة ثلاث نقاط (...) للإشارة إلى وجود نص زائد */
 }
 
@@ -30,11 +31,11 @@ html {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #f7000005;
+  background-color: #f70000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e2e2e2;
+  background: #ffffff;
   border-radius: 20px;
 }
 

@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import { useSession } from 'next-auth/react';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -18,7 +19,7 @@ export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [isTrue, setIsTrue] = useState(true);
   const session = useSession();
-
+  const user = CurrentUser();
   // استخدام URL parameters لجلب اسم الحلقة
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

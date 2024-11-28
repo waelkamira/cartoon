@@ -11,6 +11,7 @@ import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import { useSession } from 'next-auth/react';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,8 @@ export default function Page() {
   const session = useSession();
   const [songId, setSongId] = useState('');
   const videoRef = useRef(null);
+  const user = CurrentUser();
+
   console.log('song', song);
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {

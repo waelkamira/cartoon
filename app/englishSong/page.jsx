@@ -11,12 +11,14 @@ import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import { useSession } from 'next-auth/react';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [song, setSong] = useState([]);
   const session = useSession();
   const [songName, setSongName] = useState('');
+  const user = CurrentUser();
 
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {

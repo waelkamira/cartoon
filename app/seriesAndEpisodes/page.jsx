@@ -18,6 +18,7 @@ import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import { useSession } from 'next-auth/react';
 import CurrentUser from '../../components/CurrentUser';
 import { inputsContext } from '../../components/Context';
+import SubscribedOrNot from '../../components/paypal/subscribedOrNot';
 
 export default function SeriesAndEpisodes() {
   const [episodes, setEpisodes] = useState([]);
@@ -227,6 +228,7 @@ export default function SeriesAndEpisodes() {
                   <h1 className="text-white text-center p-2">
                     {episode?.episodeName}
                   </h1>
+                  <SubscribedOrNot />
 
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}

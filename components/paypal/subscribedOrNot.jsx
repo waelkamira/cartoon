@@ -6,14 +6,17 @@ import { inputsContext } from '../Context';
 export default function SubscribedOrNot() {
   const [Subscribed, setSubscribed] = useState(false); // الافتراض أنه غير مشترك
   const user = CurrentUser(); // الحصول على بيانات المستخدم
-  const { rerender } = useContext(inputsContext);
+  const { rerender, dispatch, check_subscription } = useContext(inputsContext);
 
   // وظيفة للتحقق من حالة الاشتراك
   const checkSubscriptionStatus = (startDate, daysLimit) => {
     const currentDate = new Date();
     const subscriptionDate = new Date(startDate);
+    console.log('subscriptionDate', subscriptionDate);
     const daysSinceSubscription =
       (currentDate - subscriptionDate) / (1000 * 60 * 60 * 24);
+    console.log('daysSinceSubscription', daysSinceSubscription);
+
     return daysSinceSubscription <= daysLimit;
   };
 
@@ -40,7 +43,6 @@ export default function SubscribedOrNot() {
       console.error('Error updating subscription status:', error);
     }
   }
-
   useEffect(() => {
     if (user) {
       const currentDate = new Date();
@@ -79,7 +81,7 @@ export default function SubscribedOrNot() {
         setSubscribed(false);
       }
     }
-  }, [user, rerender]);
+  }, [user, rerender, check_subscription]);
 
   return Subscribed;
 }

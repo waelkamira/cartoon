@@ -73,7 +73,7 @@ export default function KidsSongs({
       );
       const json = await response.json();
       if (response.ok) {
-        console.log('songs', songs);
+        // console.log('songs', songs);
 
         const existingIds = new Set(songs.map((song) => song.id));
         const newSongs = json.filter((song) => !existingIds.has(song.id));

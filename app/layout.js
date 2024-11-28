@@ -5,6 +5,7 @@ import { InputsContextProvider } from '../components/Context';
 import AuthContextProvider from '../components/authContext/AuthContext';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
+import SubscribedOrNot from '../components/paypal/subscribedOrNot';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
         </noscript>
         <Toaster />
         <AuthContextProvider>
+          <SubscribedOrNot />
           <InputsContextProvider>{children}</InputsContextProvider>
         </AuthContextProvider>
       </body>

@@ -57,12 +57,12 @@ export default function KidsSongs({
     }
   }, [songs, newSong]);
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     const currentPath = window?.location?.pathname + window?.location?.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/song?songName=${songName}`);
+    router.push(`/song?songId=${songId}`);
     setTimeout(() => {
       const newPath = window?.location?.pathname + window?.location?.search;
       if (newPath !== previousPath && newPath.includes('/song')) {
@@ -136,9 +136,9 @@ export default function KidsSongs({
               onClick={() => {
                 dispatch({
                   type: 'KIDS_SONG_NAME',
-                  payload: song?.songName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.songName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -151,7 +151,7 @@ export default function KidsSongs({
                   src={song?.songImage}
                   layout="fill"
                   objectFit="cover"
-                  alt={song?.songName}
+                  alt={song?.id}
                 />
               </div>
               <h1 className="text-white text-center m-2 text-[10px] sm:text-[15px] w-full line-clamp-2 font-bold">

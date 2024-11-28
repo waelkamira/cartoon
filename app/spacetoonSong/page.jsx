@@ -11,43 +11,43 @@ import { ContactUs } from '../../components/sendEmail/sendEmail';
 import VideoPlayer from '../../components/VideoPlayer';
 import { useSession } from 'next-auth/react';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
+import CurrentUser from '../../components/CurrentUser';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [spacetoonSong, setSpacetoonSong] = useState([]);
-  // const { spacetoonSongName } = useContext(inputsContext);
-  const [spacetoonSongName, setSpacetoonSongName] = useState('');
+  const [spacetoonSongId, setSpacetoonSongId] = useState('');
   const session = useSession();
-
+  const user = CurrentUser();
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {
     const handleUrlChange = () => {
       // تأكد من أن الكود يعمل على العميل فقط
       if (typeof window !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search);
-        const spacetoonSongNameFromUrl = urlParams.get('spacetoonSongName');
-        // console.log('spacetoonSongNameFromUrl', spacetoonSongNameFromUrl);
+        const spacetoonSongIdFromUrl = urlParams.get('spacetoonSongId');
+        // console.log('spacetoonSongIdFromUrl', spacetoonSongIdFromUrl);
         if (
-          spacetoonSongNameFromUrl &&
-          spacetoonSongNameFromUrl !== spacetoonSongName
+          spacetoonSongIdFromUrl &&
+          spacetoonSongIdFromUrl !== spacetoonSongId
         ) {
-          setSpacetoonSongName(spacetoonSongNameFromUrl);
+          setSpacetoonSongId(spacetoonSongIdFromUrl);
         }
       }
     };
 
     handleUrlChange();
-  }, [spacetoonSongName]); // إعادة التشغيل عند تغيير spacetoonSongName
+  }, [spacetoonSongId]); // إعادة التشغيل عند تغيير spacetoonSongId
 
   useEffect(() => {
-    if (spacetoonSongName) {
+    if (spacetoonSongId) {
       fetchSpacetoonSong();
     }
-  }, [spacetoonSongName]);
+  }, [spacetoonSongId]);
 
   async function fetchSpacetoonSong() {
     const response = await fetch(
-      `/api/spacetoonSongs?spacetoonSongName=${spacetoonSongName}`
+      `/api/spacetoonSongs?spacetoonSongId=${spacetoonSongId}`
     );
     const json = await response?.json();
     if (response.ok) {
@@ -57,7 +57,9 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' && <SubscriptionPage />}
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
 
       <div className="bg-one">
         <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
@@ -108,7 +110,7 @@ export default function Page() {
                       <VideoPlayer
                         videoUrl={item.spacetoonSongLink}
                         image={item?.spacetoonSongImage}
-                        episodeName={item?.spacetoonSongName}
+                        episodeName={item?.spacetoonSongId}
                       />
                     </div>
                   );

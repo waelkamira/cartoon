@@ -93,13 +93,13 @@ export default function SpacetoonSongs({
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
+    router.push(`/spacetoonSong?spacetoonSongId=${songId}`);
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
       console.log('newPath', newPath);
@@ -190,9 +190,9 @@ export default function SpacetoonSongs({
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',
-                  payload: song?.spacetoonSongName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.spacetoonSongName);
+                handleSongClick(song?.id);
               }}
             >
               <div

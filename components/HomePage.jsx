@@ -44,7 +44,6 @@ export default function HomePage() {
   // checkUser();
   return (
     <>
-      {/* <SharePrompt /> */}
       {user &&
         session?.status === 'authenticated' &&
         user?.monthly_subscribed === false &&
@@ -61,7 +60,7 @@ export default function HomePage() {
         <div className=" w-full ">
           <div className="fixed top-0 right-0 z-40 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
             <TfiMenuAlt
-              className="sm:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
+              className="xl:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
               onClick={() => setIsOpen(!isOpen)}
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
@@ -73,6 +72,9 @@ export default function HomePage() {
                 objectFit="cover"
                 alt="photo"
               />
+            </div>
+            <div className="hidden xl:block">
+              <SideBarMenu setIsOpen={setIsOpen} />
             </div>
             <SearchBar />
           </div>

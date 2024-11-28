@@ -80,13 +80,13 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/spacetoonSong?spacetoonSongName=${songName}`);
+    router.push(`/spacetoonSong?spacetoonSongId=${songId}`);
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
 
@@ -142,9 +142,9 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',
-                  payload: song?.spacetoonSongName,
+                  payload: song?.id,
                 });
-                handleSongClick(song?.spacetoonSongName);
+                handleSongClick(song?.id);
               }}
             >
               <div
@@ -157,7 +157,7 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
                   src={song?.spacetoonSongImage}
                   layout="fill"
                   objectFit="cover"
-                  alt={song?.spacetoonSongName}
+                  alt={song?.spacetoonSongId}
                 />
               </div>
               <h1 className="text-white text-center m-2 text-[10px] sm:text-[15px] w-full line-clamp-2 font-bold">

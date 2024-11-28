@@ -63,7 +63,7 @@ export default function PaymentSuccess({ plan }) {
 
   return (
     <main className="fixed flex-col justify-end items-end  w-full h-full bg-white z-50 overflow-y-auto top-0 text-center">
-      <div className="absolute bottom-0 z-50 p-8 bg-green-500 w-full min-h-52 overflow-y-auto">
+      <div className="absolute bottom-0 z-50 p-8 w-full min-h-52 overflow-y-auto">
         <h1 className="text-2xl font-extrabold">
           تم تفعيل اشتراكك{' '}
           <span className="text-one">{plan?.subscription_period}</span> يوماً!

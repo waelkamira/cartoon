@@ -51,7 +51,9 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' && <SubscriptionPage />}
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
       <div className="bg-one">
         <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
           <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">

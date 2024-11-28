@@ -9,6 +9,7 @@ import Loading from './Loading';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import { useSession } from 'next-auth/react';
 import SubscriptionPage from './paypal/subscriptionPage';
+import CurrentUser from './CurrentUser';
 
 export default function NewSerieses() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -17,6 +18,7 @@ export default function NewSerieses() {
   const router = useRouter();
   const [showMessage, setShowMessage] = useState(true);
   const session = useSession();
+  const user = CurrentUser();
 
   const [seriesesSliderRef, seriesesInstanceRef] = useKeenSlider({
     loop: false,
@@ -84,7 +86,9 @@ export default function NewSerieses() {
 
   return (
     <>
-      {session?.status === 'authenticated' && <SubscriptionPage />}
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
 
       <div className="w-full overflow-x-hidden p-2">
         <h1 className="w-full text-start p-2 text-white">جديد</h1>

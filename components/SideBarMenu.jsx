@@ -13,7 +13,7 @@ export default function SideBarMenu({ setIsOpen }) {
   const user = CurrentUser();
   return (
     <div
-      className="absolute w-screen h-screen z-50 right-0 -top-5"
+      className="absolute w-fit h-screen z-50 right-0 top-0"
       onClick={() => setIsOpen(false)}
     >
       <div

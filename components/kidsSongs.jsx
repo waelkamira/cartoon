@@ -73,7 +73,7 @@ export default function KidsSongs({
       );
       const json = await response.json();
       if (response.ok) {
-        // console.log('songs', songs);
+        console.log('songs', songs);
 
         const existingIds = new Set(songs.map((song) => song.id));
         const newSongs = json.filter((song) => !existingIds.has(song.id));
@@ -87,13 +87,13 @@ export default function KidsSongs({
     }
   }
 
-  const handleSongClick = (songName) => {
+  const handleSongClick = (songId) => {
     // احفظ المسار السابق
     const currentPath = window.location.pathname + window.location.search;
     setPreviousPath(currentPath);
 
     // التنقل إلى صفحة الأغنية
-    router.push(`/song?songName=${songName}`);
+    router.push(`/song?songId=${songId}`);
 
     setTimeout(() => {
       const newPath = window.location.pathname + window.location.search;
@@ -115,7 +115,6 @@ export default function KidsSongs({
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
           </div>
-          {/* <BackButton /> */}
         </>
       ) : (
         ''
@@ -166,7 +165,7 @@ export default function KidsSongs({
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
               onClick={() => {
                 dispatch({ type: 'KIDS_SONG_NAME', payload: song?.songName });
-                handleSongClick(song?.songName);
+                handleSongClick(song?.id);
               }}
             >
               <div

@@ -89,78 +89,8 @@ export default function LogInPage() {
     }
   }
 
-  // function handleGoogleSignIn() {
-  //   const clientId =
-  //     '214968631752-aquuoiiq6ffe43tbq55q3usrcjgbl685.apps.googleusercontent.com';
-  //   const redirectUri =
-  //     process.env.NODE_ENV === 'development'
-  //       ? 'http://localhost:3000/api/auth/callback/google'
-  //       : 'https://cartoon-alpha.vercel.app/api/auth/callback/google';
-  //   const scope = 'openid email profile';
-  //   const responseType = 'code';
-  //   const codeChallengeMethod = 'S256';
-
-  //   // بناء رابط Google OAuth
-  //   const state = Math.random().toString(36).substring(7); // رمز حالة عشوائي
-  //   const codeChallenge = 'cVY22UbN_cpHIFUCRYfRphGuPze-NDuLBh2mr06lXVE'; // استبدله إذا كنت تستخدم `PKCE`
-
-  //   const googleOAuthUrl =
-  //     `https://accounts.google.com/o/oauth2/v2/auth?` +
-  //     `client_id=${clientId}&` +
-  //     `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-  //     `response_type=${responseType}&` +
-  //     `scope=${encodeURIComponent(scope)}&` +
-  //     `state=${state}&` +
-  //     `code_challenge=${codeChallenge}&` +
-  //     `code_challenge_method=${codeChallengeMethod}`;
-
-  //   // فتح نافذة منبثقة
-  //   const popupWidth = 500;
-  //   const popupHeight = 700;
-  //   const left = window.screen.width / 2 - popupWidth / 2;
-  //   const top = window.screen.height / 2 - popupHeight / 2;
-  //   const options = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
-
-  //   const popup = window.open(googleOAuthUrl, 'GoogleLoginPopup', options);
-
-  //   const checkPopup = setInterval(() => {
-  //     if (popup.closed) {
-  //       clearInterval(checkPopup);
-  //       fetch('/api/auth/session')
-  //         .then((res) => res.json())
-  //         .then((session) => {
-  //           if (session?.user) {
-  //             router.push('/dashboard');
-  //           } else {
-  //             console.error('تسجيل الدخول غير ناجح');
-  //           }
-  //         });
-  //     }
-  //   }, 1000);
-
-  //   if (!popup) {
-  //     console.error('تعذر فتح النافذة المنبثقة.');
-  //     return;
-  //   }
-
-  //   // مراقبة النافذة المنبثقة
-  //   const interval = setInterval(() => {
-  //     if (popup.closed) {
-  //       clearInterval(interval);
-  //       fetch('/api/auth/session')
-  //         .then((res) => res.json())
-  //         .then((session) => {
-  //           if (session?.user) {
-  //             router.push('/');
-  //           } else {
-  //             console.error('لم يتم تسجيل الدخول.');
-  //           }
-  //         });
-  //     }
-  //   }, 500);
-  // }
   function handleGoogleSignIn() {
-    const popupWidth = 500;
+    const popupWidth = 300;
     const popupHeight = 700;
     const left = window.screen.width / 2 - popupWidth / 2;
     const top = window.screen.height / 2 - popupHeight / 2;
@@ -182,8 +112,11 @@ export default function LogInPage() {
           .then((res) => res.json())
           .then((session) => {
             if (session?.user) {
-              // الانتقال إلى صفحة محددة بعد تسجيل الدخول
-              router.push('/dashboard');
+              // الانتقال إلى صفحة محددة بعد نجاح تسجيل الدخول
+              router.push('/');
+              toast.custom((t) => (
+                <CustomToast t={t} message={'بهيجة أشرق لبن ترحب بكم'} />
+              ));
             } else {
               console.error('لم يتم تسجيل الدخول.');
             }

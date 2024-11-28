@@ -16,7 +16,7 @@ export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [song, setSong] = useState([]);
   const session = useSession();
-  const [songName, setSongName] = useState('');
+  const [songId, setSongId] = useState('');
   const videoRef = useRef(null);
   console.log('song', song);
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
@@ -25,31 +25,31 @@ export default function Page() {
       // تأكد من أن الكود يعمل على العميل فقط
       if (typeof window !== 'undefined') {
         const urlParams = new URLSearchParams(window.location.search);
-        const songNameFromUrl = urlParams.get('songName');
-        // console.log('songNameFromUrl', songNameFromUrl);
-        if (songNameFromUrl && songNameFromUrl !== songName) {
-          setSongName(songNameFromUrl);
+        const songIdFromUrl = urlParams.get('songId');
+        // console.log('songIdFromUrl', songIdFromUrl);
+        if (songIdFromUrl && songIdFromUrl !== songId) {
+          setSongId(songIdFromUrl);
         }
       }
     };
 
     handleUrlChange();
-  }, [songName]); // إعادة التشغيل عند تغيير songName
+  }, [songId]); // إعادة التشغيل عند تغيير songId
 
   useEffect(() => {
-    if (songName) {
+    if (songId) {
       fetchSong();
     }
-  }, [songName]);
+  }, [songId]);
 
   useEffect(() => {
     // التمرير إلى الفيديو عند تحميل الصفحة
     if (videoRef.current) {
       videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [songName]);
+  }, [songId]);
   async function fetchSong() {
-    const response = await fetch(`/api/songs?songName=${songName}`);
+    const response = await fetch(`/api/songs?songId=${songId}`);
     const json = await response?.json();
     if (response.ok) {
       setSong(json);
@@ -58,7 +58,9 @@ export default function Page() {
 
   return (
     <>
-      {session?.status === 'authenticated' && <SubscriptionPage />}
+      {session?.status === 'authenticated' &&
+        user?.monthly_subscribed === false &&
+        user?.yearly_subscribed === false && <SubscriptionPage />}
 
       <div className="bg-one">
         <div className="z-50">
@@ -109,7 +111,7 @@ export default function Page() {
                         <VideoPlayer
                           videoUrl={item.songLink}
                           image={item?.songImage}
-                          episodeName={item?.songName}
+                          episodeName={item?.songId}
                         />
                       </div>
                     );

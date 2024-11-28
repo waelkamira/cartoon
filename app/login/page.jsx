@@ -90,13 +90,23 @@ export default function LogInPage() {
   }
 
   function handleGoogleSignIn() {
-    const popupWidth = 300;
+    // تعيين العرض والارتفاع الافتراضي
+    let popupWidth = 300;
     const popupHeight = 700;
+
+    // إذا كانت الشاشة متوسطة أو كبيرة (أكبر من 768px)، قم بزيادة العرض إلى 500
+    if (window.screen.width >= 768) {
+      popupWidth = 500;
+    }
+
+    // حساب الموضع لجعل النافذة في وسط الشاشة
     const left = window.screen.width / 2 - popupWidth / 2;
     const top = window.screen.height / 2 - popupHeight / 2;
+
+    // خيارات النافذة المنبثقة
     const options = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
 
-    // فتح نافذة منبثقة لتسجيل الدخول
+    // فتح النافذة المنبثقة
     const popup = window.open('/api/auth/signin', 'GoogleLoginPopup', options);
 
     if (!popup) {
@@ -112,7 +122,7 @@ export default function LogInPage() {
           .then((res) => res.json())
           .then((session) => {
             if (session?.user) {
-              // الانتقال إلى صفحة محددة بعد نجاح تسجيل الدخول
+              // الانتقال إلى الصفحة الرئيسية بعد تسجيل الدخول
               router.push('/');
               toast.custom((t) => (
                 <CustomToast t={t} message={'بهيجة أشرق لبن ترحب بكم'} />

@@ -13,7 +13,7 @@ export default function SideBarMenu({ setIsOpen }) {
   const user = CurrentUser();
   return (
     <div
-      className="absolute w-fit h-screen z-50 right-0 top-0"
+      className="absolute w-full sm:w-fit h-screen z-50 right-0 top-0"
       onClick={() => setIsOpen(false)}
     >
       <div
@@ -22,7 +22,7 @@ export default function SideBarMenu({ setIsOpen }) {
       >
         <div className="sticky top-0 w-full z-50">
           <div className="flex justify-end items-center w-full cursor-pointer bg-one">
-            <div className="relative size-28 my-2 mt-8 left-2">
+            <div className="relative size-28 my-2 mt-6 left-2">
               <Image
                 priority
                 src={'https://i.imgur.com/nfDVITC.png'}
@@ -30,27 +30,35 @@ export default function SideBarMenu({ setIsOpen }) {
                 alt={'photo'}
               />
             </div>
-            <div className="absolute flex-col justify-end items-end x-50 p-2 top-6  w-full">
-              <Image
-                priority
-                src={user?.image}
-                width={100}
-                height={100}
-                alt={'photo'}
-                className=" x-50 size-12 rounded-full bg-sky-500 right-8"
-              />
-              <h1 className="text-nowrap text-sm truncate">{user?.name}</h1>
+            <div className="absolute flex-col justify-end items-end z-50 p-2 top-4 w-full">
+              <div className="relative my-2">
+                {user?.image ? (
+                  <Image
+                    priority
+                    src={user?.image}
+                    width={100}
+                    height={100}
+                    alt={'photo'}
+                    className=" z-50 size-12 rounded-full bg-sky-500"
+                  />
+                ) : (
+                  <LoadingPhoto />
+                )}
+              </div>
+              <h1 className="text-nowrap text-sm w-20 text-end truncate">
+                {user?.name}
+              </h1>
 
-              <h1 className="text-nowrap text-sm">
+              <h1 className="text-nowrap text-sm w-20 text-start">
                 {user?.monthly_subscribed === false &&
                 user?.yearly_subscribed === false
                   ? 'غير مشترك'
                   : ''}
               </h1>
-              <h1 className="text-nowrap text-sm">
+              <h1 className="text-nowrap text-sm w-20 text-start">
                 {user?.monthly_subscribed === true ? 'مشترك شهري' : ''}
               </h1>
-              <h1 className="text-nowrap text-sm">
+              <h1 className="text-nowrap text-sm w-20 text-start">
                 {user?.yearly_subscribed === true ? 'مشترك سنوي' : ''}
               </h1>
             </div>

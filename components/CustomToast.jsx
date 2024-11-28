@@ -18,7 +18,7 @@ export default function CustomToast({
         <div className="flex-1 w-full">
           <div className="flex justify-center items-center gap-2">
             <div className="ml-3 flex-1">
-              <div className="relative flex justify-center h-44 w-full text-center">
+              <div className="relative flex justify-center h-16 w-full text-center">
                 <Image
                   src={'https://i.imgur.com/nfDVITC.png'}
                   layout="fill"

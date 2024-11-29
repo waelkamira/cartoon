@@ -104,7 +104,7 @@ export default function NewSerieses() {
         )}
         <div
           ref={seriesesSliderRef}
-          className="keen-slider shadow-lg flex flex-col items-start justify-start "
+          className="keen-slider shadow-lg flex flex-col sm:flex-row items-start justify-start "
         >
           {serieses.length === 0 ? (
             <Loading />

@@ -14,6 +14,9 @@ import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
 import { MdEdit } from 'react-icons/md';
+import { FaRegCreditCard } from 'react-icons/fa6';
+import { MdOutlineMarkEmailRead } from 'react-icons/md';
+import { GrContactInfo } from 'react-icons/gr';
 
 export default function Profile() {
   const session = useSession();
@@ -21,7 +24,7 @@ export default function Profile() {
   const user = CurrentUser();
   const { profile_image, dispatch } = useContext(inputsContext);
   const [newUserName, setNewUserName] = useState('');
-  // console.log('user?.image', user?.image);
+  console.log('user?.image', user?.image);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -65,10 +68,10 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex flex-col bg-white text-black h-screen justify-start items-start">
+    <div className="flex flex-col bg-white  h-screen justify-start items-start text-lg">
       {session?.status === 'unauthenticated' && (
         <div className="p-4 bg-four rounded-lg m-2 md:m-8 border border-one text-center h-screen">
-          <h1 className="text-lg md:text-2xl p-2 my-8 text-white">
+          <h1 className=" md:text-2xl p-2 my-8 text-white">
             يجب عليك تسجيل الدخول أولا لرؤية هذا البروفايل
           </h1>
           <div className="flex flex-col justify-between items-center gap-4 w-full">
@@ -79,7 +82,7 @@ export default function Profile() {
         </div>
       )}
       {session?.status === 'authenticated' && (
-        <div className="relative grow bg-gray-400 flex justify-start items-start w-full bg-four  xl:p-8 rounded-lg text-md sm:text-lg lg:text-xl">
+        <div className="relative grow bg-one text-white flex justify-start items-start w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl">
           <div className="absolute flex flex-col items-start gap-2 z-50 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
             <TfiMenuAlt
               className=" p-1 rounded-lg text-3xl lg:text-5xl text-one cursor-pointer z-50  "
@@ -94,7 +97,7 @@ export default function Profile() {
               <div className="relative h-52 w-52 rounded-lg">
                 <Image
                   priority
-                  src={'https://i.imgur.com/ujGghEC.png'}
+                  src={'https://i.imgur.com/nfDVITC.png'}
                   layout="fill"
                   objectFit="cover"
                   alt={user?.name}
@@ -107,36 +110,79 @@ export default function Profile() {
 
             <div className="flex flex-col justify-center items-center w-full text-start text-white">
               <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
-                <div className="flex justify-between items-center">
-                  {/* <h5 className="text-sm">تغيير الإسم: </h5> */}
-                  <h4 className="text-sm text-nowrap text-start w-full select-none">
-                    <span className="text-black font-bold text-2xl ml-2">
-                      #
-                    </span>
-                    <span className="text-black">الإسم : {user?.name} </span>
+                <div className="flex justify-start items-start gap-1">
+                  <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
+                    <GrContactInfo className="text-xl" />
+                    الإسم:
                   </h4>
+                  <div>
+                    <h1 className="text-nowrap text-sm w-20 text-start">
+                      {user?.name}{' '}
+                    </h1>
+                  </div>
                 </div>
-
                 <div className="flex items-center w-full">
                   <hr className="w-full h-0.5 bg-white rounded-lg border-hidden" />
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
-                <h4 className="text-sm text-black text-nowrap text-start w-full select-none">
-                  <span className="text-black font-bold text-2xl ml-2">#</span>
-                  الإيميل: {session?.data?.user?.email}
-                </h4>
-
+              <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
+                <div className="flex justify-start items-start gap-1">
+                  <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
+                    <MdOutlineMarkEmailRead className="" />
+                    الإيميل:
+                  </h4>
+                  <div>
+                    <h1 className="text-nowrap text-sm w-20 text-start">
+                      {session?.data?.user?.email}
+                    </h1>
+                  </div>
+                </div>
                 <div className="flex items-center w-full">
                   <hr className="w-full h-0.5 bg-white rounded-lg border-hidden" />
                 </div>
               </div>
-
+              <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
+                <div className="flex justify-start items-start gap-1">
+                  <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
+                    <FaRegCreditCard />
+                    الإشتراك:
+                  </h4>
+                  <div>
+                    <h1 className="text-nowrap text-sm w-20 text-start">
+                      {user?.monthly_subscribed === false &&
+                      user?.yearly_subscribed === false
+                        ? 'غير مشترك'
+                        : ''}
+                    </h1>
+                    <h1 className="text-nowrap text-sm w-20 text-start">
+                      {user?.monthly_subscribed === true ? 'مشترك شهري' : ''}
+                    </h1>
+                    <h1 className="text-nowrap text-sm w-20 text-start">
+                      {user?.yearly_subscribed === true ? 'مشترك سنوي' : ''}
+                    </h1>
+                  </div>
+                </div>
+                <div className="flex items-center w-full">
+                  <hr className="w-full h-0.5 bg-white rounded-lg border-hidden" />
+                </div>
+              </div>
+              <div className="p-4 w-full ">
+                {session?.status === 'authenticated' && (
+                  <>
+                    <Button
+                      title={'تسجيل الخروج'}
+                      path={'/'}
+                      style={'shadow-xl'}
+                      onClick={() => signOut()}
+                    />
+                  </>
+                )}
+              </div>
               {/* <div className="flex flex-col items-center gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
                 <Link href={'/favoritePosts'} className="w-full">
                   <h1 className="text-nowrap text-start w-full select-none cursor-pointer ">
                     <span className="text-one font-bold text-2xl ml-2 ">#</span>
-                    وصفات أعجبتني{' '}
+                    مسلسلات أعجبتني
                   </h1>
                 </Link>
               </div> */}

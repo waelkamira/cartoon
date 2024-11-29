@@ -74,11 +74,6 @@ export async function GET(req) {
     }
 
     if (planetName && mostViewed) {
-      // console.log(
-      //   'mostViewed ***************************************',
-      //   mostViewed,
-      //   planetName
-      // );
       serieses = serieses.filter((series) => series.mostViewed === 'True');
       // console.log('Serieses', serieses);
     }
@@ -90,10 +85,6 @@ export async function GET(req) {
       serieses.sort((a, b) => {
         const dateA = new Date(a['updated_at']);
         const dateB = new Date(b['updated_at']);
-        console.log(
-          'dateA - dateB -------------------------------------------',
-          dateA - dateB
-        );
 
         return dateA - dateB;
       });

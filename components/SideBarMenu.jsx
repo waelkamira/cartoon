@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Button from './Button';
 import LoadingPhoto from './LoadingPhoto';
 import ItemForSideBarMenu from './itemForSideBarMenu';
+import { FaRegCreditCard } from 'react-icons/fa';
 
 export default function SideBarMenu({ setIsOpen }) {
   const session = useSession();
@@ -47,19 +48,6 @@ export default function SideBarMenu({ setIsOpen }) {
               <h1 className="text-nowrap text-sm w-20 text-end truncate">
                 {user?.name}
               </h1>
-
-              <h1 className="text-nowrap text-sm w-20 text-start">
-                {user?.monthly_subscribed === false &&
-                user?.yearly_subscribed === false
-                  ? 'غير مشترك'
-                  : ''}
-              </h1>
-              <h1 className="text-nowrap text-sm w-20 text-start">
-                {user?.monthly_subscribed === true ? 'مشترك شهري' : ''}
-              </h1>
-              <h1 className="text-nowrap text-sm w-20 text-start">
-                {user?.yearly_subscribed === true ? 'مشترك سنوي' : ''}
-              </h1>
             </div>
           </div>
           <div className="bg-white px-4">
@@ -68,8 +56,6 @@ export default function SideBarMenu({ setIsOpen }) {
         </div>
 
         <div className="relative p-4 ">
-          {/* <Button title={'بروفايل'} path={'/profile'} /> */}
-
           <ItemForSideBarMenu
             planetName={'كوكب زمردة'}
             planetImage={'https://i.imgur.com/wbjwdXO.png'}
@@ -130,16 +116,8 @@ export default function SideBarMenu({ setIsOpen }) {
             planetImage={'https://i.imgur.com/GTuV1My.png'}
             planetRoute={'/turkishSongsPlanet'}
           />
+          <Button title={'بروفايل'} path={'/profile'} />
 
-          {session?.status === 'authenticated' && (
-            <>
-              <Button
-                title={'تسجيل الخروج'}
-                path={'/'}
-                onClick={() => signOut()}
-              />
-            </>
-          )}
           {session?.status === 'unauthenticated' && (
             <div>
               <Button title={'تسجيل الدخول'} path={'/login'} />

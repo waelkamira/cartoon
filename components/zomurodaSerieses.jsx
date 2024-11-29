@@ -154,7 +154,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
         ref={ZumorodaSliderRef}
         className={
           (vertical ? 'h-[600px]' : 'h-fit') +
-          ' keen-slider  py-2 shadow-lg  overflow-scroll rounded-md'
+          ' keen-slider  py-2 shadow-lg  overflow-scroll rounded-md flex-row justify-start items-start'
         }
       >
         {Zumoroda.length === 0 ? (
@@ -175,7 +175,7 @@ export default function ZomurodaPlanet({ vertical = false }) {
                 </button>
               )}
               <div
-                className=" flex flex-col items-center justify-start flex-shrink-0 w-full mr-1"
+                className="flex flex-col  items-center justify-start flex-shrink-0 w-full mr-1"
                 key={series?.id}
                 onClick={() => {
                   // التنقل إلى الرابط الجديد

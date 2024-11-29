@@ -196,23 +196,7 @@ export default function SeriesAndEpisodes() {
             </h1>
           )}
         </div>
-        {/* أزرار التنقل بين الحلقات */}
-        <div className="flex justify-between w-full p-4 items-start">
-          <button
-            onClick={handleNextEpisode}
-            className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-            disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
-          >
-            الحلقة التالية
-          </button>
-          <button
-            onClick={handlePreviousEpisode}
-            className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
-            disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
-          >
-            الحلقة السابقة
-          </button>
-        </div>
+
         <div className="my-2 p-2">
           {episodes.length === 0 && !isLoading && (
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
@@ -242,6 +226,23 @@ export default function SeriesAndEpisodes() {
                 </div>
               </div>
             ))}
+          </div>
+          {/* أزرار التنقل بين الحلقات */}
+          <div className="flex justify-between w-full p-4 items-start">
+            <button
+              onClick={handleNextEpisode}
+              className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+              disabled={!hasMoreEpisodes} // تعطيل زر الحلقة التالية إذا لم تكن هناك حلقات
+            >
+              الحلقة التالية
+            </button>
+            <button
+              onClick={handlePreviousEpisode}
+              className="btn p-1 sm:px-4 sm:py-2 shadow-lg text-white rounded-lg disabled:opacity-50"
+              disabled={episodeNumber === 1} // تعطيل زر الحلقة السابقة إذا كانت الحلقة الأولى
+            >
+              الحلقة السابقة
+            </button>
           </div>
         </div>
       </div>

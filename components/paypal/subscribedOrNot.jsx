@@ -12,7 +12,7 @@ export default function SubscribedOrNot() {
   const checkSubscriptionStatus = (startDate, daysLimit) => {
     const currentDate = new Date();
     const subscriptionDate = new Date(startDate);
-    console.log('subscriptionDate', subscriptionDate);
+    // console.log('subscriptionDate', subscriptionDate);
     const daysSinceSubscription =
       (currentDate - subscriptionDate) / (1000 * 60 * 60 * 24);
     console.log('daysSinceSubscription', daysSinceSubscription);

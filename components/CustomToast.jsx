@@ -35,7 +35,7 @@ export default function CustomToast({
       <div>
         <div>
           <h1 className="sm:mt-4 text-[12px] sm:text-sm s:text-nowrap text-center  ">
-            <span className="text-green-400 text-xl font-bold">
+            <span className="text-white text-xl font-bold bg-green-400 rounded-full px-2 py-1">
               {greenEmoji}
             </span>
             <span className="text-one text-xl mx-1 font-bold">{redEmoji}</span>

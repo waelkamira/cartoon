@@ -13,7 +13,7 @@ export default function CurrentUser() {
     if (status === 'authenticated') {
       getUserData();
     }
-    // console.log('rerender');
+    console.log('rerender from CurrentUser');
   }, [status, profile_image?.image, rerender]);
 
   async function getUserData() {

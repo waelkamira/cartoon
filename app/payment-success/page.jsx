@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { inputsContext } from '../../components/Context';
 import LoadingPhoto from '../../components/LoadingPhoto';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import CustomToast from '../../components/CustomToast';
 export default function PaymentSuccess({ plan }) {
   const user = CurrentUser();
   // console.log('user', user);
@@ -50,18 +52,27 @@ export default function PaymentSuccess({ plan }) {
       }),
     });
     if (response.ok) {
-      dispatch({ type: 'RERENDER' });
+      // dispatch({ type: 'RERENDER' });
       console.log('subscribed');
+
+      // router.push('/');
+      toast.custom((t) => (
+        <CustomToast
+          t={t}
+          greenEmoji={'✔'}
+          message={`تم تفعيل اشتراكك بنجاح لمدة ${plan?.subscription_period} يوماً`}
+        />
+      ));
       setTimeout(() => {
         if (typeof window !== 'undefined') {
           window?.location?.reload();
         }
-      }, 1000);
+      }, 3000);
     }
   }
 
-  return (
-    <main className="fixed flex-col justify-end items-end  w-full h-full bg-white z-50 overflow-y-auto top-0 text-center">
+  return;
+  /*<main className="fixed flex-col justify-end items-end  w-full h-full bg-white z-50 overflow-y-auto top-0 text-center">
       <div className="absolute top-0 z-50 p-8 w-full min-h-52 overflow-y-auto">
         <div className="relative flex justify-center h-44 w-full text-center">
           <Image
@@ -75,12 +86,11 @@ export default function PaymentSuccess({ plan }) {
           تم تفعيل اشتراكك{' '}
           <span className="text-one">{plan?.subscription_period}</span> يوماً!
         </h1>
-        {/* <h2 className="text-xl">جاري تفعيل الاشتراك</h2> */}
         <div className="my-4">
           <LoadingPhoto />
         </div>
         <Button title={'عودة للصفحة الرئيسية'} path={'/'} />
       </div>
-    </main>
-  );
+    </main> */
+  <div></div>;
 }

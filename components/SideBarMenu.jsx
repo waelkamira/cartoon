@@ -131,7 +131,7 @@ export default function SideBarMenu({ setIsOpen }) {
             planetRoute={'/turkishSongsPlanet'}
           />
 
-          {session?.status === 'authenticated' && user?.isAdmin === 1 && (
+          {session?.status === 'authenticated' && (
             <>
               <Button
                 title={'تسجيل الخروج'}

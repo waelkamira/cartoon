@@ -14,11 +14,11 @@ export default function PaymentSuccess({ plan }) {
 
   useEffect(() => {
     if (user) {
-      console.log('plan', plan);
-      console.log('user', user);
+      console.log('plan PaymentSuccess', plan);
+      console.log('user PaymentSuccess', user);
       updateUserSubscription();
     }
-  }, [rerender]);
+  }, [user]);
 
   async function updateUserSubscription() {
     const date = new Date();
@@ -52,11 +52,11 @@ export default function PaymentSuccess({ plan }) {
     if (response.ok) {
       dispatch({ type: 'RERENDER' });
       console.log('subscribed');
-      // setTimeout(() => {
-      //   if (typeof window !== 'undefined') {
-      //     window?.location?.reload();
-      //   }
-      // }, 5000);
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          window?.location?.reload();
+        }
+      }, 1000);
     }
   }
 

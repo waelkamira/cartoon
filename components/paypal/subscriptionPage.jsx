@@ -83,7 +83,7 @@ export default function SubscriptionPage() {
               <div
                 className={
                   (plan?.price === 10 ? 'border-green-400' : 'border-white') +
-                  ' flex items-start justify-start gap-2 border  rounded-lg p-2 my-2 cursor-pointer'
+                  ' flex items-start justify-start gap-2 border rounded-lg p-2 my-2 cursor-pointer'
                 }
                 onClick={() => setPlan(plans[1])}
               >

@@ -72,7 +72,9 @@ export default function KidsSongs({
   };
   async function fetchSongs() {
     try {
-      const response = await fetch(`/api/songs?page=${pageNumber}&limit=4`);
+      const response = await fetch(
+        `/api/songs?page=${pageNumber}&limit=4&random=false`
+      );
       const json = await response.json();
       if (response.ok) {
         // console.log('songs', songs);

@@ -17,6 +17,7 @@ import { MdEdit } from 'react-icons/md';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { MdOutlineMarkEmailRead } from 'react-icons/md';
 import { GrContactInfo } from 'react-icons/gr';
+import LoadingPhoto from '../../components/LoadingPhoto';
 
 export default function Profile() {
   const session = useSession();
@@ -68,7 +69,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex flex-col bg-white  h-screen justify-start items-start text-lg">
+    <div className="flex flex-col bg-white  h-screen justify-start items-start text-md">
       {session?.status === 'unauthenticated' && (
         <div className="p-4 bg-four rounded-lg m-2 md:m-8 border border-one text-center h-screen">
           <h1 className=" md:text-2xl p-2 my-8 text-white">
@@ -93,18 +94,13 @@ export default function Profile() {
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
           </div>
           <div className="flex flex-col items-start gap-4  justify-start w-full 2xl:w-2/3 h-full rounded-lg overflow-hidden">
-            <div className="relative w-full flex justify-center p-2 mt-8">
-              <div className="relative h-52 w-52 rounded-lg">
-                <Image
-                  priority
-                  src={'https://i.imgur.com/nfDVITC.png'}
-                  layout="fill"
-                  objectFit="cover"
-                  alt={user?.name}
-                />
-              </div>
-              <div className="relative">
-                {/* <MdOutlineAddPhotoAlternate className="absolute text-one text-xl -top-12 right-1 z-50" /> */}
+            <div className="flex justify-center items-center w-full size-44 bg-one my-4">
+              <div className="relative size-44 rounded-full border">
+                {user?.image ? (
+                  <Image priority src={user?.image} fill alt={'photo'} />
+                ) : (
+                  <LoadingPhoto />
+                )}
               </div>
             </div>
 
@@ -143,7 +139,7 @@ export default function Profile() {
               </div>
               <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
                 <div className="flex justify-start items-start gap-1">
-                  <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
+                  <h4 className="flex justify-start gap-2 ml-2 items-center text-nowrap text-start w-full select-none">
                     <FaRegCreditCard />
                     الإشتراك:
                   </h4>

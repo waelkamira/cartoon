@@ -7,6 +7,9 @@ import SubscribedOrNot from './subscribedOrNot';
 import CurrentUser from '../CurrentUser';
 import { FaCheck } from 'react-icons/fa6';
 import { inputsContext } from '../Context';
+import { SiAdguard } from 'react-icons/si';
+import { SiAdblock } from 'react-icons/si';
+import { BsTv } from 'react-icons/bs';
 
 export const plans = [
   {
@@ -56,7 +59,7 @@ export default function SubscriptionPage() {
                   alt="photo"
                 />
               </div>
-              <h1 className="text-center my-8">يجب عليك الأشتراك للمتابعة</h1>
+              <h1 className="text-center my-8">يجب عليك الاشتراك للمتابعة</h1>
               <h1>اختر نوع الاشتراك</h1>
               <div
                 className={
@@ -115,6 +118,24 @@ export default function SubscriptionPage() {
                 </div>
               </div>
               <PaypalButton plan={plan} />
+              <div className="flex text-sm my-4 mt-8 border border-[#8FEA2F] rounded-lg p-2">
+                <div className="flex-col justify-center items-center w-full">
+                  <SiAdguard className="text-green-400 text-center w-full text-xl" />
+
+                  <h1 className="">محتوى أمن</h1>
+                </div>
+                <div className="flex-col justify-center items-center w-full">
+                  <BsTv className="text-green-400 text-center w-full text-xl" />
+
+                  <h1 className="">دقة عالية</h1>
+                </div>
+                <div className="flex-col justify-center items-center w-full">
+                  <SiAdblock className="text-green-400 text-center w-full text-xl" />
+
+                  <h1 className="">بدون إعلانات</h1>
+                </div>
+              </div>
+
               <ul className="space-y-2.5 leading-relaxed flex-1 w-full text-sm p-2 my-4 border border-[#8FEA2F] rounded-lg text-start">
                 {[
                   { name: 'مشاهدة أفلام الكرتون القديمة و الحديثة' },

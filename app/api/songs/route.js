@@ -38,37 +38,38 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get('limit')) || 4;
   const skip = (page - 1) * limit;
   const songId = searchParams.get('songId') || '';
-  const random = searchParams.get('random') === 'true';
+  const random = searchParams.get('random');
 
   try {
     let songs;
 
-    // التحقق من صلاحية الكاش
     if (isCacheValid()) {
       songs = cache.data;
     } else {
-      // جلب البيانات من ملف CSV على GitHub
       songs = await readCSVFile(csvUrl);
-
-      // تحديث الكاش بالبيانات الجديدة وتحديد وقت التحديث
+      console.log('Fetched Songs:', songs); // تحقق من البيانات
       cache.data = songs;
       cache.lastUpdated = Date.now();
     }
 
-    // فلترة الأغاني بناءً على اسم الأغنية إذا تم تحديده
     if (songId) {
       songs = songs.filter((song) => song.id === songId);
     }
 
-    // إذا كان random=true، نقوم بخلط الأغاني عشوائيًا
-    if (random) {
+    if (random === 'true') {
       songs.sort(() => 0.5 - Math.random());
     } else {
-      // ترتيب الأغاني بناءً على created_at
-      songs.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      // console.log('songs', songs);
+
+      songs = songs.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
     }
 
-    // تقسيم البيانات حسب الصفحة المحددة
+    if (songs.length === 0) {
+      console.log('No songs found after filtering.');
+    }
+
     const paginatedSongs = songs.slice(skip, skip + limit);
 
     return new Response(JSON.stringify(paginatedSongs), {

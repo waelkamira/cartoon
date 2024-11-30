@@ -21,33 +21,14 @@ export default function SideBarMenu({ setIsOpen }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 w-full z-50">
-          <div className="flex justify-end items-center w-full cursor-pointer bg-one">
-            <div className="relative size-28 my-2 mt-6 left-2">
+          <div className="flex justify-center items-center w-full cursor-pointer bg-one">
+            <div className="relative size-36 my-2 mt-6 left-2">
               <Image
                 priority
                 src={'https://i.imgur.com/nfDVITC.png'}
                 fill
                 alt={'photo'}
               />
-            </div>
-            <div className="absolute flex-col justify-end items-end z-50 p-2 top-4 w-full">
-              <div className="relative my-2">
-                {user?.image ? (
-                  <Image
-                    priority
-                    src={user?.image}
-                    width={100}
-                    height={100}
-                    alt={'photo'}
-                    className=" z-50 size-12 rounded-full bg-sky-500"
-                  />
-                ) : (
-                  <LoadingPhoto />
-                )}
-              </div>
-              <h1 className="text-nowrap text-sm w-20 text-end truncate">
-                {user?.name}
-              </h1>
             </div>
           </div>
           <div className="bg-white px-4">

@@ -7,7 +7,7 @@ import { TbArrowBigLeftLinesFilled } from 'react-icons/tb';
 export default function BackButton() {
   const router = useRouter();
   const path = usePathname();
-  console.log('path', path);
+  // console.log('path', path);
   return (
     <>
       {path === '/' ? (

@@ -107,7 +107,7 @@ export default function Page() {
             <Loading myMessage={'😉لا يوجد نتائج لعرضها'} />
           )}
 
-          <div className=" flex justify-center items-center w-full h-full">
+          <div className=" flex-col gap-32 my-32 justify-evenly items-center w-full h-full">
             {movie?.length > 0 &&
               movie.map((item, index) => (
                 <div key={index} className="w-full h-fit">

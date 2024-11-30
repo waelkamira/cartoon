@@ -80,7 +80,7 @@ export async function GET(req) {
 
     // ترتيب البيانات
     if (mostViewed) {
-      console.log('Serieses before sorting:', serieses);
+      // console.log('Serieses before sorting:', serieses);
 
       serieses.sort((a, b) => {
         const dateA = new Date(a['updated_at']);

@@ -56,6 +56,8 @@
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
     "popunder": "^0.0.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
     "querystring": "^0.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

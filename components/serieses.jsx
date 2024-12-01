@@ -23,11 +23,9 @@ export default function Serieses() {
   return (
     <div className="w-full">
       <NewSerieses />
-      <NasohSeries />
       <ZomurodaPlanet />
       <ZomurodaPlanetMostViewed />
-      <SpacetoonSongs />
-      <SpacetoonSongsMostView />
+      <NasohSeries />
       <AdventuresPlanet />
       <AdventuresPlanetMostViewed />
       <SportPlanet />
@@ -36,10 +34,12 @@ export default function Serieses() {
       <ActionPlanetMostViewed />
       <Movies />
       <MoviesPlanetMostViewed />
-      <KidsSongs />
-      <KidsSongsMostView />
       <BonbonaPlanet />
       <BonbonaPlanetMostViewed />
+      <SpacetoonSongs />
+      <SpacetoonSongsMostView />
+      <KidsSongs />
+      <KidsSongsMostView />
     </div>
   );
 }

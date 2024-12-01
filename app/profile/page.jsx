@@ -95,7 +95,7 @@ export default function Profile() {
           </div>
           <div className="flex flex-col items-start gap-4  justify-start w-full 2xl:w-2/3 h-full rounded-lg overflow-hidden">
             <div className="flex justify-center items-center w-full size-44 bg-one my-4">
-              <div className="relative size-44 rounded-full border">
+              <div className="relative size-44 rounded-full">
                 {user?.image ? (
                   <Image priority src={user?.image} fill alt={'photo'} />
                 ) : (
@@ -104,15 +104,15 @@ export default function Profile() {
               </div>
             </div>
 
-            <div className="flex flex-col justify-center items-center w-full text-start text-white">
+            <div className="flex flex-col justify-center items-center w-full h-full text-start text-black bg-white py-4">
               <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
                 <div className="flex justify-start items-start gap-1">
-                  <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
+                  <h4 className="flex justify-center items-center gap-2 ml-2 text-lg text-nowrap text-start w-full select-none">
                     <GrContactInfo className="text-xl" />
                     الإسم:
                   </h4>
                   <div>
-                    <h1 className="text-nowrap text-sm w-20 text-start">
+                    <h1 className="text-nowrap w-20 text-start">
                       {user?.name}{' '}
                     </h1>
                   </div>
@@ -124,11 +124,11 @@ export default function Profile() {
               <div className="flex flex-col items-start gap-2 justify-between rounded-lg px-8 py-2 w-full my-2">
                 <div className="flex justify-start items-start gap-1">
                   <h4 className="flex justify-start gap-2 ml-2 items-center  text-nowrap text-start w-full select-none">
-                    <MdOutlineMarkEmailRead className="" />
+                    <MdOutlineMarkEmailRead className="text-xl" />
                     الإيميل:
                   </h4>
                   <div>
-                    <h1 className="text-nowrap text-sm w-20 text-start">
+                    <h1 className="text-nowrap w-20 text-start">
                       {session?.data?.user?.email}
                     </h1>
                   </div>
@@ -144,16 +144,16 @@ export default function Profile() {
                     الإشتراك:
                   </h4>
                   <div>
-                    <h1 className="text-nowrap text-sm w-20 text-start">
+                    <h1 className="text-nowrap w-20 text-start">
                       {user?.monthly_subscribed === false &&
                       user?.yearly_subscribed === false
                         ? 'غير مشترك'
                         : ''}
                     </h1>
-                    <h1 className="text-nowrap text-sm w-20 text-start">
+                    <h1 className="text-nowrap w-20 text-start">
                       {user?.monthly_subscribed === true ? 'مشترك شهري' : ''}
                     </h1>
-                    <h1 className="text-nowrap text-sm w-20 text-start">
+                    <h1 className="text-nowrap w-20 text-start">
                       {user?.yearly_subscribed === true ? 'مشترك سنوي' : ''}
                     </h1>
                   </div>

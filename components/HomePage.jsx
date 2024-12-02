@@ -54,7 +54,7 @@ export default function HomePage() {
       )}
       <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
         <div className=" w-full ">
-          <div className="fixed top-0 right-0 z-40 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
+          <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
             <TfiMenuAlt
               className="xl:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
               onClick={() => setIsOpen(!isOpen)}
@@ -62,7 +62,7 @@ export default function HomePage() {
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
             <div className="relative w-24 h-14 sm:h-16 sm:w-20 md:h-20 md:w-24 lg:h-24 lg:w-28 shadow-lg shadow-one">
               <Image
-                priority
+                loading="lazy"
                 src={'https://i.imgur.com/nfDVITC.png'}
                 layout="fill"
                 objectFit="cover"

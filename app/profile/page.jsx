@@ -2,7 +2,7 @@
 import CurrentUser from '../../components/CurrentUser';
 import ImageUpload from '../../components/ImageUpload';
 import Button from '../../components/Button';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
@@ -97,7 +97,7 @@ export default function Profile() {
             <div className="flex justify-center items-center w-full size-44 bg-one my-4">
               <div className="relative size-44 rounded-full">
                 {user?.image ? (
-                  <Image priority src={user?.image} fill alt={'photo'} />
+                  <Image loading="lazy" src={user?.image} fill alt={'photo'} />
                 ) : (
                   <LoadingPhoto />
                 )}

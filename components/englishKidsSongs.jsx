@@ -108,7 +108,7 @@ export default function EnglishKidsSongs({
       {vertical ? (
         <>
           {' '}
-          <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+          <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
             <TfiMenuAlt
               className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
               onClick={() => setIsOpen(!isOpen)}
@@ -124,6 +124,7 @@ export default function EnglishKidsSongs({
       {image ? (
         <div className="relative h-52 w-48 sm:h-[300px] sm:w-80">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/3PEEhLC.png'}
             layout="fill"
             objectFit="cover"
@@ -176,6 +177,7 @@ export default function EnglishKidsSongs({
                 }
               >
                 <Image
+                  loading="lazy"
                   src={song?.songImage}
                   layout="fill"
                   objectFit="cover"

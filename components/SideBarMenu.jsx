@@ -24,7 +24,7 @@ export default function SideBarMenu({ setIsOpen }) {
           <div className="flex justify-center items-center w-full cursor-pointer bg-one">
             <div className="relative size-36 my-2 mt-6 left-2">
               <Image
-                priority
+                loading="lazy"
                 src={'https://i.imgur.com/nfDVITC.png'}
                 fill
                 alt={'photo'}
@@ -97,12 +97,11 @@ export default function SideBarMenu({ setIsOpen }) {
             planetImage={'https://i.imgur.com/GTuV1My.png'}
             planetRoute={'/turkishSongsPlanet'}
           />
-          <Button title={'بروفايل'} path={'/profile'} />
 
-          {session?.status === 'unauthenticated' && (
-            <div>
-              <Button title={'تسجيل الدخول'} path={'/login'} />
-            </div>
+          {session?.status === 'unauthenticated' ? (
+            <Button title={'تسجيل الدخول'} path={'/login'} />
+          ) : (
+            <Button title={'بروفايل'} path={'/profile'} />
           )}
         </div>
       </div>

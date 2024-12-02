@@ -125,7 +125,11 @@ export default function LogInPage() {
               // الانتقال إلى الصفحة الرئيسية بعد تسجيل الدخول
               router.push('/');
               toast.custom((t) => (
-                <CustomToast t={t} message={'بهيجة أشرق لبن ترحب بكم'} />
+                <CustomToast
+                  t={t}
+                  message={'بهيجة أشرق لبن ترحب بكم'}
+                  greenEmoji={'✔'}
+                />
               ));
             } else {
               console.error('لم يتم تسجيل الدخول.');
@@ -151,6 +155,7 @@ export default function LogInPage() {
 
         <div className="relative flex justify-center h-44 w-full text-center">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/nfDVITC.png'}
             layout="fill"
             objectFit="contain"
@@ -201,7 +206,7 @@ export default function LogInPage() {
           </h1>
           <div className="relative h-8 w-8 ">
             <Image
-              priority
+              loading="lazy"
               src={'https://i.imgur.com/Z4ts3yl.png'}
               alt="google image"
               layout="fill"

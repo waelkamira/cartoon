@@ -110,7 +110,7 @@ export default function ActionPlanet({ vertical = false }) {
   return (
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
       {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
           <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
             onClick={() => setIsOpen(!isOpen)}
@@ -124,6 +124,7 @@ export default function ActionPlanet({ vertical = false }) {
       <>
         <div className="relative h-44 w-52 sm:h-64 sm:w-80">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/bg5hr5i.png'}
             layout="fill"
             objectFit="cover"
@@ -197,6 +198,7 @@ export default function ActionPlanet({ vertical = false }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={series?.seriesImage}
                     layout="fill"
                     objectFit="cover"

@@ -135,7 +135,7 @@ export default function SeriesAndEpisodes() {
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
       <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
           <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-40  bg-two"
             onClick={() => setIsOpen(!isOpen)}
@@ -149,7 +149,7 @@ export default function SeriesAndEpisodes() {
           <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg ">
             {series?.seriesImage ? (
               <Image
-                priority
+                loading="lazy"
                 src={series?.seriesImage}
                 layout="fill"
                 objectFit="cover"
@@ -162,7 +162,7 @@ export default function SeriesAndEpisodes() {
           <div className="absolute w-full h-44 sm:h-[500px] overflow-hidden shadow-lg top-0">
             {series?.seriesImage ? (
               <Image
-                priority
+                loading="lazy"
                 src={series?.seriesImage}
                 layout="fill"
                 objectFit="contain"

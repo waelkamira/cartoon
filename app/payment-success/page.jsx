@@ -75,7 +75,8 @@ export default function PaymentSuccess({ plan }) {
   /*<main className="fixed flex-col justify-end items-end  w-full h-full bg-white z-50 overflow-y-auto top-0 text-center">
       <div className="absolute top-0 z-50 p-8 w-full min-h-52 overflow-y-auto">
         <div className="relative flex justify-center h-44 w-full text-center">
-          <Image
+          <Image   loading="lazy"
+
             src={'https://i.imgur.com/nfDVITC.png'}
             layout="fill"
             objectFit="contain"

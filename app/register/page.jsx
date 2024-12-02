@@ -83,6 +83,7 @@ export default function RegisterPage() {
         </h1>
         <div className="relative flex justify-center h-44 w-full text-center">
           <Image
+            loading="lazy"
             src={'https://i.imgur.com/nfDVITC.png'}
             layout="fill"
             objectFit="contain"
@@ -151,7 +152,7 @@ export default function RegisterPage() {
         >
           <div className="relative h-8 w-8">
             <Image
-              priority
+              loading="lazy"
               src={'https://i.imgur.com/Z4ts3yl.png'}
               alt="google image"
               layout="fill"

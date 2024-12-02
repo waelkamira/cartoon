@@ -65,6 +65,7 @@ const Pricing = () => {
           </div>
           <div className="relative flex justify-center h-44 w-full text-center">
             <Image
+              loading="lazy"
               src={'https://i.imgur.com/nfDVITC.png'}
               layout="fill"
               objectFit="contain"

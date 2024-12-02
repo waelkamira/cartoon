@@ -110,6 +110,7 @@ export default function Categories() {
                   <div className="relative h-full w-full">
                     {item?.image ? (
                       <Image
+                        loading="lazy"
                         src={item?.image}
                         layout="fill"
                         objectFit="cover"

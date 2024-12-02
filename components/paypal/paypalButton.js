@@ -12,7 +12,7 @@ const PayPalButton = ({ plan }) => {
   const user = CurrentUser(); // الحصول على بيانات المستخدم
   const router = useRouter();
   // console.log('plan button', plan);
-  const { dispatch } = useContext(inputsContext);
+  const { dispatch, rerender } = useContext(inputsContext);
   const [success, setSuccess] = useState(false);
   useEffect(() => {
     const container = document.getElementById('paypal-button-container');
@@ -82,11 +82,11 @@ const PayPalButton = ({ plan }) => {
       .catch((error) => {
         console.error('Failed to load PayPal script:', error);
       });
-  }, [plan]);
+  }, [plan, rerender]);
 
   useEffect(() => {
     handlePlanPrice(plan?.price);
-  }, [plan?.price]);
+  }, [plan?.price, rerender]);
   //هذه الدالة لتخزين قيمة الخطة المدفوعة لأننا سوف نحتاج هذه القيمة في الباك اند لتعديل حقول monthly_subscribed monthly_subscribed_date
   // أو yearly_subscribed yearly_subscribed_date
   // على حسب القيمة

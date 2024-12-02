@@ -78,6 +78,7 @@ export default function NasohSeries({ vertical = false }) {
     <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one ">
       <div className="relative h-44 w-full sm:h-[600px] ">
         <Image
+          loading="lazy"
           src={'https://i.imgur.com/u6grI22.png'}
           layout="fill"
           objectFit="cover"
@@ -114,6 +115,7 @@ export default function NasohSeries({ vertical = false }) {
                   }
                 >
                   <Image
+                    loading="lazy"
                     src={episode?.episodeImage}
                     layout="fill"
                     objectFit="cover"

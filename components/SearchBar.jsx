@@ -221,6 +221,7 @@ export default function SearchBar() {
                       <div className="relative w-52 h-32 sm:w-96 sm:h-96">
                         {imageSrc ? (
                           <Image
+                            loading="lazy"
                             src={imageSrc}
                             layout={'fill'}
                             objectFit={'cover'}

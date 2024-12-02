@@ -65,7 +65,7 @@ export default function Page() {
         user?.yearly_subscribed === false && <SubscriptionPage />}
 
       <div className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px] overflow-y-auto">
-        <div className="absolute flex flex-col items-start gap-2 z-40 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
+        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
           <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
             onClick={() => setIsOpen(!isOpen)}
@@ -75,7 +75,7 @@ export default function Page() {
         <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-30">
           {movie[0]?.movieImage ? (
             <Image
-              priority
+              loading="lazy"
               src={movie[0]?.movieImage}
               layout="fill"
               objectFit="cover"

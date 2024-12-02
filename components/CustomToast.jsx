@@ -20,6 +20,7 @@ export default function CustomToast({
             <div className="ml-3 flex-1">
               <div className="relative flex justify-center h-16 w-full text-center">
                 <Image
+                  loading="lazy"
                   src={'https://i.imgur.com/nfDVITC.png'}
                   layout="fill"
                   objectFit="contain"

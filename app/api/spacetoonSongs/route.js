@@ -65,7 +65,9 @@ export async function GET(req) {
 
     // إذا كان random=true، نقوم بخلط الأغاني عشوائيًا
     if (random) {
-      spacetoonSongs.sort(() => 0.5 - Math.random());
+      spacetoonSongs.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
     } else {
       // ترتيب الأغاني بناءً على created_at
       spacetoonSongs.sort(

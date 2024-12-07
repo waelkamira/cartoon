@@ -110,6 +110,7 @@ export default function NewSerieses() {
             <Loading />
           ) : (
             serieses
+              ?.slice(4)
               .filter((series) => series?.seriesImage) // Filter out series with no image
               .map((series) => (
                 <div

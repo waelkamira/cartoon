@@ -35,7 +35,7 @@ export async function GET(req) {
   const limit = parseInt(searchParams.get('limit')) || 4; // عدد العناصر لكل صفحة
   const skip = (page - 1) * limit; // حساب بداية العرض
   const movieName = searchParams.get('movieName') || ''; // البحث عن فيلم محدد
-  const mostViewed = searchParams.get('mostViewed') || 'false'; // التحقق إذا كانت الأكثر مشاهدة
+  const mostViewed = searchParams.get('mostViewed') || false; // التحقق إذا كانت الأكثر مشاهدة
   console.log('mostViewed', mostViewed);
   try {
     let movies = [];
@@ -69,7 +69,7 @@ export async function GET(req) {
         return dateA - dateB; // ترتيب تنازلي حسب تاريخ التحديث
       });
     } else {
-      movies.sort(() => Math.random() - 0.5); // ترتيب عشوائي
+      movies;
     }
 
     // تطبيق pagination

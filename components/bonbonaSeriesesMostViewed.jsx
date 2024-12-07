@@ -82,7 +82,7 @@ export default function BonbonaPlanetMostViewed() {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          bonbonaMostViewed?.map((series) => (
+          bonbonaMostViewed?.slice(4)?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

@@ -162,7 +162,7 @@ export default function SportPlanet({ vertical = false }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          sport?.map((series) => (
+          sport?.slice(4)?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

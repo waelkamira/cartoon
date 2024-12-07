@@ -113,7 +113,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <EnglishSongs vertical={true} title={false} image={false} />
+        <EnglishSongs vertical={false} title={false} image={false} />
         <div className="p-2">
           <ContactUs />
         </div>

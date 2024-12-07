@@ -119,7 +119,7 @@ export default function Page() {
           </div>
         </div>
 
-        <SpacetoonSongs vertical={true} title={false} image={false} />
+        <SpacetoonSongs vertical={false} title={false} image={false} />
         <div className="p-2">
           <ContactUs />
         </div>

@@ -129,7 +129,7 @@ export default function Page() {
                       />
                     </div>
 
-                    <TurkishCartoon vertical={true} image={false} />
+                    <TurkishCartoon vertical={false} image={false} />
                   </div>
                 );
               })}

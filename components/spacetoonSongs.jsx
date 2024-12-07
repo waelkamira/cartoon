@@ -153,7 +153,7 @@ export default function SpacetoonSongs({
         ''
       )}
       {showMessage && (
-        <div className="relative w-full flex items-center justify-between text-white h-12  text-2xl px-2 ">
+        <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
           <MdKeyboardDoubleArrowRight />
 
           <h6 className="text-sm w-full text-start">اسحب لمزيد من الأغاني</h6>

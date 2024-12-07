@@ -114,7 +114,7 @@ export default function Page() {
           </div>
         </div>
 
-        <TurkishSongs vertical={true} title={false} image={false} />
+        <TurkishSongs vertical={false} title={false} image={false} />
         <div className="p-2">
           <ContactUs />
         </div>

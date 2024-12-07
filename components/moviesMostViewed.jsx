@@ -80,7 +80,7 @@ export default function MoviesPlanetMostViewed() {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          moviesMostViewed?.slice(4)?.map((movie) => (
+          moviesMostViewed?.map((movie) => (
             <div
               key={movie.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

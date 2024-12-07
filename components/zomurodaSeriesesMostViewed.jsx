@@ -82,7 +82,7 @@ export default function ZomurodaPlanetMostViewed() {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          zomurodaMostViewed?.slice(4)?.map((series) => (
+          zomurodaMostViewed?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

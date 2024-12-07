@@ -185,7 +185,7 @@ export default function TurkishCartoon({ vertical = false, image }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          turkishCartoon?.slice(4)?.map((episode) => (
+          turkishCartoon?.map((episode) => (
             <div
               key={episode?.id}
               className="keen-slider__slide snap-center flex flex-col items-center my-4"

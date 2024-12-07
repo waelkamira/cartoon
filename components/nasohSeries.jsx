@@ -96,7 +96,7 @@ export default function NasohSeries({ vertical = false }) {
         {episodes.length === 0 ? (
           <Loading />
         ) : (
-          episodes?.slice(4)?.map((episode) => (
+          episodes?.map((episode) => (
             <div
               key={episode.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

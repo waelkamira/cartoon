@@ -46,8 +46,7 @@ export async function GET(req) {
   const seriesName = searchParams.get('seriesName') || '';
   const planetName = searchParams.get('planetName') || '';
   const mostViewed = searchParams.get('mostViewed') || false; // تحويل القيمة إلى Boolean
-  console.log(typeof mostViewed);
-  console.log('mostViewed', mostViewed);
+
   try {
     let serieses;
 
@@ -74,13 +73,13 @@ export async function GET(req) {
       serieses = serieses.filter((series) => series.planetName === planetName);
     }
 
-    if (planetName && mostViewed === 'true') {
+    if (planetName && mostViewed) {
       serieses = serieses.filter((series) => series.mostViewed === 'True');
       // console.log('Serieses', serieses);
     }
 
     // ترتيب البيانات
-    if (mostViewed === 'true') {
+    if (mostViewed) {
       // console.log('Serieses before sorting:', serieses);
 
       serieses.sort((a, b) => {

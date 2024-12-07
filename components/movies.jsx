@@ -162,7 +162,7 @@ export default function MoviesPlanet({ vertical = false }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          movies?.slice(4)?.map((movie) => (
+          movies?.map((movie) => (
             <div
               key={movie.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

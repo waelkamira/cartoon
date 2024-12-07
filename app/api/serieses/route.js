@@ -90,7 +90,8 @@ export async function GET(req) {
       });
     } else {
       // ترتيب عشوائي إذا كان mostViewed === false
-      serieses.sort(() => Math.random() - 0.5);
+      // serieses.sort(() => Math.random() - 0.5);
+      serieses;
     }
 
     // تقسيم البيانات للصفحة الحالية

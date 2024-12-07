@@ -47,7 +47,7 @@ export async function GET(req) {
       songs = cache.data;
     } else {
       songs = await readCSVFile(csvUrl);
-      // console.log('Fetched Songs:', songs); // تحقق من البيانات
+      console.log('Fetched Songs:', songs); // تحقق من البيانات
       cache.data = songs;
       cache.lastUpdated = Date.now();
     }
@@ -57,7 +57,7 @@ export async function GET(req) {
     }
 
     if (random === 'true') {
-      songs;
+      songs.sort(() => 0.5 - Math.random());
     } else {
       // console.log('songs', songs);
 

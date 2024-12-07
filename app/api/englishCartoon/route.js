@@ -97,7 +97,7 @@ export async function GET(req) {
       });
     } else {
       // ترتيب عشوائي إذا كان mostViewed === false
-      serieses;
+      serieses.sort(() => Math.random() - 0.5);
     }
 
     // تقسيم البيانات للصفحة الحالية

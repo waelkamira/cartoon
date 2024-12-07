@@ -167,7 +167,7 @@ export default function BonbonaPlanet({ vertical = false }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          bonbona?.slice(4)?.map((series) => (
+          bonbona?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

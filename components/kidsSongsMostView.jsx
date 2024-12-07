@@ -131,7 +131,7 @@ export default function KidsSongs({
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          songs?.slice(4)?.map((song) => (
+          songs?.map((song) => (
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"

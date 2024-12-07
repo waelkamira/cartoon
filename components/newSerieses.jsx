@@ -19,7 +19,7 @@ export default function NewSerieses() {
   const [showMessage, setShowMessage] = useState(true);
   const session = useSession();
   const user = CurrentUser();
-
+  console.log('serieses', serieses);
   const [seriesesSliderRef, seriesesInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',

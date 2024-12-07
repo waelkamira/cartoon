@@ -79,7 +79,7 @@ export default function SportPlanetMostViewed() {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          sportMostViewed?.map((series) => (
+          sportMostViewed?.slice(4)?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

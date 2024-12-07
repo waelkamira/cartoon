@@ -135,7 +135,7 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          spacetoonSongs?.map((song) => (
+          spacetoonSongs?.slice(4)?.map((song) => (
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"

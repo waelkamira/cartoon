@@ -170,24 +170,10 @@ export default function SpacetoonSongs({
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          spacetoonSongs?.map((song) => (
+          spacetoonSongs?.slice(4)?.map((song) => (
             <div
               key={song?.id}
               className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
-              // onClick={() => {
-              //   dispatch({
-              //     type: 'SPACETOON_SONG_NAME',
-              //     payload: song?.spacetoonSongName,
-              //   });
-
-              //   // التنقل إلى الرابط الجديد
-              // router.push(
-              //   `/spacetoonSong?spacetoonSongName=${song?.spacetoonSongName}`
-              // );
-              //   setTimeout(() => {
-              //     window?.location?.reload();
-              //   }, 3000);
-              // }}
               onClick={() => {
                 dispatch({
                   type: 'SPACETOON_SONG_NAME',

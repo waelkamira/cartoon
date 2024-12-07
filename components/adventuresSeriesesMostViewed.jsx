@@ -85,7 +85,7 @@ export default function AdventuresPlanetMostViewed() {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          adventuresMostViewed?.map((series) => (
+          adventuresMostViewed?.slice(4)?.map((series) => (
             <div
               key={series.id}
               className="keen-slider__slide snap-center flex flex-col items-center"

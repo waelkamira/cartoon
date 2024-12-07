@@ -185,7 +185,7 @@ export default function EnglishCartoon({ vertical = false, image }) {
           <Loading />
         ) : (
           // إنقاص أول 4 مسلسلات من العرض
-          englishCartoon?.map((episode) => (
+          englishCartoon?.slice(4)?.map((episode) => (
             <div
               key={episode?.id}
               className="keen-slider__slide snap-center flex flex-col items-center my-4"

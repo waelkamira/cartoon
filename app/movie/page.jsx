@@ -66,11 +66,11 @@ export default function Page() {
 
       <div className=" w-full sm:p-4 lg:p-8 rounded-lg bg-one h-[1000px] overflow-y-auto">
         <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
-          <TfiMenuAlt
+          {/* <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
             onClick={() => setIsOpen(!isOpen)}
           />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
         </div>
         <div className="relative w-full h-72 sm:h-[500px] overflow-hidden z-30">
           {movie[0]?.movieImage ? (

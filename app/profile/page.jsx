@@ -1,19 +1,14 @@
 'use client';
 import CurrentUser from '../../components/CurrentUser';
-import ImageUpload from '../../components/ImageUpload';
 import Button from '../../components/Button';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
-import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import { inputsContext } from '../../components/Context';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
 import CustomToast from '../../components/CustomToast';
-import BackButton from '../../components/BackButton';
 import SideBarMenu from '../../components/SideBarMenu';
 import { TfiMenuAlt } from 'react-icons/tfi';
-import { MdEdit } from 'react-icons/md';
 import { FaRegCreditCard } from 'react-icons/fa6';
 import { MdOutlineMarkEmailRead } from 'react-icons/md';
 import { GrContactInfo } from 'react-icons/gr';
@@ -32,7 +27,6 @@ export default function Profile() {
       const newName = JSON.parse(localStorage.getItem('CurrentUser'));
       setNewUserName(newName?.name);
     }
-    // setNewImage(profile_image?.image);
     editProfileImageAndUserName();
   }, [profile_image?.image]);
 
@@ -69,7 +63,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="flex flex-col bg-white  h-screen justify-start items-start text-md">
+    <div className="flex flex-col h-screen justify-center items-center text-md">
       {session?.status === 'unauthenticated' && (
         <div className="p-4 bg-four rounded-lg m-2 md:m-8 border border-one text-center h-screen">
           <h1 className=" md:text-2xl p-2 my-8 text-white">
@@ -77,27 +71,31 @@ export default function Profile() {
           </h1>
           <div className="flex flex-col justify-between items-center gap-4 w-full">
             <Button title={'تسجيل الدخول'} style={''} path="/api/aut/login" />
-
-            {/* <BackButton /> */}
           </div>
         </div>
       )}
       {session?.status === 'authenticated' && (
-        <div className="relative grow bg-one text-white flex justify-start items-start w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl">
+        <div className="relative grow bg-one text-white flex justify-center items-center w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl">
           <div className="absolute flex flex-col items-start gap-2 z-50 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
-            <TfiMenuAlt
+            {/* <TfiMenuAlt
               className=" p-1 rounded-lg text-3xl lg:text-5xl text-one cursor-pointer z-50  "
               onClick={() => {
                 setIsOpen(!isOpen);
               }}
             />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
           </div>
           <div className="flex flex-col items-start gap-4  justify-start w-full 2xl:w-2/3 h-full rounded-lg overflow-hidden">
             <div className="flex justify-center items-center w-full size-44 bg-one my-4">
-              <div className="relative size-44 rounded-full">
+              <div className="relative size-44">
                 {user?.image ? (
-                  <Image loading="lazy" src={user?.image} fill alt={'photo'} />
+                  <Image
+                    loading="lazy"
+                    src={session?.data?.user?.image}
+                    fill
+                    alt={'photo'}
+                    className="rounded-full"
+                  />
                 ) : (
                   <LoadingPhoto />
                 )}

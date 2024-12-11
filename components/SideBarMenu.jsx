@@ -13,7 +13,7 @@ export default function SideBarMenu({ setIsOpen }) {
   const user = CurrentUser();
   return (
     <div
-      className="absolute w-full sm:w-fit h-screen z-50 right-0 top-0"
+      className="absolute w-full sm:w-fit h-screen z-50 right-0 top-0 border-l-[3px] border-white"
       onClick={() => setIsOpen(false)}
     >
       <div
@@ -36,7 +36,7 @@ export default function SideBarMenu({ setIsOpen }) {
           </div>
         </div>
 
-        <div className="relative p-4 ">
+        <div className="relative p-4 " onClick={() => setIsOpen(false)}>
           <ItemForSideBarMenu
             planetName={'كوكب زمردة'}
             planetImage={'https://i.imgur.com/wbjwdXO.png'}

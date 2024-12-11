@@ -15,7 +15,7 @@ import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function EnglishCartoon({ vertical = false, image }) {
+export default function EnglishCartoon({ image }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [englishCartoon, setEnglishCartoon] = useState([]);
   const { newSeries, deletedSeries } = useContext(inputsContext);
@@ -25,9 +25,8 @@ export default function EnglishCartoon({ vertical = false, image }) {
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
   const [previousPath, setPreviousPath] = useState('');
+  const [vertical, setVertical] = useState(false);
 
-  // console.log('user', user);
-  // console.log('vertical', vertical);
   const [englishCartoonSliderRef, englishCartoonInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -54,6 +53,22 @@ export default function EnglishCartoon({ vertical = false, image }) {
     },
   });
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768);
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
   useEffect(() => {
     fetchEnglishCartoon();
     const timer = setTimeout(() => {
@@ -132,18 +147,14 @@ export default function EnglishCartoon({ vertical = false, image }) {
     }, 3000);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one mt-24">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
+      </div>
 
       {image ? (
         <>
@@ -152,7 +163,7 @@ export default function EnglishCartoon({ vertical = false, image }) {
               loading="lazy"
               src={'https://i.imgur.com/bw6ZZCJ.png'}
               layout="fill"
-              objectFit="cover"
+              objectFit="conatin"
               alt={'englishCartoon'}
             />{' '}
           </div>

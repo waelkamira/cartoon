@@ -1,7 +1,7 @@
 'use client';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext } from 'react';
 import { inputsContext } from './Context';
 import Loading from './Loading';
@@ -16,7 +16,7 @@ import CurrentUser from './CurrentUser';
 import { useSession } from 'next-auth/react';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 
-export default function ActionPlanet({ vertical = false }) {
+export default function ActionPlanet() {
   const [pageNumber, setPageNumber] = useState(1);
   const [action, setAction] = useState([]);
   const { newSeries, deletedSeries } = useContext(inputsContext);
@@ -25,8 +25,10 @@ export default function ActionPlanet({ vertical = false }) {
   const user = CurrentUser();
   const session = useSession();
   const [showMessage, setShowMessage] = useState(true);
-  // console.log('session', session?.data);
+  const [vertical, setVertical] = useState(false);
+  const path = usePathname();
   // console.log('user', user);
+
   const [actionSliderRef, actionInstanceRef] = useKeenSlider({
     loop: false,
     mode: 'free',
@@ -52,6 +54,23 @@ export default function ActionPlanet({ vertical = false }) {
       }
     },
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setVertical(window.innerWidth < 768 && path !== '/');
+      };
+
+      // تعيين الحالة عند التحميل الأول
+      handleResize();
+
+      // إضافة مستمع لحدث تغيير الحجم
+      window.addEventListener('resize', handleResize);
+
+      // تنظيف المستمع عند إلغاء المكون
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     fetchAction();
@@ -89,6 +108,7 @@ export default function ActionPlanet({ vertical = false }) {
       console.error('Error fetching action:', error);
     }
   }
+
   async function handleAdd(id) {
     // console.log('id', id);
     const response = await fetch('/api/serieses', {
@@ -107,19 +127,16 @@ export default function ActionPlanet({ vertical = false }) {
       ));
     }
   }
+
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one">
-      {vertical ? (
-        <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
-            className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-      ) : (
-        ''
-      )}
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one mt-24">
+      <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
+        {/* <TfiMenuAlt
+          className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}{' '}
+      </div>
 
       <>
         <div className="relative h-44 w-52 sm:h-64 sm:w-80">
@@ -127,7 +144,7 @@ export default function ActionPlanet({ vertical = false }) {
             loading="lazy"
             src={'https://i.imgur.com/bg5hr5i.png'}
             layout="fill"
-            objectFit="cover"
+            objectFit="conatin"
             alt={'أكشن'}
           />{' '}
         </div>

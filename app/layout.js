@@ -6,6 +6,7 @@ import AuthContextProvider from '../components/authContext/AuthContext';
 import Script from 'next/script'; // لاستيراد عنصر Script من Next.js
 import BackButton from '../components/BackButton';
 import SubscribedOrNot from '../components/paypal/subscribedOrNot';
+import SideMenu from '../components/sideMenu';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -22,17 +23,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="!scroll-smooth" dir="rtl">
+    <html lang="en" className="!scroll-smooth relative" dir="rtl">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <meta
-          name="juicyads-site-verification"
-          content="d664049d6381fcb9b73e29f6b38da992"
-        ></meta>
         <link rel="manifest" href="/manifest.json" />
         {/* إضافة كود Google Tag Manager */}
-        <Script
+        {/* <Script
           id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -42,21 +39,22 @@ export default function RootLayout({ children }) {
           'https://www.googletagmanager.com/gtm.js?id=GTM-M53ZGKJ4';f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-M53ZGKJ4');`,
           }}
-        />
+        /> */}
       </head>
       <body className={rubik.className}>
         <BackButton />
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-M53ZGKJ4"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
-        </noscript>
+        </noscript> */}
         <Toaster />
         <AuthContextProvider>
           <SubscribedOrNot />
+          <SideMenu />
           <InputsContextProvider>{children}</InputsContextProvider>
         </AuthContextProvider>
       </body>

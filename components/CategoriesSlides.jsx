@@ -100,7 +100,7 @@ export default function Categories() {
     <>
       <div
         ref={sliderRef}
-        className="keen-slider size-44 sm:size-96 lg:size-[500px] clip-arc mt-[65px] sm:mt-[75px]"
+        className="keen-slider size-44 sm:size-96 lg:size-[500px] clip-arc mt-8"
       >
         {photos?.length > 0 &&
           photos?.map((item) => {

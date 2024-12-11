@@ -103,11 +103,11 @@ export default function SpacetoonSongs({ vertical = false, title = true }) {
         <>
           {' '}
           <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-            <TfiMenuAlt
+            {/* <TfiMenuAlt
               className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
               onClick={() => setIsOpen(!isOpen)}
             />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
           </div>
           {/* <BackButton /> */}
         </>

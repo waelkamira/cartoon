@@ -93,7 +93,7 @@ export default function NewSerieses() {
       <div className="w-full overflow-x-hidden p-2">
         <h1 className="w-full text-start p-2 text-white">جديد</h1>
         {showMessage && (
-          <div className="relative w-full flex items-center justify-between animate-pulse text-white h-12  text-2xl px-2 ">
+          <div className="relative w-full flex items-center justify-between animate-puls text-white h-12  text-2xl px-2 ">
             <MdKeyboardDoubleArrowRight />
 
             <h6 className="text-sm w-full text-start">
@@ -114,7 +114,7 @@ export default function NewSerieses() {
               .map((series) => (
                 <div
                   key={series?.id}
-                  className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full"
+                  className="keen-slider__slide snap-center flex flex-col items-center justify-start flex-shrink-0 px-2 w-full cursor-pointer"
                   onClick={() =>
                     router.push(
                       `/seriesAndEpisodes?seriesName=${series?.seriesName}`

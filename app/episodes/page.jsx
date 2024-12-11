@@ -11,6 +11,7 @@ import { inputsContext } from '../../components/Context';
 import { useSession } from 'next-auth/react';
 import SubscriptionPage from '../../components/paypal/subscriptionPage';
 import CurrentUser from '../../components/CurrentUser';
+import { ContactUs } from '../../components/sendEmail/sendEmail';
 
 export default function Page() {
   const [episodes, setEpisodes] = useState([]);
@@ -169,15 +170,14 @@ export default function Page() {
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 
-      <div className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px] overflow-y-auto">
+      <div className="relative w-full sm:p-4 lg:p-8 bg-one h-[1000px] overflow-y-auto mt-24">
         <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
+          {/* <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50 bg-two"
             onClick={() => setIsOpen(!isOpen)}
           />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
         </div>
-        <div className="hidden lg:block"></div>
         <div className="relative w-full">
           <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg">
             {episodes.length > 0 && episodeImage ? (
@@ -202,7 +202,7 @@ export default function Page() {
             }}
           ></div>
 
-          <h1 className="grow text-lg lg:text-2xl w-full text-white">
+          <h1 className="grow text-lg lg:text-2xl w-full text-white p-2">
             <span className="text-gray-500 ml-2">#</span>
             اسم المسلسل <span className="">{episodes[0]?.seriesName}</span>
           </h1>
@@ -246,6 +246,7 @@ export default function Page() {
                       الحلقة السابقة
                     </button>
                   </div>
+                  <ContactUs />
                 </div>
               ))}
             </div>

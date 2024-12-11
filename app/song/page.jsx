@@ -21,7 +21,7 @@ export default function Page() {
   const videoRef = useRef(null);
   const user = CurrentUser();
 
-  console.log('song', song);
+  // console.log('song', song);
   // استخدام useEffect للتأكد من أن الكود يتم تشغيله فقط على العميل
   useEffect(() => {
     const handleUrlChange = () => {
@@ -65,17 +65,17 @@ export default function Page() {
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 
-      <div className="bg-one">
+      <div className="bg-one mt-24">
         <div className="z-50">
           <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
             <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
-              <TfiMenuAlt
+              {/* <TfiMenuAlt
                 className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"
                 onClick={() => {
                   setIsOpen(!isOpen);
                 }}
               />
-              {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+              {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
             </div>
 
             <div className=" relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg shadow-one">

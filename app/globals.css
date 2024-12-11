@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-one xl:px-32 rubik sm:px-2;
+  @apply bg-one rubik;
 }
 body {
   font-family: 'Rubik', sans-serif;

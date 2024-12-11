@@ -134,16 +134,13 @@ export default function SeriesAndEpisodes() {
       {session?.status === 'authenticated' &&
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
-      <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto">
+      <div className="relative w-full h-[1000px] sm:p-4 lg:p-8  bg-one overflow-y-auto mt-20">
         <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
-          <TfiMenuAlt
+          {/* <TfiMenuAlt
             className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-40  bg-two"
             onClick={() => setIsOpen(!isOpen)}
           />
-          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-        </div>
-        <div className="hidden lg:block">
-          {/* <FantasticTagAntiAdBlock /> */}
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
         </div>
         <div className="relative w-full">
           <div className="relative w-full h-44 sm:h-[500px] overflow-hidden shadow-lg ">
@@ -185,7 +182,7 @@ export default function SeriesAndEpisodes() {
             <BackButton />
           </div>
 
-          <h1 className="grow text-lg lg:text-2xl w-full text-white">
+          <h1 className="grow text-lg lg:text-2xl w-full text-white p-2">
             <span className="text-gray-500 ml-2">#</span>
             اسم المسلسل <span>{seriesName}</span>
           </h1>
@@ -221,8 +218,6 @@ export default function SeriesAndEpisodes() {
                     showAd={isTrue}
                     onNextEpisode={handleNextEpisode} // تمرير دالة الانتقال للحلقة التالية
                   />
-
-                  <ContactUs />
                 </div>
               </div>
             ))}
@@ -244,6 +239,7 @@ export default function SeriesAndEpisodes() {
               الحلقة السابقة
             </button>
           </div>
+          <ContactUs />
         </div>
       </div>
     </>

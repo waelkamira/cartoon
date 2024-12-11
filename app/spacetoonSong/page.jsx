@@ -61,7 +61,7 @@ export default function Page() {
         user?.monthly_subscribed === false &&
         user?.yearly_subscribed === false && <SubscriptionPage />}
 
-      <div className="bg-one mt-24">
+      <div className="bg-one sm:mt-24">
         <div className="relative w-full sm:p-4 lg:p-8 rounded-lg bg-one ">
           <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
             {/* <TfiMenuAlt

@@ -118,7 +118,7 @@ export default function TurkishKidsSongs({ image = true, title = true }) {
     }, 3000);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one mt-24">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one sm:mt-24">
       {vertical ? (
         <>
           {' '}

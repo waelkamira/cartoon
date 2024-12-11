@@ -147,7 +147,7 @@ export default function EnglishCartoon({ image }) {
     }, 3000);
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one mt-24">
+    <div className="flex flex-col items-center justify-center w-full overflow-x-hidden p-2 bg-one sm:mt-24">
       <div className="absolute flex flex-col items-start gap-2 z-30 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12">
         {/* <TfiMenuAlt
           className="p-1 rounded-lg text-3xl lg:text-5xl text-white cursor-pointer z-50  bg-two"

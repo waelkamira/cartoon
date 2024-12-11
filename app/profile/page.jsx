@@ -75,16 +75,7 @@ export default function Profile() {
         </div>
       )}
       {session?.status === 'authenticated' && (
-        <div className="relative grow bg-one text-white flex justify-center items-center w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl">
-          <div className="absolute flex flex-col items-start gap-2 z-50 top-2 right-2 sm:top-4 sm:right-4 xl:right-12 xl:top-12 ">
-            {/* <TfiMenuAlt
-              className=" p-1 rounded-lg text-3xl lg:text-5xl text-one cursor-pointer z-50  "
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            />
-            {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
-          </div>
+        <div className="relative grow bg-one text-white flex justify-center items-center w-full bg-four  xl:p-8 rounded-lg  sm: lg:text-xl sm:mt-24">
           <div className="flex flex-col items-start gap-4  justify-start w-full 2xl:w-2/3 h-full rounded-lg overflow-hidden">
             <div className="flex justify-center items-center w-full size-44 bg-one my-4">
               <div className="relative size-44">

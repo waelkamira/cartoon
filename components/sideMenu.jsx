@@ -35,7 +35,7 @@ export default function SideMenu() {
       <div className="absolute w-full z-50">
         <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
           <TfiMenuAlt
-            className=" p-2 rounded-lg text-5xl text-white hover:scale-101 "
+            className=" p-2 rounded-lg text-5xl text-white hover:scale-101 cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}

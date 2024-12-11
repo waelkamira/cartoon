@@ -85,7 +85,7 @@ export default function Users() {
         />
         {isOpen && <SideBarMenu setIsOpen={setIsOpen} />} */}
       </div>
-      <div className="flex gap-4 justify-center items-center bg-gray-700 rounded-lg text-lg text-white w-full p-4 mt-16 xl:mt-24 shadow-lg">
+      <div className="flex gap-4 justify-center items-center bg-gray-700 rounded-lg text-lg text-white w-full p-4 mt-16 xl:sm:mt-24 shadow-lg">
         <input
           value={findUser}
           onChange={(e) => setFindUser(e.target.value)}

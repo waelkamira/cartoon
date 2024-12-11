@@ -162,7 +162,7 @@ export default function TurkishCartoon({ image }) {
 
       {image ? (
         <>
-          <div className="relative h-64 w-full sm:h-64 sm:w-80 mt-24">
+          <div className="relative h-64 w-full sm:h-64 sm:w-80 sm:mt-24">
             <Image
               loading="lazy"
               src={'https://i.imgur.com/gfdEgLt.png'}

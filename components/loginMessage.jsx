@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-export default function LoginMessage() {
+export default function LoginMessage({ setOpen }) {
   return (
     <div className="fixed right-0 h-screen w-full z-50 bg-white/60 px-4">
       <div className="text-white p-4 w-full h-64 bg-one rounded-md my-44">
@@ -12,6 +12,7 @@ export default function LoginMessage() {
           title={'تسجيل الدخول'}
           path={'/login'}
           style={'border border-white '}
+          onClick={() => setOpen(false)}
         />
       </div>
     </div>

@@ -28,11 +28,19 @@ export default function SideMenu() {
   const [active, setActive] = useState(false);
   const session = useSession();
   const user = CurrentUser();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div>
       {' '}
-      <div className="absolute w-full z-50">
+      <div className="absolute w-full z-40">
+        {/* {open && session?.status === 'unauthenticated' && (
+          <div
+            className="fixed right-0 h-screen w-full z-40"
+            onClick={() => setOpen(true)}
+          >
+            {open ? <LoginMessage setOpen={setOpen} /> : ''}
+          </div>
+        )} */}
         <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
           <TfiMenuAlt
             className=" p-2 rounded-lg text-5xl text-white hover:scale-101 cursor-pointer"
@@ -52,44 +60,6 @@ export default function SideMenu() {
             <SideBarMenu setIsOpen={setIsOpen} />
           </div> */}
           <SearchBar />
-        </div>
-
-        <div className={'p-4'}>
-          {user?.isAdmin ? (
-            <>
-              <Button title={'انشاء حلقة'} onClick={() => setShow(!show)} />
-              <Button
-                title={'انشاء مسلسل'}
-                onClick={() => setIsVisible(!isVisible)}
-              />
-              <Button
-                title={'انشاء أغنية سبيس تون'}
-                onClick={() => setIsSpacetoonOpen(!isSpacetoonOpen)}
-              />
-              <Button
-                title={'انشاء فيلم'}
-                onClick={() => setDisplay(!display)}
-              />
-              <Button
-                title={'انشاء أغنية'}
-                onClick={() => setActive(!active)}
-              />
-            </>
-          ) : (
-            ''
-          )}
-          <SeriesForm setIsVisible={setIsVisible} isVisible={isVisible} />
-          <EpisodForm setShow={setShow} show={show} />
-          <MovieForm setDisplay={setDisplay} display={display} />
-          <SongForm setActive={setActive} active={active} />
-          <SpacetoonSongForm
-            setIsSpacetoonOpen={setIsSpacetoonOpen}
-            isSpacetoonOpen={isSpacetoonOpen}
-          />
-
-          {session?.status === 'unauthenticated' && (
-            <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
-          )}
         </div>
       </div>
     </div>

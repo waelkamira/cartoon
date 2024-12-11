@@ -143,7 +143,7 @@ export default function LogInPage() {
   }
 
   return (
-    <div className="flex justify-center items-center w-full h-screen text-white text-lg md:text-xl text-end">
+    <div className="absolute z-50 top-0 right-0 flex justify-center items-center w-full h-screen text-white text-lg md:text-xl text-end">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full lg:w-1/2 bg-four p-8 rounded-lg border border-one"

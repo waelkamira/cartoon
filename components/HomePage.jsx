@@ -29,6 +29,7 @@ export default function HomePage() {
   const session = useSession();
   const user = CurrentUser();
   const [open, setOpen] = useState(false);
+  const { dispatch } = useContext(inputsContext);
 
   // console.log('user', user);
   // console.log('session', session);
@@ -45,17 +46,17 @@ export default function HomePage() {
         user?.yearly_subscribed === false && <SubscriptionPage />}{' '}
       {session?.status === 'unauthenticated' && (
         <div
-          className="fixed right-0 h-screen w-full z-50"
+          className="absolute right-0 top-0 h-full w-full z-50"
           onClick={() => setOpen(true)}
         >
           {open ? <LoginMessage setOpen={setOpen} /> : ''}
         </div>
       )}
-      <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-30 sm:my-0 w-full">
-        {/* <div className=" w-full ">
-          <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
+      <div className="relative flex flex-col justify-center items-center xl:w-4/5 z-40 sm:my-0 w-full bg-one">
+        <div className=" w-full ">
+          {/* <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
             <TfiMenuAlt
-              className=" p-2 rounded-lg text-5xl text-white hover:scale-101 "
+              className="xl:hidden p-2 rounded-lg text-5xl text-white hover:scale-101 "
               onClick={() => setIsOpen(!isOpen)}
             />
             {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
@@ -72,29 +73,30 @@ export default function HomePage() {
               <SideBarMenu setIsOpen={setIsOpen} />
             </div>
             <SearchBar />
-          </div>
-          
+          </div> */}
+          <CategoriesSlides />
+
           <div className={'p-4'}>
-          {user?.isAdmin ? (
-            <>
-            <Button title={'انشاء حلقة'} onClick={() => setShow(!show)} />
-            <Button
-            title={'انشاء مسلسل'}
-            onClick={() => setIsVisible(!isVisible)}
-            />
-            <Button
-            title={'انشاء أغنية سبيس تون'}
-            onClick={() => setIsSpacetoonOpen(!isSpacetoonOpen)}
-            />
-            <Button
-            title={'انشاء فيلم'}
-            onClick={() => setDisplay(!display)}
-            />
-            <Button
-            title={'انشاء أغنية'}
-            onClick={() => setActive(!active)}
-            />
-            </>
+            {user?.isAdmin ? (
+              <>
+                <Button title={'انشاء حلقة'} onClick={() => setShow(!show)} />
+                <Button
+                  title={'انشاء مسلسل'}
+                  onClick={() => setIsVisible(!isVisible)}
+                />
+                <Button
+                  title={'انشاء أغنية سبيس تون'}
+                  onClick={() => setIsSpacetoonOpen(!isSpacetoonOpen)}
+                />
+                <Button
+                  title={'انشاء فيلم'}
+                  onClick={() => setDisplay(!display)}
+                />
+                <Button
+                  title={'انشاء أغنية'}
+                  onClick={() => setActive(!active)}
+                />
+              </>
             ) : (
               ''
             )}
@@ -103,16 +105,15 @@ export default function HomePage() {
             <MovieForm setDisplay={setDisplay} display={display} />
             <SongForm setActive={setActive} active={active} />
             <SpacetoonSongForm
-            setIsSpacetoonOpen={setIsSpacetoonOpen}
-            isSpacetoonOpen={isSpacetoonOpen}
+              setIsSpacetoonOpen={setIsSpacetoonOpen}
+              isSpacetoonOpen={isSpacetoonOpen}
             />
 
             {session?.status === 'unauthenticated' && (
               <Button title={'تسجيل الدخول'} path={'/login'} style={' '} />
             )}
           </div>
-          </div> */}
-        <CategoriesSlides />
+        </div>
         <div className=" flex flex-col justify-center items-center w-full rounded-lg sm:p-8 gap-2 ">
           <Serieses />
         </div>

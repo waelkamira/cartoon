@@ -209,7 +209,7 @@ export default function SeriesAndEpisodes() {
                   <h1 className="text-white text-center p-2">
                     {episode?.episodeName}
                   </h1>
-                  <SubscribedOrNot />
+                  {/* <SubscribedOrNot /> */}
 
                   <VideoPlayer
                     videoUrl={episode?.episodeLink}

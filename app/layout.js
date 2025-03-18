@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
         </noscript> */}
         <Toaster />
         <AuthContextProvider>
-          <SubscribedOrNot />
+          {/* <SubscribedOrNot /> */}
           <SideMenu />
           <InputsContextProvider>{children}</InputsContextProvider>
         </AuthContextProvider>

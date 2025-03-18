@@ -32,7 +32,7 @@ export default function SideMenu() {
   return (
     <div>
       {' '}
-      <div className="absolute w-full z-40">
+      <div className="absolute w-full z-50">
         {/* {open && session?.status === 'unauthenticated' && (
           <div
             className="fixed right-0 h-screen w-full z-40"

@@ -38,6 +38,8 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig = {
+  swcMinify: true, // تصغير الشيفرة باستخدام SWC
+
   output: 'standalone',
   // output: 'export',
 

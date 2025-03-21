@@ -377,7 +377,7 @@ export default function ZomurodaPlanet() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full overflow-hidden p-2 bg-gradient-to-b from-[#1a0b2e] to-[#30197d] rounded-xl shadow-2xl sm:mt-24">
+    <div className="relative flex flex-col items-center justify-center w-full overflow-hidden p-2 bg-gradient-to-b from-primary to-secondary rounded-xl shadow-2xl sm:mt-24">
       {/* Animated stars background */}
       {animateStars &&
         starsRef.current.map((star, index) => (
@@ -412,14 +412,14 @@ export default function ZomurodaPlanet() {
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="relative h-32 w-52 sm:h-52 sm:w-80 mb-4"
       >
-        <div className="absolute inset-0 bg-[#8a2be2] rounded-full filter blur-xl opacity-30 animate-pulse"></div>
+        <div className="absolute inset-0 bg-white rounded-full filter blur-xl opacity-30 animate-pulse"></div>
         <Image
           loading="lazy"
           src={'https://i.imgur.com/wbjwdXO.png'}
           layout="fill"
           objectFit="cover"
           alt={'زمردة'}
-          className="relative z-10 drop-shadow-[0_0_15px_rgba(138,43,226,0.8)]"
+          className="relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]"
         />
       </motion.div>
 
@@ -427,7 +427,7 @@ export default function ZomurodaPlanet() {
       {vertical ? (
         <div className="w-full space-y-2">
           <div className="flex items-center w-full px-8">
-            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#a855f7] to-transparent rounded-lg"></div>
+            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent rounded-lg"></div>
           </div>
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -435,8 +435,8 @@ export default function ZomurodaPlanet() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex items-center gap-2"
           >
-            <Sparkles className="text-[#a855f7] h-5 w-5" />
-            <h1 className="text-2xl font-bold text-white my-2 bg-gradient-to-r from-[#a855f7] to-[#e879f9] bg-clip-text text-transparent">
+            <Sparkles className="text-primary h-5 w-5" />
+            <h1 className="text-2xl font-bold text-white my-2 bg-gradient-to-r from-primary to-white bg-clip-text text-transparent">
               كوكب زمردة
             </h1>
           </motion.div>
@@ -448,8 +448,8 @@ export default function ZomurodaPlanet() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="w-full flex items-center gap-2 px-4"
         >
-          <Sparkles className="text-[#a855f7] h-6 w-6" />
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-[#a855f7] to-[#e879f9] bg-clip-text text-transparent my-2">
+          <Sparkles className="text-primary h-6 w-6" />
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-white bg-clip-text text-transparent my-2">
             كوكب زمردة
           </h1>
         </motion.div>
@@ -462,13 +462,13 @@ export default function ZomurodaPlanet() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="relative w-full flex items-center justify-between text-white h-12 text-2xl px-4 my-2 bg-[#4a1e9e]/30 backdrop-blur-sm rounded-lg"
+            className="relative w-full flex items-center justify-between text-white h-12 text-2xl px-4 my-2 bg-primary/30 backdrop-blur-sm rounded-lg"
           >
             <motion.div
               animate={{ x: [0, 10, 0] }}
               transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
             >
-              <MdKeyboardDoubleArrowRight className="text-[#e879f9]" />
+              <MdKeyboardDoubleArrowRight className="text-white" />
             </motion.div>
             <h6 className="text-sm w-full text-start font-medium">
               اسحب لمزيد من المسلسلات
@@ -482,7 +482,7 @@ export default function ZomurodaPlanet() {
         ref={ZumorodaSliderRef}
         className={`${
           vertical ? 'h-[600px]' : 'h-fit'
-        } keen-slider py-4 overflow-hidden rounded-xl flex-row justify-start items-start bg-[#2a1155]/50 backdrop-blur-sm border border-[#8b5cf6]/20 shadow-[0_0_15px_rgba(139,92,246,0.3)]`}
+        } keen-slider py-4 overflow-hidden rounded-xl flex-row justify-start items-start bg-primary/50 backdrop-blur-sm border border-primary/20 shadow-[0_0_15px_rgba(139,92,246,0.3)]`}
       >
         {isLoading && Zumoroda.length === 0 ? (
           <div className="w-full h-full flex items-center justify-center">
@@ -526,7 +526,7 @@ export default function ZomurodaPlanet() {
                   } relative sm:w-full sm:h-64 rounded-xl overflow-hidden hover:cursor-pointer group transition-all duration-300 ease-in-out`}
                 >
                   {/* Card with hover effects */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a0b2e]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
 
                   <Image
                     loading="lazy"
@@ -543,14 +543,14 @@ export default function ZomurodaPlanet() {
                     <motion.div
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
-                      className="bg-[#8b5cf6]/80 p-3 rounded-full backdrop-blur-sm"
+                      className="bg-primary/80 p-3 rounded-full backdrop-blur-sm"
                     >
                       <Play className="h-8 w-8 text-white" fill="white" />
                     </motion.div>
                   </div>
 
                   {/* Rating badge */}
-                  <div className="absolute top-2 left-2 bg-[#8b5cf6]/80 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 z-20">
+                  <div className="absolute top-2 left-2 bg-primary/80 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 z-20">
                     <Star className="h-3 w-3 text-yellow-300 fill-yellow-300" />
                     <span className="text-xs text-white font-bold">
                       {(Math.random() * 2 + 3).toFixed(1)}
@@ -574,7 +574,7 @@ export default function ZomurodaPlanet() {
 
                   {/* Decorative underline */}
                   <div
-                    className={`h-0.5 w-0 bg-gradient-to-r from-[#a855f7] to-[#e879f9] mx-auto transition-all duration-300 rounded-full ${
+                    className={`h-0.5 w-0 bg-gradient-to-r from-primary to-white mx-auto transition-all duration-300 rounded-full ${
                       hoveredIndex === index ? 'w-1/2' : 'w-0'
                     }`}
                   ></div>
@@ -591,7 +591,7 @@ export default function ZomurodaPlanet() {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-[#4a1e9e]/70 backdrop-blur-sm p-2 rounded-full text-white shadow-[0_0_10px_rgba(138,43,226,0.5)]"
+            className="bg-primary/70 backdrop-blur-sm p-2 rounded-full text-white shadow-[0_0_10px_rgba(138,43,226,0.5)]"
             onClick={() => ZumorodaInstanceRef.current?.prev()}
           >
             <ChevronLeft className="h-5 w-5" />
@@ -599,7 +599,7 @@ export default function ZomurodaPlanet() {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-[#4a1e9e]/70 backdrop-blur-sm p-2 rounded-full text-white shadow-[0_0_10px_rgba(138,43,226,0.5)]"
+            className="bg-primary/70 backdrop-blur-sm p-2 rounded-full text-white shadow-[0_0_10px_rgba(138,43,226,0.5)]"
             onClick={() => ZumorodaInstanceRef.current?.next()}
           >
             <ChevronRight className="h-5 w-5" />

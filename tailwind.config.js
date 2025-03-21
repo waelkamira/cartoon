@@ -25,7 +25,7 @@ module.exports = {
           foreground: '#ffffff',
         },
         secondary: {
-          DEFAULT: '#141A2C',
+          DEFAULT: '#34434D',
           foreground: '#ffffff',
         },
         destructive: {

@@ -492,7 +492,7 @@ export default function HomePage() {
 
       {/* Main content */}
       <motion.div
-        className="relative flex flex-col justify-center items-center w-full z-40 min-h-screen bg-gradient-to-b from-[#F47B47]  to-[#141A2C] overflow-hidden"
+        className="relative flex flex-col justify-center items-center w-full z-40 min-h-screen bg-gradient-to-r from-primary  to-secondary overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -613,7 +613,7 @@ export default function HomePage() {
             </div>
 
             {/* Navigation arrows */}
-            <motion.button
+            {/* <motion.button
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md p-2 rounded-full text-white z-20"
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
@@ -653,7 +653,7 @@ export default function HomePage() {
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-            </motion.button>
+            </motion.button> */}
           </motion.div>
 
           {/* Category tabs */}

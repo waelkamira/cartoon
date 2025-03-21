@@ -47,7 +47,7 @@ export default function Loading() {
         {[0, 1, 2].map((index) => (
           <motion.div
             key={index}
-            className="w-4 h-4 bg-gradient-to-r from-[#a855f7] to-[#e879f9] rounded-full"
+            className="w-4 h-4 bg-gradient-to-r from-primary to-[#e879f9] rounded-full"
             animate={{
               y: ['0%', '-50%', '0%'],
               scale: [1, 1.2, 1],

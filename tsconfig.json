@@ -27,7 +27,8 @@
     "proxy-server.js",
     "app/payment-success/page.jsx",
     "app/api/paypal/route.تs",
-    "app/login/page.jsx"
+    "app/login/page.jsx",
+    "components/ui/index.jsx"
   ],
   "exclude": ["node_modules"]
 }

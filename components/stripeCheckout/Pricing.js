@@ -82,7 +82,7 @@ const Pricing = () => {
                       (plan?.price === 1
                         ? 'border-green-400'
                         : 'border-white') +
-                      ' flex items-start justify-start gap-2 border  rounded-lg p-2 my-2 cursor-pointer'
+                      ' flex items-start justify-start gap-2  rounded-lg p-2 my-2 cursor-pointer'
                     }
                     onClick={() => setPlan(plans[0])}
                   >
@@ -107,7 +107,7 @@ const Pricing = () => {
                       (plan?.price === 10
                         ? 'border-green-400'
                         : 'border-white') +
-                      ' flex items-start justify-start gap-2 border  rounded-lg p-2 my-2 cursor-pointer'
+                      ' flex items-start justify-start gap-2  rounded-lg p-2 my-2 cursor-pointer'
                     }
                     onClick={() => setPlan(plans[1])}
                   >
@@ -151,7 +151,7 @@ const Pricing = () => {
                     <h1 className="btn rounded-lg p-1"> اشتراك</h1>{' '}
                   </a>
                 </div>
-                <ul className="space-y-2.5 leading-relaxed flex-1 w-full text-sm p-4  border border-green-300 rounded-lg">
+                <ul className="space-y-2.5 leading-relaxed flex-1 w-full text-sm p-4  border-green-300 rounded-lg">
                   {[
                     { name: 'مشاهدة أفلام كرتون قديمة و حديثة' },
                     {

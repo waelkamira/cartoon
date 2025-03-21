@@ -13,7 +13,7 @@ export default function LoginMessage({ setOpen }) {
           <Button
             title={'تسجيل الدخول'}
             path={'/login'}
-            style={'border border-white '}
+            style={'border-white '}
             onClick={() => setOpen(false)}
           />
         </div>

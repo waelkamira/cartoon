@@ -43,7 +43,7 @@ export default function UploadingAndDisplayingImage({ img }) {
   };
 
   return (
-    <div className="relative flex justify-center items-center w-full h-72 sm:h-96 text-center border rounded-lg">
+    <div className="relative flex justify-center items-center w-full h-72 sm:h-96 text-center rounded-lg">
       <div className="absolute top-0 left-0 flex flex-col justify-center items-center text-white z-50 w-full">
         <input type="file" id="file-upload" onChange={onFileChange} />
         <input
@@ -71,7 +71,7 @@ export default function UploadingAndDisplayingImage({ img }) {
         </div>
 
         {img && !uploadedImage && (
-          <div className="w-full h-72 sm:h-96 border rounded-lg">
+          <div className="w-full h-72 sm:h-96 rounded-lg">
             <Image
               loading="lazy"
               src={img}

@@ -90,7 +90,7 @@ export default function PaymentForm() {
           >
             Card Number
           </label>
-          <div id="card_number" className="border p-3 rounded-md"></div>{' '}
+          <div id="card_number" className="p-3 rounded-md"></div>{' '}
           {/* Make sure this element exists */}
         </div>
 
@@ -102,7 +102,7 @@ export default function PaymentForm() {
             >
               CVV
             </label>
-            <div id="cvv" className="border p-3 rounded-md"></div>{' '}
+            <div id="cvv" className="p-3 rounded-md"></div>{' '}
             {/* Make sure this element exists */}
           </div>
         )}
@@ -114,7 +114,7 @@ export default function PaymentForm() {
           >
             Expiration Date
           </label>
-          <div id="expiration_date" className="border p-3 rounded-md"></div>{' '}
+          <div id="expiration_date" className="p-3 rounded-md"></div>{' '}
           {/* Make sure this element exists */}
         </div>
 

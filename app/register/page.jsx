@@ -76,7 +76,7 @@ export default function RegisterPage() {
     <div className="flex justify-center items-center w-full h-screen text-white text-lg md:text-xl text-end">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full lg:w-1/2 bg-four p-8 rounded-lg border border-one"
+        className="w-full lg:w-1/2 bg-four p-8 rounded-lg border-one"
       >
         <h1 className="flex justify-center mb-16 w-full my-2 text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-center select-none">
           التسجيل <TbDoorEnter className="text-3xl" />

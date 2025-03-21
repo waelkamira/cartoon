@@ -189,61 +189,7 @@ export default function HomePage() {
         {/* Content container */}
         <div className="relative w-full max-w-6xl mx-auto px-4 py-6 z-10">
           {/* Header with logo and search */}
-          <motion.div
-            className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center">
-              <motion.div
-                className="relative h-16 w-16 mr-4"
-                whileHover={{ scale: 1.1, rotate: 10 }}
-              >
-                <Image
-                  src="https://i.imgur.com/nfDVITC.png"
-                  alt="Logo"
-                  layout="fill"
-                  objectFit="contain"
-                  className="rounded-full"
-                />
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  animate={{
-                    boxShadow: [
-                      '0 0 0 0 rgba(255, 255, 255, 0)',
-                      '0 0 0 10px rgba(255, 255, 255, 0.3)',
-                      '0 0 0 0 rgba(255, 255, 255, 0)',
-                    ],
-                  }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                />
-              </motion.div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-white">
-                  سبيس تون
-                </h1>
-                <p className="text-one-200 text-sm">عالم من المغامرات والمرح</p>
-              </div>
-            </div>
 
-            {/* Search bar placeholder */}
-            <motion.div
-              className="relative w-full md:w-auto"
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="relative flex items-center">
-                <input
-                  type="text"
-                  placeholder="ابحث عن مسلسل أو فيلم أو أغنية ..."
-                  className="w-full md:w-64 py-2 px-4 pr-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-one-200 focus:outline-none focus:ring-2 focus:ring-one-400 text-right"
-                />
-                <FaSearch className="absolute right-3 text-one-200" />
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Hero section with slider */}
           <motion.div
             className="relative mb-10 rounded-2xl overflow-hidden shadow-2xl"
             initial={{ y: 20, opacity: 0 }}
@@ -257,7 +203,6 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Admin controls */}
           {user?.isAdmin && (
             <motion.div
               className="mb-8"

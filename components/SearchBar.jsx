@@ -259,6 +259,8 @@ import { useSession } from 'next-auth/react';
 import CurrentUser from './CurrentUser';
 import LoadingPhoto from './LoadingPhoto';
 import { motion, AnimatePresence } from 'framer-motion';
+import SideBarMenu from './SideBarMenu';
+import { TfiMenuAlt } from 'react-icons/tfi';
 
 // Function to normalize Arabic text
 const normalizeArabic = (text) => {
@@ -276,6 +278,7 @@ export default function SearchBar() {
   const [seriesImages, setSeriesImages] = useState({}); // تخزين صور المسلسلات
   const [isLoading, setIsLoading] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const searchInputRef = useRef(null);
   const router = useRouter();
   const session = useSession();
@@ -462,59 +465,52 @@ export default function SearchBar() {
         )}
 
         {/* Search input area */}
-        {/* <motion.div
-          className={`flex flex-col justify-center items-center sm:flex-row gap-4 w-full max-w-3xl ${
-            searchTriggered ? 'pt-6' : ''
-          }`}
-          initial={searchTriggered ? { y: -20, opacity: 0 } : false}
-          animate={searchTriggered ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="relative w-full sm:px-4">
-            <motion.div
-              className="relative"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <input
-                ref={searchInputRef}
-                value={searchedWord}
-                onChange={(e) => setSearchedWord(e.target.value)}
-                onKeyDown={handleKeyDown}
-                type="text"
-                id="search_meal"
-                name="search_meal"
-                placeholder="ابحث عن مسلسل أو فيلم أو أغنية ..."
-                className="relative pr-14 sm:pr-24 py-3 border-2 border-one-400 w-full focus:outline-none focus:ring-2 focus:ring-one-500 focus:border-transparent rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-8 text-right shadow-lg shadow-one-500/20"
-              />
-
-              {searchedWord && (
-                <motion.button
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  onClick={() => setSearchedWord('')}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <FaTimes className="text-lg" />
-                </motion.button>
-              )}
-
+        <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white p-2">
+          <TfiMenuAlt
+            className=" p-2 rounded-lg text-5xl text-white hover:scale-101 cursor-pointer"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+          {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
+          <motion.div
+            className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex items-center">
               <motion.div
-                className="absolute flex items-center top-0 md:top-0 md:right-4 md:w-24 w-[80px] right-0 h-full rounded-r-full overflow-hidden"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="relative h-16 w-16 mr-4"
+                whileHover={{ scale: 1.1, rotate: 10 }}
               >
-                <button
-                  className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-gradient-to-r from-one-600 to-pink-600 h-full text-white rounded-r-full w-full px-2 sm:text-xl sm:px-4 font-bold"
-                  onClick={handleSearch}
-                >
-                  <FaSearch className="ml-2" />
-                  بحث
-                </button>
+                <Image
+                  src="https://i.imgur.com/nfDVITC.png"
+                  alt="Logo"
+                  layout="fill"
+                  objectFit="contain"
+                  className="rounded-full"
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full"
+                  animate={{
+                    boxShadow: [
+                      '0 0 0 0 rgba(255, 255, 255, 0)',
+                      '0 0 0 10px rgba(255, 255, 255, 0.3)',
+                      '0 0 0 0 rgba(255, 255, 255, 0)',
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                />
               </motion.div>
-            </motion.div>
-          </div>
-        </motion.div> */}
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                  سبيس تون
+                </h1>
+                <p className="text-one-200 text-sm">عالم من المغامرات والمرح</p>
+              </div>
+            </div>
+          </motion.div>
+          <SearchBar />
+        </div>
         <motion.div
           className={`flex flex-col justify-center items-center sm:flex-row gap-4 w-full max-w-3xl ${
             searchTriggered ? 'pt-6' : ''
@@ -537,7 +533,7 @@ export default function SearchBar() {
                 id="search_meal"
                 name="search_meal"
                 placeholder="ابحث عن مسلسل أو فيلم أو أغنية ..."
-                className="w-full py-2 px-4 pr-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-one-200 focus:outline-none focus:ring-2 focus:ring-one-400 text-right"
+                className="w-full py-2 sm:py-4 px-4 pr-10 text-sm sm:text-lg rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-black placeholder-one-200 focus:outline-none focus:ring-2 focus:ring-one placeholder:text-gray-600 text-right"
               />
               {searchedWord && (
                 <motion.button

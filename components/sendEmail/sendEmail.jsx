@@ -81,7 +81,7 @@ export const ContactUs = () => {
                   type="text"
                   name="user_name"
                   placeholder="اسمك"
-                  className="p-2 rounded-lg outline-none shadow-none border-2 focus:border-primary border-solid tex-lg sm:text-xl "
+                  className="p-2 rounded-lg outline-none shadow-none border-2 focus:border-one border-solid tex-lg sm:text-xl "
                 />
               </div>
               <div className="w-full flex flex-col grow">
@@ -97,7 +97,7 @@ export const ContactUs = () => {
                   type="email"
                   name="user_email"
                   placeholder="عنوان البريد الإلكتروني"
-                  className="w-full rounded-lg p-2 outline-none shadow-none focus:border-primary border-secondary tex-lg sm:text-xl placeholder:text-sm placeholder:sm:text-lg"
+                  className="w-full rounded-lg p-2 outline-none shadow-none focus:border-one border-two tex-lg sm:text-xl placeholder:text-sm placeholder:sm:text-lg"
                 />
               </div>
             </div>
@@ -113,7 +113,7 @@ export const ContactUs = () => {
                 }
                 required
                 name="message"
-                className="w-full rounded-lg p-2 outline-none shadow-none focus:border-primary border-secondary tex-lg sm:text-xl min-h-[200px] placeholder:text-sm placeholder:sm:text-lg"
+                className="w-full rounded-lg p-2 outline-none shadow-none focus:border-one border-two tex-lg sm:text-xl min-h-[200px] placeholder:text-sm placeholder:sm:text-lg"
               />
             </div>
             <div onClick={() => setIsOpen(false)}>

@@ -128,7 +128,7 @@ export default function Users() {
                   'أدمن'
                 ) : (
                   <div
-                    className="flex flex-col items-center justify-center cursor-pointer bg-red-600 rounded-lg p-2 md:text-2xl text-white hover:bg-red-700"
+                    className="flex flex-col items-center justify-center cursor-pointer bg-one-600 rounded-lg p-2 md:text-2xl text-white hover:bg-one-700"
                     onClick={() => handleDeleteUser(user)}
                   >
                     <IoMdClose />

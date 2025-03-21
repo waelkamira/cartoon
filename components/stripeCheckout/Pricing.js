@@ -58,7 +58,7 @@ const Pricing = () => {
       <section id="pricing" className="bg-white text-sm">
         <div className="py-2 px-8 max-w-5xl mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
-            <p className="font-medium text-primary mb-5">الاشتراك</p>
+            <p className="font-medium text-one mb-5">الاشتراك</p>
             <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
               مرحباً أصدقاء بهيجة أشرق لبن{' '}
             </h2>

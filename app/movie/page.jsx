@@ -350,7 +350,7 @@ export default function Page() {
             ) : movie[0]?.movieImage ? (
               <>
                 {/* Background blur effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#3a2a7d]/30 to-[#3a2a7d]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#3a2a7d]/30 to-[#3a2a7d]">
                   <Image
                     src={movie[0]?.movieImage || '/placeholder.svg'}
                     layout="fill"
@@ -398,7 +398,7 @@ export default function Page() {
                 </div>
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#3a2a7d] via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#3a2a7d] via-transparent to-transparent"></div>
               </>
             ) : (
               <LoadingPhoto />
@@ -728,7 +728,7 @@ export default function Page() {
                     className="relative rounded-lg overflow-hidden cursor-pointer group"
                   >
                     <div className="aspect-[2/3] bg-[#3a2a7d] relative">
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#2c1f5e] via-transparent to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#2c1f5e] via-transparent to-transparent"></div>
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="bg-[#8e44ad]/80 p-2 rounded-full">
                           <Play className="w-6 h-6 text-white" />

@@ -18,27 +18,73 @@ import BonbonaPlanetMostViewed from './bonbonaSeriesesMostViewed';
 import SpacetoonSongs from './spacetoonSongs';
 import SpacetoonSongsMostView from './spacetoonSongsMostView';
 import NasohSeries from './nasohSeries';
-
+import PlanetSlider from './ReuseableComponents/PlanetSlider';
 export default function Serieses() {
   return (
     <div className="w-full">
       <NewSerieses />
-      <ZomurodaPlanet />
+
+      <PlanetSlider
+        data="زمردة"
+        category="series"
+        logoSrc="https://i.imgur.com/wbjwdXO.png"
+      />
+
       <ZomurodaPlanetMostViewed />
-      <NasohSeries />
-      <AdventuresPlanet />
+      {/* <NasohSeries /> */}
+      <PlanetSlider
+        planetName="مغامرات"
+        category="series"
+        logoSrc="https://i.imgur.com/sUeBEaz.png"
+      />
+      <PlanetSlider
+        planetName="عائلة نصوح"
+        category="series"
+        logoSrc="https://i.imgur.com/u6grI22.png"
+      />
       <AdventuresPlanetMostViewed />
-      <SportPlanet />
+      <PlanetSlider
+        planetName="رياضة"
+        category="series"
+        logoSrc="https://i.imgur.com/CI7HaVo.png"
+      />
+      {/* <SportPlanet /> */}
       <SportPlanetMostViewed />
-      <ActionPlanet />
+      <PlanetSlider
+        planetName="أكشن"
+        category="series"
+        logoSrc="https://i.imgur.com/bg5hr5i.png"
+      />
+
+      {/* <ActionPlanet /> */}
       <ActionPlanetMostViewed />
-      <Movies />
+      {/* <Movies /> */}
+
+      <PlanetSlider
+        category="movie"
+        logoSrc="https://i.imgur.com/QBreMYl.png"
+      />
       <MoviesPlanetMostViewed />
-      <BonbonaPlanet />
+      <PlanetSlider
+        planetName="الصيصان"
+        category="series"
+        logoSrc="https://i.imgur.com/DnKrRt2.png"
+      />
+      {/* <BonbonaPlanet /> */}
       <BonbonaPlanetMostViewed />
-      <SpacetoonSongs />
+      <PlanetSlider
+        planetName="أغاني سبيس تون"
+        category="spacetoonSongs"
+        logoSrc="https://i.imgur.com/BWPdDAF.png"
+      />
+      {/* <SpacetoonSongs /> */}
       <SpacetoonSongsMostView />
-      <KidsSongs />
+      <PlanetSlider
+        planetName="أغاني  أطفال"
+        category="KidsSongs"
+        logoSrc="https://i.imgur.com/rRBpVhp.png"
+      />
+      {/* <KidsSongs /> */}
       <KidsSongsMostView />
     </div>
   );

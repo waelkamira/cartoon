@@ -436,7 +436,7 @@ export default function SearchBar() {
       <div
         className={`${
           searchTriggered
-            ? 'fixed z-50 inset-0 overflow-y-auto bg-gradient-to-b from-gray-900/95 via-orange-900/95 to-pink-900/95 backdrop-blur-sm'
+            ? 'fixed z-50 inset-0 overflow-y-auto bg-gradient-to-r from-gray-900/95 via-one-900/95 to-pink-900/95 backdrop-blur-sm'
             : ''
         } flex flex-col items-center justify-start w-full rounded-lg transition-all duration-300`}
       >
@@ -462,7 +462,7 @@ export default function SearchBar() {
         )}
 
         {/* Search input area */}
-        <motion.div
+        {/* <motion.div
           className={`flex flex-col justify-center items-center sm:flex-row gap-4 w-full max-w-3xl ${
             searchTriggered ? 'pt-6' : ''
           }`}
@@ -485,7 +485,7 @@ export default function SearchBar() {
                 id="search_meal"
                 name="search_meal"
                 placeholder="ابحث عن مسلسل أو فيلم أو أغنية ..."
-                className="relative pr-14 sm:pr-24 py-3 border-2 border-orange-400 w-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-8 text-right shadow-lg shadow-orange-500/20"
+                className="relative pr-14 sm:pr-24 py-3 border-2 border-one-400 w-full focus:outline-none focus:ring-2 focus:ring-one-500 focus:border-transparent rounded-full text-sm sm:text-xl text-black placeholder:text-[10px] sm:placeholder:text-lg sm:placeholder:px-8 text-right shadow-lg shadow-one-500/20"
               />
 
               {searchedWord && (
@@ -505,7 +505,7 @@ export default function SearchBar() {
                 whileTap={{ scale: 0.95 }}
               >
                 <button
-                  className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-gradient-to-r from-orange-600 to-pink-600 h-full text-white rounded-r-full w-full px-2 sm:text-xl sm:px-4 font-bold"
+                  className="absolute flex justify-center cursor-pointer select-none items-center top-0 right-0 bg-gradient-to-r from-one-600 to-pink-600 h-full text-white rounded-r-full w-full px-2 sm:text-xl sm:px-4 font-bold"
                   onClick={handleSearch}
                 >
                   <FaSearch className="ml-2" />
@@ -514,13 +514,54 @@ export default function SearchBar() {
               </motion.div>
             </motion.div>
           </div>
+        </motion.div> */}
+        <motion.div
+          className={`flex flex-col justify-center items-center sm:flex-row gap-4 w-full max-w-3xl ${
+            searchTriggered ? 'pt-6' : ''
+          }`}
+          initial={searchTriggered ? { y: -20, opacity: 0 } : false}
+          animate={searchTriggered ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
+            className="relative w-full sm:px-4"
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="relative flex items-center">
+              <input
+                ref={searchInputRef}
+                value={searchedWord}
+                onChange={(e) => setSearchedWord(e.target.value)}
+                onKeyDown={handleKeyDown}
+                type="text"
+                id="search_meal"
+                name="search_meal"
+                placeholder="ابحث عن مسلسل أو فيلم أو أغنية ..."
+                className="w-full py-2 px-4 pr-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-one-200 focus:outline-none focus:ring-2 focus:ring-one-400 text-right"
+              />
+              {searchedWord && (
+                <motion.button
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  onClick={() => setSearchedWord('')}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaTimes className="text-lg" />
+                </motion.button>
+              )}
+              <FaSearch
+                className="absolute right-3 text-one-200"
+                onClick={handleSearch}
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+          </motion.div>
         </motion.div>
-
         {/* Search results header */}
         <AnimatePresence>
           {isVisible && (
             <motion.div
-              className="sticky top-0 flex flex-row-reverse justify-between items-center mt-4 w-full max-w-3xl z-50 bg-gradient-to-r from-orange-800/80 to-gray-800/80 p-4 rounded-lg backdrop-blur-md shadow-lg"
+              className="sticky top-0 flex flex-row-reverse justify-between items-center mt-4 w-full max-w-3xl z-50 p-4 rounded-lg backdrop-blur-md shadow-lg"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
@@ -528,7 +569,7 @@ export default function SearchBar() {
             >
               <motion.button
                 onClick={handleClose}
-                className="btn px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-orange-600 rounded-full text-sm sm:text-lg shadow-lg"
+                className="btn px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-one-600 rounded-full text-sm sm:text-lg shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -552,8 +593,8 @@ export default function SearchBar() {
               exit={{ opacity: 0 }}
             >
               <div className="relative w-16 h-16">
-                <div className="absolute inset-0 rounded-full border-4 border-t-orange-500 border-r-transparent border-b-pink-500 border-l-transparent animate-spin"></div>
-                <div className="absolute inset-3 rounded-full border-4 border-t-transparent border-r-pink-500 border-b-transparent border-l-orange-500 animate-spin animation-delay-150"></div>
+                <div className="absolute inset-0 rounded-full border-4 border-t-one-500 border-r-transparent border-b-pink-500 border-l-transparent animate-spin"></div>
+                <div className="absolute inset-3 rounded-full border-4 border-t-transparent border-r-pink-500 border-b-transparent border-l-one-500 animate-spin animation-delay-150"></div>
               </div>
             </motion.div>
           )}
@@ -589,7 +630,7 @@ export default function SearchBar() {
                     return (
                       <motion.div
                         key={index}
-                        className={`relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-900/40 to-gray-900/40 backdrop-blur-sm shadow-xl border border-orange-500/30 ${
+                        className={`relative overflow-hidden rounded-xl bg-gradient-to-br from-one-900/40 to-gray-900/40 backdrop-blur-sm shadow-xl border border-one-500/30 ${
                           selectedResult === result ? 'scale-95 opacity-50' : ''
                         }`}
                         initial={{ opacity: 0, y: 20 }}
@@ -623,7 +664,7 @@ export default function SearchBar() {
 
                         {/* Content type badge */}
                         {contentType && (
-                          <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-pink-600 to-orange-600 text-white text-xs px-2 py-1 rounded-full shadow-lg">
+                          <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-pink-600 to-one-600 text-white text-xs px-2 py-1 rounded-full shadow-lg">
                             {contentType}
                           </div>
                         )}
@@ -645,7 +686,7 @@ export default function SearchBar() {
                                   alt={title}
                                   className="transition-transform duration-500 hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 to-transparent opacity-70"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-one-900/80 to-transparent opacity-70"></div>
 
                                 {/* Play button overlay */}
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -693,7 +734,7 @@ export default function SearchBar() {
                   <h3 className="text-white text-xl font-bold mb-2">
                     لا توجد نتائج
                   </h3>
-                  <p className="text-orange-200 text-sm">
+                  <p className="text-one-200 text-sm">
                     حاول البحث بكلمات مختلفة أو تحقق من الإملاء
                   </p>
                 </motion.div>

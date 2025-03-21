@@ -20,12 +20,20 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: '#F47B47',
+        one: {
+          DEFAULT: '#C8C17C',
           foreground: '#ffffff',
         },
-        secondary: {
-          DEFAULT: '#34434D',
+        two: {
+          DEFAULT: '#C084FC',
+          foreground: '#ffffff',
+        },
+        three: {
+          DEFAULT: '#FF6D59',
+          foreground: '#ffffff',
+        },
+        four: {
+          DEFAULT: '#FEA362',
           foreground: '#ffffff',
         },
         destructive: {

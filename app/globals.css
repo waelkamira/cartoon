@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black rubik;
+  @apply bg-gradient-to-r from-one to-two rubik;
 }
 body {
   font-family: 'Rubik', sans-serif;
@@ -35,7 +35,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f70000;
+  background: #c8c17c;
   border-radius: 20px;
 }
 
@@ -49,7 +49,7 @@ html {
 
 .btn {
   position: relative;
-  background: #f70000;
+  background: #c8c17c;
   color: #ffffff;
   height: 100%;
   z-index: 1;
@@ -215,10 +215,10 @@ iframe {
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 24 95% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --one: 24 95% 53%;
+    --one-foreground: 210 40% 98%;
+    --two: 210 40% 96.1%;
+    --two-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
@@ -238,10 +238,10 @@ iframe {
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 24 95% 53%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --one: 24 95% 53%;
+    --one-foreground: 222.2 47.4% 11.2%;
+    --two: 217.2 32.6% 17.5%;
+    --two-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;

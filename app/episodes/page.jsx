@@ -587,7 +587,7 @@ export default function Page() {
             {episodeImage ? (
               <>
                 {/* Background blur effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#3a2a7d]/30 to-[#3a2a7d]">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#3a2a7d]/30 to-[#3a2a7d]">
                   <Image
                     src={episodeImage || '/placeholder.svg'}
                     layout="fill"
@@ -635,7 +635,7 @@ export default function Page() {
                 </div>
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#3a2a7d] via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#3a2a7d] via-transparent to-transparent"></div>
               </>
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-[#3a2a7d]">

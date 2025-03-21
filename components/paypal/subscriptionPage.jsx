@@ -46,7 +46,7 @@
 //           <div className="fixed flex-col justify-center items-center w-full h-full bg-white z-40 overflow-y-auto top-0 pb-24 text-center">
 //             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full sm:w-1/3 p-4 overflow-y-auto">
 //               <div className="flex flex-col text-center w-full mb-12">
-//                 <p className="font-medium text-primary mb-5">الاشتراك</p>
+//                 <p className="font-medium text-one mb-5">الاشتراك</p>
 //                 <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
 //                   مرحباً أصدقاء بهيجة أشرق لبن
 //                 </h2>

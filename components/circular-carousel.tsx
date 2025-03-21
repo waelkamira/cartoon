@@ -37,10 +37,10 @@ export default function CircularCarousel() {
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* Background glow effect */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-orange-500/20 blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-one-500/20 blur-3xl"></div>
 
       {/* Circular track */}
-      <div className="relative w-64 h-64 rounded-full border-4 border-dashed border-orange-200 animate-spin-slow">
+      <div className="relative w-64 h-64 rounded-full border-4 border-dashed border-one-200 animate-spin-slow">
         {/* Placeholder for the circular track */}
       </div>
 

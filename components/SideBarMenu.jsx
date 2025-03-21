@@ -140,7 +140,7 @@ const PlanetItem = ({ planetName, planetImage, planetRoute, index }) => {
     >
       <Link href={planetRoute} className="flex items-center w-full">
         <div className="relative size-12 mr-3 overflow-hidden rounded-full border-2 border-white/30 group-hover:border-white/70 transition-all duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-blue-500/20 group-hover:opacity-0 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-one-500/20 to-blue-500/20 group-hover:opacity-0 transition-opacity duration-300"></div>
           <Image
             loading="lazy"
             src={planetImage || '/placeholder.svg'}
@@ -148,13 +148,13 @@ const PlanetItem = ({ planetName, planetImage, planetRoute, index }) => {
             alt={planetName}
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         <div className="flex-1">
-          <h3 className="text-white font-bold text-lg group-hover:text-orange-300 transition-colors duration-300">
+          <h3 className="text-white font-bold text-lg group-hover:text-one-300 transition-colors duration-300">
             {planetName}
           </h3>
-          <div className="h-0.5 w-0 bg-gradient-to-r from-orange-400 to-orange-600 group-hover:w-full transition-all duration-500"></div>
+          <div className="h-0.5 w-0 bg-gradient-to-r from-one-400 to-one-600 group-hover:w-full transition-all duration-500"></div>
         </div>
         <motion.div
           initial={{ opacity: 0, x: -10 }}
@@ -273,7 +273,7 @@ export default function SideBarMenu({ setIsOpen }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Space background with stars */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-orange-900 to-blue-900 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-one-900 to-blue-900 overflow-hidden">
             {stars.map((star) => (
               <div
                 key={star.id}
@@ -290,8 +290,8 @@ export default function SideBarMenu({ setIsOpen }) {
             ))}
 
             {/* Animated planets in the background */}
-            <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-blue-500 to-orange-500 opacity-20 blur-xl"></div>
-            <div className="absolute top-40 -right-10 w-32 h-32 rounded-full bg-gradient-to-r from-orange-500 to-red-500 opacity-20 blur-xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-blue-500 to-one-500 opacity-20 blur-xl"></div>
+            <div className="absolute top-40 -right-10 w-32 h-32 rounded-full bg-gradient-to-r from-one-500 to-one-500 opacity-20 blur-xl"></div>
             <div className="absolute bottom-60 left-20 w-24 h-24 rounded-full bg-gradient-to-r from-green-500 to-teal-500 opacity-20 blur-xl"></div>
           </div>
 
@@ -302,7 +302,7 @@ export default function SideBarMenu({ setIsOpen }) {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="sticky top-0 z-10 backdrop-blur-md bg-gradient-to-b from-gray-900/90 to-gray-900/70 border-b border-white/10 pb-2"
+              className="sticky top-0 z-10 backdrop-blur-md bg-gradient-to-r from-gray-900/90 to-gray-900/70 border-b border-white/10 pb-2"
             >
               {/* Logo */}
               <div className="flex justify-center items-center w-full cursor-pointer pt-4 pb-2">
@@ -318,7 +318,7 @@ export default function SideBarMenu({ setIsOpen }) {
                     repeatType: 'reverse',
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 opacity-30 blur-xl animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-one-500 to-yellow-500 opacity-30 blur-xl animate-pulse"></div>
                   <Image
                     loading="lazy"
                     src={'https://i.imgur.com/nfDVITC.png'}
@@ -340,7 +340,7 @@ export default function SideBarMenu({ setIsOpen }) {
                   className="w-full py-2.5 px-4 rounded-lg bg-white/10 text-white font-bold border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center justify-center gap-2"
                   onClick={() => setIsOpen(false)}
                 >
-                  <FaTimes className="text-orange-300" />
+                  <FaTimes className="text-one-300" />
                   <span>إغلاق</span>
                 </motion.button>
               </div>
@@ -364,7 +364,7 @@ export default function SideBarMenu({ setIsOpen }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.5 }}
-              className="sticky bottom-0 p-4 backdrop-blur-md bg-gradient-to-t from-gray-900/90 to-gray-900/70 border-t border-white/10"
+              className="sticky bottom-0 p-4 backdrop-blur-md bg-gradient-to-r from-gray-900/90 to-gray-900/70 border-t border-white/10"
             >
               {session?.status === 'unauthenticated' ? (
                 <motion.div
@@ -375,7 +375,7 @@ export default function SideBarMenu({ setIsOpen }) {
                     title={'تسجيل الدخول'}
                     path={'/login'}
                     style={
-                      'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 border-none flex items-center justify-center gap-2'
+                      'bg-gradient-to-r from-one-500 to-one-600 hover:from-one-600 hover:to-one-700 text-white font-bold py-3 border-none flex items-center justify-center gap-2'
                     }
                     icon={<FaSignInAlt className="ml-2" />}
                   />

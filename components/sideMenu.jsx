@@ -18,6 +18,8 @@ import SharePrompt from './SharePromptOnWhatsup';
 import LoginMessage from './loginMessage';
 import SubscriptionPage from './paypal/subscriptionPage';
 import { inputsContext } from './Context';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaSearch } from 'react-icons/fa';
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,24 +43,50 @@ export default function SideMenu() {
             {open ? <LoginMessage setOpen={setOpen} /> : ''}
           </div>
         )} */}
-        <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white bg-one p-2">
+        <div className="fixed top-0 right-0 z-30 flex items-center justify-center mb-2 gap-2 w-full text-white p-2">
           <TfiMenuAlt
             className=" p-2 rounded-lg text-5xl text-white hover:scale-101 cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
           />
           {isOpen && <SideBarMenu setIsOpen={setIsOpen} />}
-          <div className="relative w-24 h-14 sm:h-16 sm:w-20 md:h-20 md:w-24 lg:h-24 lg:w-28 shadow-lg shadow-one">
-            <Image
-              loading="lazy"
-              src={'https://i.imgur.com/nfDVITC.png'}
-              layout="fill"
-              objectFit="cover"
-              alt="photo"
-            />
-          </div>
-          {/* <div className="hidden 2xl:block">
-            <SideBarMenu setIsOpen={setIsOpen} />
-          </div> */}
+          <motion.div
+            className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex items-center">
+              <motion.div
+                className="relative h-16 w-16 mr-4"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+              >
+                <Image
+                  src="https://i.imgur.com/nfDVITC.png"
+                  alt="Logo"
+                  layout="fill"
+                  objectFit="contain"
+                  className="rounded-full"
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full"
+                  animate={{
+                    boxShadow: [
+                      '0 0 0 0 rgba(255, 255, 255, 0)',
+                      '0 0 0 10px rgba(255, 255, 255, 0.3)',
+                      '0 0 0 0 rgba(255, 255, 255, 0)',
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                />
+              </motion.div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                  سبيس تون
+                </h1>
+                <p className="text-one-200 text-sm">عالم من المغامرات والمرح</p>
+              </div>
+            </div>
+          </motion.div>
           <SearchBar />
         </div>
       </div>

@@ -374,7 +374,7 @@ export default function Page() {
                 </div>
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#3a2a7d]/30 to-[#2c1f5e]"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#3a2a7d]/30 to-[#2c1f5e]"></div>
 
                 {/* Main image */}
                 <motion.div
@@ -752,7 +752,7 @@ export default function Page() {
                   >
                     <div className="relative group cursor-pointer">
                       {/* Card background with gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-[#2c1f5e] to-[#3a2a7d] rounded-xl transform -rotate-1 scale-[0.98] opacity-70 group-hover:scale-105 group-hover:rotate-2 transition-all duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#2c1f5e] to-[#3a2a7d] rounded-xl transform -rotate-1 scale-[0.98] opacity-70 group-hover:scale-105 group-hover:rotate-2 transition-all duration-300"></div>
 
                       {/* Main card */}
                       <div className="relative bg-[#2c1f5e] rounded-xl overflow-hidden shadow-lg group-hover:shadow-[0_0_25px_rgba(142,68,173,0.3)] transition-all duration-300">
@@ -767,7 +767,7 @@ export default function Page() {
                           />
 
                           {/* Overlay gradient */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#2c1f5e] via-transparent to-transparent opacity-70"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#2c1f5e] via-transparent to-transparent opacity-70"></div>
 
                           {/* Play button overlay */}
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

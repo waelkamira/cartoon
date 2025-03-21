@@ -32,7 +32,7 @@ const RandomizeDomain = () => {
     // 'https://resplendent-donut-eb62a0.netlify.app/',
     // 'https://cartoon-iota-bice.vercel.app/',
     // 'https://cartoon-kappa.vercel.app/',
-    // 'https://cartoon-red.vercel.app/',
+    // 'https://cartoon-one.vercel.app/',
 
     // 'https://cartoon-cloudflare.pages.dev/',
     // 'https://cartoon-cloudflare-repo2-brs.pages.dev/',

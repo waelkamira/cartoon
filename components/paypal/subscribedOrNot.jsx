@@ -41,7 +41,7 @@ export default function SubscribedOrNot() {
     } catch (error) {
       console.error('Error updating subscription status:', error);
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     // Function to determine subscription status
@@ -87,7 +87,7 @@ export default function SubscribedOrNot() {
     };
 
     determineSubscriptionStatus();
-  }, [user, checkSubscriptionStatus, updateUserSubscription]);
+  }, [checkSubscriptionStatus, updateUserSubscription]);
 
   return isSubscribed;
 }
